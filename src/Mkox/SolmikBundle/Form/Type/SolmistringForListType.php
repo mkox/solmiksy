@@ -1,15 +1,16 @@
 <?php
 
-namespace SolmikBundle\Form\Type;
+namespace Mkox\SolmikBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Mkox\SolmikBundle\Utils;
 
 /**
  * Defines the form used to create and manipulate solmistrings.
  */
-class SolmistringType extends AbstractType
+class SolmistringForListType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,30 +18,36 @@ class SolmistringType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $soundKeyValueOptions = array();
-        $soundKeys =  Service\Misc::getSoundKeys();
+//var_dump($options);
+//exit;
+//var_dump($options['data']->getBaseScale());
+//exit;
+        $soundKeys =  Utils\Misc::getSoundKeys();
         foreach ($soundKeys as $value => $label) {
             $soundKeyOption = array();
-            $soundKeyOption['value'] = $value;
-            $soundKeyOption['label'] = $label;
+            $soundKeyOption[$value] = $label;
             $soundKeyValueOptions[] = $soundKeyOption;
         }
         
         $baseScaleValueOptions = array();
         for ($i = 1; $i <= 9; $i++) {
             $baseScaleOption = array();
-            $baseScaleOption['value'] = $i;
-            $baseScaleOption['label'] = $i;
+            $baseScaleOption[$i] = $i;
             $baseScaleValueOptions[] = $baseScaleOption;
         }
         
         // for the full reference of options defined by each form field type
         // see http://symfony.com/doc/current/reference/forms/types.html
         $builder
-            ->add('soundKey', 'choice', $soundKeyValueOptions)
-            ->add('baseScale', 'choice', $baseScaleValueOptions)
-            ->add('string')
-            ->add('save', 'submit')
+            ->add('soundKey', 'choice', array('choices' => $soundKeyValueOptions, 'label' => false))
+            ->add('baseScale', 'choice', array(
+                'choices' => $baseScaleValueOptions,
+                'label' => false
+//                ,
+//                'data' => $options['data']->getBaseScale()
+                ))
+            ->add('string', null, array('label' => false))
+            ->add('save', 'submit', array('label' => 'Go'))
         ;
     }
 
@@ -50,7 +57,7 @@ class SolmistringType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SolmikBundle\Entity\Solmistring',
+            'data_class' => 'Mkox\SolmikBundle\Entity\Solmistring',
         ));
     }
 

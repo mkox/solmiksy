@@ -1,6 +1,6 @@
 <?php
 
-namespace SolmikBundle\Form\Type;
+namespace Mkox\SolmikBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,7 +32,7 @@ class CategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SolmikBundle\Entity\Category',
+            'data_class' => 'Mkox\SolmikBundle\Entity\Category',
         ));
     }
 

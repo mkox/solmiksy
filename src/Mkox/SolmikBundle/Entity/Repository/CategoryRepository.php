@@ -1,5 +1,5 @@
 <?php
-namespace Solmik\Entity\Repository;
+namespace Mkox\SolmikBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
