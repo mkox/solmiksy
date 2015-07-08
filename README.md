@@ -1,4 +1,6 @@
 solmikSy
 ========
 
-A Symfony project created on June 22, 2015, 2:51 pm.
+This project is based on the PHP-framework Symfony. It shall get the same 
+functionality as the projekt in https://github.com/mkox/solmik, which
+is based on Zend Framework 2.
