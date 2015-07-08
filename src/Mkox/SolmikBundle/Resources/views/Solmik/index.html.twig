@@ -4,8 +4,9 @@ $title = 'My solmization strings';
 $this->headTitle($title);
 ?>
 #}
+{% set title = 'My solmization strings' %}
 <div id="head">
-    <h1>{#<?php echo $this->escapeHtml($title); ?>#}</h1>
+    <h1>{{ title }}</h1>
     <div id="login">
         {#
         <?php
@@ -80,10 +81,7 @@ $this->headTitle($title);
 <p class="categories-top">
     <strong>Categories</strong>
     {#<?php if ($user) : ?>#}
-        - <a href="<?php
-//    echo $this->url('solmik', array('controller' => 'solmik-category', 'action' => 'create')); 
-        echo $this->url('solmik-category', array('action' => 'create'));
-        ?>">Add new Category</a>
+        - <a href="{{ path('solmik-category-create') }}">Add new Category</a>
          {#<?php endif ?>#}
 </p>
 <table class="table" id="solmi-strings">
@@ -91,10 +89,8 @@ $this->headTitle($title);
         <tr>
             <td>{{ category.getName() }}
                 {#<?php if ($user) : ?>#}
-                    <a href="<?php echo $this->url('solmik-category', array('action' => 'edit', 'id' => $category->getId()));
-                    ?>">Edit</a> - 
-                    <a href="<?php echo $this->url('solmik-category', array('action' => 'delete', 'id' => $category->getId()));
-                    ?>">Delete</a> - 
+                    <a href="{{ path('solmik-category-edit', {'id' : category.getId()}) }}">Edit</a> - 
+                    <a href="{{ path('solmik-category-delete', {'id' : category.getId()}) }}">Delete</a> - 
                     <a href="<?php echo $this->url('solmik-string', array('action' => 'create', 'id' => $category->getId()));
                     ?>">Add string</a>
                    {#<?php endif ?>#}

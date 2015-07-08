@@ -10,7 +10,7 @@ use Mkox\SolmikBundle\Form;
 class SolmikController extends Controller
 {
     /**
-     * @Route("/solmik/start")
+     * @Route("/solmik/start", name="solmik-start")
      * @Template()
      */
     public function indexAction() {

@@ -21,7 +21,7 @@ class CategoryType extends AbstractType
         // see http://symfony.com/doc/current/reference/forms/types.html
         $builder
             ->add('name')
-            ->add('public', 'checkbox')
+            ->add('public', 'checkbox', array('required' => false))
             ->add('save', 'submit')
         ;
     }
