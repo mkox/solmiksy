@@ -9,8 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Mkox\SolmikBundle\Form;
 use Mkox\SolmikBundle\Entity;
 
-class CategoryController extends Controller {
-    
+class SolmistringController extends Controller {
+
     /**
      *
      * @var type Doctrine\ORM\EntityManager
@@ -20,26 +20,24 @@ class CategoryController extends Controller {
     public function indexAction() {
         return $this->redirectToRoute('solmik-start');
     }
-    
+
     /**
-     * @Route("/solmik/category/create", name="solmik-category-create")
+     * @Route("/solmik/string/create", name="solmik-string-create")
      * @Template()
      */
     public function createAction(Request $request) {
-        // Create the form and inject the EntityManager
-//        $form = new Form\CreateCategoryForm($this->em);
-
-        $category = new Entity\Category();
-        $form = $this->createForm(new Form\Type\CategoryType(), $category);
+        
+        $solmistring = new Entity\Solmistring();
+        $form = $this->createForm(new Form\Type\SolmistringType(), $solmistring);
 
         $form->handleRequest($request);
-        
+
 //        if ($this->request->isPost()) {
 //            $form->setData($this->request->getPost());
 
             if ($form->isValid()) {
                 $this->em = $this->getDoctrine()->getManager();
-                $this->em->persist($category);
+                $this->em->persist($solmistring);
                 $this->em->flush();
                 return $this->redirectToRoute('solmik-start');
             }
@@ -49,23 +47,16 @@ class CategoryController extends Controller {
     }
 
     /**
-     * @Route("/solmik/category/edit", name="solmik-category-edit")
+     * @Route("/solmik/string/edit", name="solmik-string-edit")
      * @Template()
      */
     public function editAction(Request $request) {
-//        $id = (int) $this->params()->fromRoute('id', 0);
         $id = $request->query->get('id');
-
-        // Create the form and inject the EntityManager
-//        $form = new Form\UpdateCategoryForm($this->em);
-
-//        $category = $this->em->find('Solmik\Entity\Category', $id);
-//        $form->bind($category);
         
-        $category = $this->getDoctrine()
-            ->getRepository('MkoxSolmikBundle:Category')
+        $solmistring = $this->getDoctrine()
+            ->getRepository('MkoxSolmikBundle:Solmistring')
             ->find($id);
-        $form = $this->createForm(new Form\Type\CategoryType(), $category);
+        $form = $this->createForm(new Form\Type\SolmistringType(), $solmistring);
 
         $form->handleRequest($request);
 
@@ -82,9 +73,9 @@ class CategoryController extends Controller {
 
         return array('form' => $form->createView());
     }
-    
+
     /**
-     * @Route("/solmik/category/delete", name="solmik-category-delete")
+     * @Route("/solmik/string/delete", name="solmik-string-delete")
      * @Template()
      */
     public function deleteAction(Request $request) {
@@ -93,29 +84,21 @@ class CategoryController extends Controller {
             return $this->redirect()->toRoute('solmik');
         }
 
-//dump($request->query->get('del'));
-//dump($request);
-//dump($request->request->get('del'));
-//exit;
-//        $request = $this->getRequest();
         if ($request->request->get('del')) {
-//            $del = $request->getPost('del', 'No');
             $del = $request->request->get('del');
 
             if ($del == 'Yes') {
-//                $id = (int) $request->getPost('id');
                 $this->em = $this->getDoctrine()->getManager();
-                $this->em->remove($this->em->find('MkoxSolmikBundle:Category', $id));
+                $this->em->remove($this->em->find('MkoxSolmikBundle:Solmistring', $id));
                 $this->em->flush();
             }
 
             return $this->redirectToRoute('solmik-start');
-        } 
+        }
         
         return array(
             'id' => $id,
-//            'category' => $this->em->find('MkoxSolmikBundle:Category', $id)
-            'category' => $this->getDoctrine()->getRepository('MkoxSolmikBundle:Category')->find($id)
+            'solmistring' => $this->getDoctrine()->getRepository('MkoxSolmikBundle:Solmistring')->find($id)
         );
     }
 

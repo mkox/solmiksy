@@ -91,8 +91,7 @@ $this->headTitle($title);
                 {#<?php if ($user) : ?>#}
                     <a href="{{ path('solmik-category-edit', {'id' : category.getId()}) }}">Edit</a> - 
                     <a href="{{ path('solmik-category-delete', {'id' : category.getId()}) }}">Delete</a> - 
-                    <a href="<?php echo $this->url('solmik-string', array('action' => 'create', 'id' => $category->getId()));
-                    ?>">Add string</a>
+                    <a href="{{ path('solmik-string-create', {'category_id' : category.getId()}) }}">Add string</a>
                    {#<?php endif ?>#}
             </td>
         </tr>
@@ -110,8 +109,8 @@ $this->headTitle($title);
                                 {{ form_widget(stringForm) }}
                                 {{ form_end(stringForm) }}
                                 {#<?php if ($user) : ?>#}
-                                    <a href="<?php echo $this->url('solmik-string', array('action' => 'edit', 'id' => solmistrings[j]->getId())); ?>">Edit</a> - 
-                                    <a href="<?php echo $this->url('solmik-string', array('action' => 'delete', 'id' => solmistrings[j]->getId())); ?>">Delete</a>
+                                    <a href="{{ path('solmik-string-edit', {'id' : solmistrings[j].getId()}) }}">Edit</a> - 
+                                    <a href="{{ path('solmik-string-delete', {'id' : solmistrings[j].getId()}) }}">Delete</a>
                                     - 
                                 {#<?php endif ?>#}
                                 {{ solmistrings[j].getName() }}

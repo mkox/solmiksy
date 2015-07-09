@@ -1,0 +1,11 @@
+
+{% set title = 'Delete solmization string' %}
+<h1>{{ title }}</h1>
+
+<form action="{{ path('solmik-string-delete', {'id' : solmistring.getId()}) }}" method="post">
+    <div>
+        <input type="hidden" name="id" value="{{ id }}" />
+        <input type="submit" name="del" value="Yes" />
+        <input type="submit" name="del" value="No" />
+    </div>
+</form>

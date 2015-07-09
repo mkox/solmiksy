@@ -23,25 +23,20 @@ class SolmistringForListType extends AbstractType
 //var_dump($options['data']->getBaseScale());
 //exit;
         $soundKeys =  Utils\Misc::getSoundKeys();
+        $soundKeyOptions = array();
         foreach ($soundKeys as $value => $label) {
-            $soundKeyOption = array();
-            $soundKeyOption[$value] = $label;
-            $soundKeyValueOptions[] = $soundKeyOption;
+            $soundKeyOptions[$value] = $label;
         }
         
-        $baseScaleValueOptions = array();
+        $baseScaleOptions = array();
         for ($i = 1; $i <= 9; $i++) {
-            $baseScaleOption = array();
-            $baseScaleOption[$i] = $i;
-            $baseScaleValueOptions[] = $baseScaleOption;
+            $baseScaleOptions[$i] = $i;
         }
         
-        // for the full reference of options defined by each form field type
-        // see http://symfony.com/doc/current/reference/forms/types.html
         $builder
-            ->add('soundKey', 'choice', array('choices' => $soundKeyValueOptions, 'label' => false))
+            ->add('soundKey', 'choice', array('choices' => $soundKeyOptions, 'label' => false))
             ->add('baseScale', 'choice', array(
-                'choices' => $baseScaleValueOptions,
+                'choices' => $baseScaleOptions,
                 'label' => false
 //                ,
 //                'data' => $options['data']->getBaseScale()

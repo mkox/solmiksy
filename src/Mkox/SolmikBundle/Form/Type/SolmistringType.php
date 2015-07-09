@@ -18,32 +18,30 @@ class SolmistringType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $soundKeyValueOptions = array();
         $soundKeys =  Utils\Misc::getSoundKeys();
+        $soundKeyOptions = array();
         foreach ($soundKeys as $value => $label) {
-            $soundKeyOption = array();
-            $soundKeyOption[$value] = $label;
-            $soundKeyValueOptions[] = $soundKeyOption;
+            $soundKeyOptions[$value] = $label;
         }
         
-        $baseScaleValueOptions = array();
+        $baseScaleOptions = array();
         for ($i = 1; $i <= 9; $i++) {
-            $baseScaleOption = array();
-            $baseScaleOption[$i] = $i;
-            $baseScaleValueOptions[] = $baseScaleOption;
+            $baseScaleOptions[$i] = $i;
         }
         
         // for the full reference of options defined by each form field type
         // see http://symfony.com/doc/current/reference/forms/types.html
         $builder
             ->add('name')
-            ->add('soundKey', 'choice', array('choices' => $soundKeyValueOptions))
-            ->add('baseScale', 'choice', array('choices' => $baseScaleValueOptions))
+            ->add('soundKey', 'choice', array('choices' => $soundKeyOptions))
+            ->add('baseScale', 'choice', array('choices' => $baseScaleOptions))
             ->add('string')
 //            ->add('category', new CategoryType())
             ->add('categories', 'entity', array(
-                'class' => 'MkoxSolmikBundle:User',
-                'choices' => $solmistring->Categories(), 
+                'class' => 'MkoxSolmikBundle:Category',
+                'property' => 'name',
+                'multiple' => 'true'
+//                'choices' => $solmistring->Categories(), 
                 //$solmistring über $options übergeben?
             ))
             ->add('save', 'submit')
