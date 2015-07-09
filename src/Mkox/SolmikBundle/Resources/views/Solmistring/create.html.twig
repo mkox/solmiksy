@@ -1,6 +1,11 @@
+{% extends 'MkoxSolmikBundle::layout.html.twig' %}
 {% set title = 'Add new solmization string' %}
-<h1>{{ title }}</h1>
+{% block title %}{{ title }}{% endblock %}
 
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
+{% block body %}
+    <h1>{{ title }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

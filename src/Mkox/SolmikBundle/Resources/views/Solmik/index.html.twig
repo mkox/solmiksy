@@ -1,10 +1,8 @@
-{#
-<?php
-$title = 'My solmization strings';
-$this->headTitle($title);
-?>
-#}
+{% extends 'MkoxSolmikBundle::layout.html.twig' %}
 {% set title = 'My solmization strings' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
 <div id="head">
     <h1>{{ title }}</h1>
     <div id="login">
@@ -70,7 +68,10 @@ $this->headTitle($title);
         </div>
     </div>
     <div id="upper2">
-        <div id="staff"><img src="/module/solmik/images/staff.svg" alt="staff"></div>
+        <div id="staff">
+            {#<img src="/module/solmik/images/staff.svg" alt="staff">#}
+            <img src="{{ asset(bPath ~ 'images/staff.svg') }}" alt="staff">
+        </div>
         <div id="message-staff"></div>
         <div class="used-string"></div>
         <div class="notes-string"></div>
@@ -122,3 +123,4 @@ $this->headTitle($title);
         </tr>
     {% endfor %}
 </table>
+{% endblock %}
