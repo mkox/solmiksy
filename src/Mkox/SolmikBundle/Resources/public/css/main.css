@@ -27,9 +27,9 @@ body {
 #div1
 {
     position: relative;
-    height: 150px;
-    width: 150px;
-    margin: 10px 50px 20px 50px;
+    height: 185px;
+    width: 185px;
+    margin: 10px 30px 20px 70px;
     padding:10px;
     border: 1px solid black;
     -webkit-perspective:150px; /* Chrome, Safari, Opera  */
@@ -123,11 +123,14 @@ form#random {
     border: solid 1px;
     padding: 5px;
 }
-
+/*
 #solmistring-form-for-list fieldset {
     display: inline;
 }
-
+*/
+.solmistring-form-for-list div div {
+    display: inline;
+}
 .container {
     width: auto;
 }

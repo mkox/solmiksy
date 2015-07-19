@@ -107,7 +107,7 @@
                             <li>
                                 {% set stringForm = stringForms[cKey][j] %}
 
-                                {{ form_start(stringForm) }}
+                                {{ form_start(stringForm, { 'attr': { 'class': 'solmistring-form-for-list' }}) }}
                                 {{ form_widget(stringForm) }}
                                 {{ form_end(stringForm) }}
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
