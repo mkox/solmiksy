@@ -26,6 +26,9 @@ class SolmistringController extends Controller {
      * @Template()
      */
     public function createAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
         
         $solmistring = new Entity\Solmistring();
         $form = $this->createForm(new Form\Type\SolmistringType(), $solmistring);
@@ -51,6 +54,10 @@ class SolmistringController extends Controller {
      * @Template()
      */
     public function editAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+        
         $id = $request->query->get('id');
         
         $solmistring = $this->getDoctrine()
@@ -79,6 +86,10 @@ class SolmistringController extends Controller {
      * @Template()
      */
     public function deleteAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+        
         $id = $request->query->get('id');
         if (!$id) {
             return $this->redirect()->toRoute('solmik');

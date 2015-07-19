@@ -6,6 +6,7 @@
 <div id="head">
     <h1>{{ title }}</h1>
     <div id="login">
+        <a href="{{ path('fos_user_security_login') }}">logging</a>
         {#
         <?php
         $user = $this->identity();
@@ -81,19 +82,19 @@
 </div>
 <p class="categories-top">
     <strong>Categories</strong>
-    {#<?php if ($user) : ?>#}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         - <a href="{{ path('solmik-category-create') }}">Add new Category</a>
-         {#<?php endif ?>#}
+    {% endif %}
 </p>
 <table class="table" id="solmi-strings">
     {% for cKey, category in categories %}
         <tr>
             <td>{{ category.getName() }}
-                {#<?php if ($user) : ?>#}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <a href="{{ path('solmik-category-edit', {'id' : category.getId()}) }}">Edit</a> - 
                     <a href="{{ path('solmik-category-delete', {'id' : category.getId()}) }}">Delete</a> - 
                     <a href="{{ path('solmik-string-create', {'category_id' : category.getId()}) }}">Add string</a>
-                   {#<?php endif ?>#}
+                {% endif %}
             </td>
         </tr>
         <tr>
@@ -109,11 +110,11 @@
                                 {{ form_start(stringForm) }}
                                 {{ form_widget(stringForm) }}
                                 {{ form_end(stringForm) }}
-                                {#<?php if ($user) : ?>#}
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                     <a href="{{ path('solmik-string-edit', {'id' : solmistrings[j].getId()}) }}">Edit</a> - 
                                     <a href="{{ path('solmik-string-delete', {'id' : solmistrings[j].getId()}) }}">Delete</a>
                                     - 
-                                {#<?php endif ?>#}
+                                {% endif %}
                                 {{ solmistrings[j].getName() }}
                             </li>
                         {% endfor %}

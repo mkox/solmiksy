@@ -26,6 +26,11 @@ class CategoryController extends Controller {
      * @Template()
      */
     public function createAction(Request $request) {
+        
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+    
         // Create the form and inject the EntityManager
 //        $form = new Form\CreateCategoryForm($this->em);
 
@@ -53,6 +58,10 @@ class CategoryController extends Controller {
      * @Template()
      */
     public function editAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+        
 //        $id = (int) $this->params()->fromRoute('id', 0);
         $id = $request->query->get('id');
 
@@ -88,6 +97,10 @@ class CategoryController extends Controller {
      * @Template()
      */
     public function deleteAction(Request $request) {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+        
         $id = $request->query->get('id');
         if (!$id) {
             return $this->redirect()->toRoute('solmik');
