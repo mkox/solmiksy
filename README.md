@@ -62,9 +62,9 @@ Usage
 It is about relative solmization (http://youcantrustyourears.com/wp/solfege-solfeggio-or-solmization/). Connected with
 relative solmization is a concept for learning to sing better that uses hand signs (http://dictionary.onmusic.org/appendix/topics/syllables-of-solmization). 
 My idea is to replace these hand signs with units of 7 squares that you have in mind. These squares you find 
-in http://solmiksytest1.michaelkox.de/ left top.
+in http://solmiksytest1.michaelkox.de/ left below the music staff.
 
-There is also a music staff, which you can use amongth others to rapidly read solmization values from random notes. 
+There is a music staff, which you can use amongth others to rapidly read solmization values from random notes. 
 There are some configurations to decide from which area you choose random notes.
 In the music staff you find also notes that represent solmization strings that can be choosen, created and played
 further below.
