@@ -111,6 +111,13 @@ h2 {/*better solutin needed*/
     width: 35px;
     /*height: 60px;*/
 }
+
+#staff-image {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+}
+
 #frequencies-string2 {
     max-width: 500px;
     word-break: break-all;
@@ -142,7 +149,11 @@ form#random {
 #base-tone-length {
     width: 4em;
 }
-
+/*
+#solmi-config {
+    margin-top: 10px;
+}
+*/
 @media (min-width: 700px) {
     #solmi-config {
         float: left;
