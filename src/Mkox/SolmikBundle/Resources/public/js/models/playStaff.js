@@ -31,9 +31,9 @@ define([
                 for (var i = 0; i < sb.soundKeyCurrent['signs']; i++) {
                     for (var j = 0; j < staffAreas.length; j++) {
                         console.log('createKeySignature i - j:', i + ' - ' + j);
-                        $('div#staff').append('<img src="'+ sb.bPath + 'images/' + halfFile + '" class="sign ' + staffAreas[j] + ' starthalf starthalf-' + i + '" alt="' + sb.soundKeyCurrent['half'] + '">');
+                        $('#staff').append('<img src="'+ sb.bPath + 'images/' + halfFile + '" class="sign ' + staffAreas[j] + ' starthalf starthalf-' + i + '" alt="' + sb.soundKeyCurrent['half'] + '">');
                         var bottom = staffHeights[j] + (positionsSign[i] * sb.notesInStaff['height-diff']);
-                        $('div#staff .' + staffAreas[j] + '.starthalf-' + i).css({'position': 'absolute', 'bottom': bottom + 'px', 'left': left + 'px'});
+                        $('#staff .' + staffAreas[j] + '.starthalf-' + i).css({'position': 'absolute', 'bottom': bottom + 'px', 'left': left + 'px'});
                     }
                     left += sb.notesInStaff['inter-tone-signs-width'];
                 }
@@ -46,9 +46,9 @@ define([
 
             if (position > 0) {
                 var noteNamePartOfPrevious = sb.noteLengths[sb.playData['notes'][position - 1]['length']]['imageNamePart'];
-                $('div#staff .note-' + (position - 1)).attr('src', sb.bPath + 'images/' + noteNamePartOfPrevious + '_note.svg');
+                $('#staff .note-' + (position - 1)).attr('src', sb.bPath + 'images/' + noteNamePartOfPrevious + '_note.svg');
 
-                var halfInStaffOfPrevious = $('div#staff .half-' + (position - 1));
+                var halfInStaffOfPrevious = $('#staff .half-' + (position - 1));
                 if (!$.isEmptyObject(halfInStaffOfPrevious)) {
                     for (var i = 0; i < halfNames.length; i++) {
                         if (halfInStaffOfPrevious.attr('src') === halfFolder + halfNames[i] + '_current.svg') {
@@ -60,9 +60,9 @@ define([
             }
 
             var noteNamePart = sb.noteLengths[sb.playData['notes'][position]['length']]['imageNamePart'];
-            $('div#staff .note-' + position).attr('src', sb.bPath + 'images/' + noteNamePart + '_note_current.svg');
+            $('#staff .note-' + position).attr('src', sb.bPath + 'images/' + noteNamePart + '_note_current.svg');
 
-            var halfInStaff = $('div#staff .half-' + position);
+            var halfInStaff = $('#staff .half-' + position);
             if (!$.isEmptyObject(halfInStaff)) {
                 for (var i = 0; i < halfNames.length; i++) {
                     if (halfInStaff.attr('src') === halfFolder + halfNames[i] + '.svg') {
@@ -146,12 +146,12 @@ define([
 
                 console.log('prepareForPlayStaff, left [[before half]]:', left);
                 if (halfFile !== '') {
-                    $('div#staff').append('<img src="' + sb.bPath + 'images/' + halfFile + '" class="sign half half-' + position + '" alt="' + halfFileMarker + '">');
-                    $('div#staff .half-' + position).css({'position': 'absolute', 'bottom': bottom + 'px', 'left': left + 'px'});
+                    $('#staff').append('<img src="' + sb.bPath + 'images/' + halfFile + '" class="sign half half-' + position + '" alt="' + halfFileMarker + '">');
+                    $('#staff .half-' + position).css({'position': 'absolute', 'bottom': bottom + 'px', 'left': left + 'px'});
                     left += sb.notesInStaff['inter-tone-signs-width'];
                 }
-                $('div#staff').append('<img src="' + sb.bPath + 'images/' + imageNamePart + '_note.svg" class="sign note note-' + position + '" alt="' + soundKeyF['basicTone'] + '">');
-                $('div#staff .note-' + position).css({'position': 'absolute', 'bottom': bottom + 'px', 'left': left + 'px'});
+                $('#staff').append('<img src="' + sb.bPath + 'images/' + imageNamePart + '_note.svg" class="sign note note-' + position + '" alt="' + soundKeyF['basicTone'] + '">');
+                $('#staff .note-' + position).css({'position': 'absolute', 'bottom': bottom + 'px', 'left': left + 'px'});
 
                 left += sb.notesInStaff['note-width'];
                 console.log('prepareForPlayStaff, before notesInStaff[notes-left-current]: ', sb.notesInStaff['notes-left-current']);

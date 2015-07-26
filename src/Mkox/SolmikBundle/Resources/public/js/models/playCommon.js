@@ -196,7 +196,7 @@ console.log('playCommon.js x210');
 //        var solmiArray = solmiFirstDivision[0].split('-');
 //console.log('prepareForPlay solmiArray: ' + solmiArray);
             sb.notesInStaff = $.extend(true, {}, sb.notesInStaffStart);
-            $('div#staff img.sign').remove();
+            $('#staff img.sign').remove();
 
             if (mode === 'random') {
 //                try {

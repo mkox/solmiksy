@@ -1,16 +1,19 @@
 body {
     padding-top: 0;
 }
+.page-wrapper {
+    margin: 0;
+}
 .navbar {
     display: none;
 }
 
-#head h1 {
+header h1 {
     float: left;
     font-size: 150%;
     margin: 0;
 }
-#head #login {
+header #login {
     float: right;
 }
 #login-form fieldset, #login #logged-in-message {
@@ -24,7 +27,7 @@ body {
     margin-left: 10px;
 }
 
-#div1
+#all-squares-outer
 {
     position: relative;
     height: 185px;
@@ -92,27 +95,19 @@ body {
 .squares-3x3.scale-pos-1 .row div {
     background-color: graytext;
 }
-#upper {
-    float:left;
-    clear: both;
-}
-#upper1 {
-    float:left;
-}
-#upper2 {
-    float:right;
-    margin-left: 10px;
-    
-}
+
 h2 {/*better solutin needed*/
     clear: both;
 }
-div#staff {
-    margin-top: 10px;
+#staff-outer {
+    clear: both;
+}
+#staff {
+    margin: 10px 0 0 0;
     position: relative;
     height: 232.65012px;
 }
-div#staff .note {
+#staff .note {
     width: 35px;
     /*height: 60px;*/
 }
@@ -146,4 +141,20 @@ form#random {
 
 #base-tone-length {
     width: 4em;
+}
+
+@media (min-width: 700px) {
+    #solmi-config {
+        float: left;
+    }
+    #all-squares-outer {
+        float: left;
+    }
+}
+
+@media (min-width: 961.38318px) {
+    .page-wrapper {
+        width: 961.38318px;
+        margin: 0 auto;
+    }
 }

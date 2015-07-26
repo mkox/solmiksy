@@ -2,8 +2,7 @@
 {% set title = 'My solmization strings' %}
 {% block title %}{{ title }}{% endblock %}
 
-{% block body %}
-<div id="head">
+{% block header %}
     <h1>{{ title }}</h1>
     <div id="login">
         <a href="{{ path('fos_user_security_login') }}">logging</a>
@@ -27,101 +26,104 @@
         ?>
         #}
     </div>
-</div>
-<div id="upper">
-    <div id="upper1">
-        <div id="div1">
-            <div id="all-squares">
-                <div id="sq11" class="squares-3x3">
-                    <div class="row">
-                        <div></div><div></div><div></div>
-                    </div>
-                    <div class="row">
-                        <div></div><div></div><div></div>
-                    </div>
-                    <div class="row">
-                        <div></div><div></div><div></div>
-                    </div>
-                </div>
-                <div id="sq10" class="squares-3x3">
-                    <div class="row">
-                        <div></div><div></div><div></div>
-                    </div>
-                    <div class="row">
-                        <div></div><div></div><div></div>
-                    </div>
-                    <div class="row">
-                        <div></div><div></div><div></div>
-                    </div>
-                </div>
-                <div id="sq9" class="squares-3x3">
-                    <div class="row">
-                        <div></div><div></div><div></div>
-                    </div>
-                    <div class="row">
-                        <div></div><div></div><div></div>
-                    </div>
-                    <div class="row">
-                        <div></div><div></div><div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="upper2">
-        <div id="staff">
-            {#<img src="/module/solmik/images/staff.svg" alt="staff">#}
+{% endblock %}
+{% block main %}
+
+    <section id="staff-outer">
+        <figure id="staff">
             <img src="{{ asset(bPath ~ 'images/staff.svg') }}" alt="staff">
-        </div>
+        </figure>
         <div id="message-staff"></div>
         <div class="used-string"></div>
         <div class="notes-string"></div>
         <div class="frequencies-string"></div>
         <div id="frequencies-string2"></div>
-    </div>
-</div>
-<p class="categories-top">
-    <strong>Categories</strong>
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        - <a href="{{ path('solmik-category-create') }}">Add new Category</a>
-    {% endif %}
-</p>
-<table class="table" id="solmi-strings">
-    {% for cKey, category in categories %}
-        <tr>
-            <td>{{ category.getName() }}
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <a href="{{ path('solmik-category-edit', {'id' : category.getId()}) }}">Edit</a> - 
-                    <a href="{{ path('solmik-category-delete', {'id' : category.getId()}) }}">Delete</a> - 
-                    <a href="{{ path('solmik-string-create', {'category_id' : category.getId()}) }}">Add string</a>
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {% if stringForms[cKey] %}
-                    <ul>
-                        {% set solmistrings = category.getSolmistrings() %}
-                        {% for sF in stringForms[cKey] %}
-                            {% set j = loop.index0 %}
-                            <li>
-                                {% set stringForm = stringForms[cKey][j] %}
+    </section>
 
-                                {{ form_start(stringForm, { 'attr': { 'class': 'solmistring-form-for-list' }}) }}
-                                {{ form_widget(stringForm) }}
-                                {{ form_end(stringForm) }}
-                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                    <a href="{{ path('solmik-string-edit', {'id' : solmistrings[j].getId()}) }}">Edit</a> - 
-                                    <a href="{{ path('solmik-string-delete', {'id' : solmistrings[j].getId()}) }}">Delete</a>
-                                    - 
-                                {% endif %}
-                                {{ solmistrings[j].getName() }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
-</table>
+    <section id="all-squares-outer">
+        <div id="all-squares">
+            <div id="sq11" class="squares-3x3">
+                <div class="row">
+                    <div></div><div></div><div></div>
+                </div>
+                <div class="row">
+                    <div></div><div></div><div></div>
+                </div>
+                <div class="row">
+                    <div></div><div></div><div></div>
+                </div>
+            </div>
+            <div id="sq10" class="squares-3x3">
+                <div class="row">
+                    <div></div><div></div><div></div>
+                </div>
+                <div class="row">
+                    <div></div><div></div><div></div>
+                </div>
+                <div class="row">
+                    <div></div><div></div><div></div>
+                </div>
+            </div>
+            <div id="sq9" class="squares-3x3">
+                <div class="row">
+                    <div></div><div></div><div></div>
+                </div>
+                <div class="row">
+                    <div></div><div></div><div></div>
+                </div>
+                <div class="row">
+                    <div></div><div></div><div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    <section id="solmi-config"></section>
+
+    <section id="categories">
+        <p class="categories-top">
+            <strong>Categories</strong>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                - <a href="{{ path('solmik-category-create') }}">Add new Category</a>
+            {% endif %}
+        </p>
+        <table class="table" id="solmi-strings">
+            {% for cKey, category in categories %}
+                <tr>
+                    <td>{{ category.getName() }}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a href="{{ path('solmik-category-edit', {'id' : category.getId()}) }}">Edit</a> - 
+                            <a href="{{ path('solmik-category-delete', {'id' : category.getId()}) }}">Delete</a> - 
+                            <a href="{{ path('solmik-string-create', {'category_id' : category.getId()}) }}">Add string</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {% if stringForms[cKey] %}
+                            <ul>
+                                {% set solmistrings = category.getSolmistrings() %}
+                                {% for sF in stringForms[cKey] %}
+                                    {% set j = loop.index0 %}
+                                    <li>
+                                        {% set stringForm = stringForms[cKey][j] %}
+
+                                        {{ form_start(stringForm, { 'attr': { 'class': 'solmistring-form-for-list' }}) }}
+                                        {{ form_widget(stringForm) }}
+                                        {{ form_end(stringForm) }}
+                                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                            <a href="{{ path('solmik-string-edit', {'id' : solmistrings[j].getId()}) }}">Edit</a> - 
+                                            <a href="{{ path('solmik-string-delete', {'id' : solmistrings[j].getId()}) }}">Delete</a>
+                                            - 
+                                        {% endif %}
+                                        {{ solmistrings[j].getName() }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
 {% endblock %}

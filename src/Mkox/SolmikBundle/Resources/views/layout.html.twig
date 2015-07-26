@@ -5,14 +5,21 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            <link href="{{ asset(bPath ~ 'css/main.css') }}" rel="stylesheet" />
+            <link href="{{ asset(bPath ~ 'dist/css/main.css') }}" rel="stylesheet" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-    {% block body %}{% endblock %}
-    {% block javascripts %}
-        <script src="{{ asset(bPath ~ 'js/libs/require/require-2.1.15.js') }}" type="text/javascript" data-main="{{ asset(bPath ~ 'dist/js/config') }}"></script>
-    {% endblock %}
-    </body>
+        <div class="page-wrapper">
+            <header>
+                {% block header %}{% endblock %}
+            </header>
+            <main>
+                {% block main %}{% endblock %}
+            </main>
+        </div>
+{% block javascripts %}
+    <script src="{{ asset(bPath ~ 'js/libs/require/require-2.1.15.js') }}" type="text/javascript" data-main="{{ asset(bPath ~ 'dist/js/config') }}"></script>
+{% endblock %}
+</body>
 </html>

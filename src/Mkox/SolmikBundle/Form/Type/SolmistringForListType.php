@@ -35,6 +35,7 @@ class SolmistringForListType extends AbstractType
         
         $builder
 //            ->setAttribute('class', 'solmistring-form-for-list')
+            ->add('save', 'button', array('label' => 'Go', 'attr' => array('class' => 'go')))
             ->add('soundKey', 'choice', array('choices' => $soundKeyOptions, 'label' => false, 'attr' => array('class' => 'sound-keys')))
             ->add('baseScale', 'choice', array(
                 'choices' => $baseScaleOptions,
@@ -44,7 +45,6 @@ class SolmistringForListType extends AbstractType
 //                'data' => $options['data']->getBaseScale()
                 ))
             ->add('string', null, array('label' => false))
-            ->add('save', 'button', array('label' => 'Go', 'attr' => array('class' => 'go')))
         ;
     }
 

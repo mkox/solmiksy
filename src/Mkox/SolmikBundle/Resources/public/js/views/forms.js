@@ -64,7 +64,7 @@ function frequenciesForm() {
             return form;
         },
         selectFieldForCentralViewScale: function () {
-            var select = '<br>Central view scale: <select name="central-view-scale" id="central-view-scale">' + "/n";
+            var select = 'Central view scale: <select name="central-view-scale" id="central-view-scale">' + "/n";
             for (var i = sb.scaleRange[1] - 1; i >= sb.scaleRange[0] + 1; i--) {
                 var selected = '';
                 if (i === sb.centralViewScale) {

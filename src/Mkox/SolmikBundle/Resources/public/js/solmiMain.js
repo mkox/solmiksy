@@ -10,11 +10,11 @@ define([
     'views/additional'
 ], function ($, _, Backbone, sb, helpers, playCommon, frequenciesTuner, forms, viewsAdd) {
 
-    $('#div1').after(forms.randomForm());
-    $('#div1').after(viewsAdd.inputBaseToneLength());
-    $('#div1').after(forms.selectFieldForRepetition());
-    $('#div1').after(forms.selectFieldForInstruments());
-    $('#div1').after(forms.selectFieldForCentralViewScale());
+    $('#solmi-config').append(forms.selectFieldForCentralViewScale());
+    $('#solmi-config').append(forms.selectFieldForInstruments());
+    $('#solmi-config').append(forms.selectFieldForRepetition());
+    $('#solmi-config').append(viewsAdd.inputBaseToneLength());
+    $('#solmi-config').append(forms.randomForm());
 
     for (var i = 1; i <= 2; i++) {
         $('.squares-3x3 .row:nth-child(' + i + ') div:first-child').css({'visibility': 'hidden'});
