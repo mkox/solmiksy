@@ -1,10 +1,9 @@
 define([
     'jquery',
     'underscore',
-    'backbone',
     'solmiBasics',
     'helpers/helpers'
-], function ($, _, Backbone, sb, helpers) {
+], function ($, _, sb, helpers) {
 
     return {
         createKeySignature: function () {

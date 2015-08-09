@@ -22,7 +22,6 @@ define([
 //   - make repeat button beside the go button
 //     
 // later:
-// - use of backbone.js?
 // - choose between English and German
 // - when a new solmiString is played before an other has ended:
 //   - Interrupt the old one before the new one is played

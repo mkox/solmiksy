@@ -1,11 +1,10 @@
 define([
     'jquery',
     'underscore',
-    'backbone',
     'solmiBasics',
     'helpers/helpers',
     'audiosynth'
-], function ($, _, Backbone, sb, helpers) {
+], function ($, _, sb, helpers) {
 
     return {
         playSound: function (position) {

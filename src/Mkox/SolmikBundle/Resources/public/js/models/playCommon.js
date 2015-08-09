@@ -1,13 +1,12 @@
 define([
     'jquery',
     'underscore',
-    'backbone',
     'solmiBasics',
     'helpers/helpers',
     'models/playSound',
     'models/playStaff',
     'models/randomize'
-], function ($, _, Backbone, sb, helpers, playSound, playStaff, randomize) {
+], function ($, _, sb, helpers, playSound, playStaff, randomize) {
 
     return {
         changeScalesCurrent: function (scale) {

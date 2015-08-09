@@ -1,9 +1,8 @@
 define([
     'jquery',
     'underscore',
-    'backbone',
     'solmiBasics'
-], function ($, _, Backbone, sb) {
+], function ($, _, sb) {
 
     return {
         inputBaseToneLength: function () {

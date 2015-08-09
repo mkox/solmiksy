@@ -1,9 +1,8 @@
 define([
     'jquery',
     'underscore',
-    'backbone',
     'helpers/helpers'
-], function ($, _, Backbone, helpers) {
+], function ($, _, helpers) {
 
     var positionOfFullInScale;
     var soundKeys2;

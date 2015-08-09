@@ -1,10 +1,9 @@
 define([
     'jquery',
     'underscore',
-    'backbone',
     'helpers/helpers',
     'helpers/createFrequencies'
-], function ($, _, Backbone, helpers, createFrequencies) {
+], function ($, _, helpers, createFrequencies) {
     console.log('solmiBasics.js 1, helpers', helpers);
 
     var basicTones = new Array('d', 'r', 'm', 'f', 's', 'l', 't');

@@ -1,10 +1,9 @@
 define([
     'jquery',
     'underscore',
-    'backbone',
     'solmiBasics',
     'helpers/createSolmiArrayFromToneNumbers'
-], function ($, _, Backbone, sb, createSolmiArrayFromToneNumbers) {
+], function ($, _, sb, createSolmiArrayFromToneNumbers) {
 
     function createToneNumberForSelectedSyllable(syllable) {
 

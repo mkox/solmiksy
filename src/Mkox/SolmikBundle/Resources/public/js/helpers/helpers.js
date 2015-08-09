@@ -1,8 +1,7 @@
 define([
     'jquery',
-    'underscore',
-    'backbone'
-], function ($, _, Backbone) {
+    'underscore'
+], function ($, _) {
 
     return {
         array_flip: function (trans) { // Not used at the moment             var key, tmp_ar = {};

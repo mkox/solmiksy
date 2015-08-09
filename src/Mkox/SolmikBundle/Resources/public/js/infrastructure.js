@@ -1,5 +1,4 @@
 define([
-    "backbone",
     "jquery",
     "angular",
     "audiosynth",

@@ -1,10 +1,9 @@
 // ADAPTED VERSION OF EXTERNAL SOURCE: https://github.com/FerCa/tuner/
 define([
     'jquery',
-    'underscore',
-    'backbone'
+    'underscore'
 //    'tuner'
-], function ($, _, Backbone) {
+], function ($, _) {
 
     var frequencyBefore = 0;
     var tunerActive = false;
