@@ -4,11 +4,12 @@ define([
     'backbone',
     'solmiBasics',
     'helpers/helpers',
+    'models/angularTrials',
     'models/playCommon',
     'models/frequenciesTuner',
     'views/forms',
     'views/additional'
-], function ($, _, Backbone, sb, helpers, playCommon, frequenciesTuner, forms, viewsAdd) {
+], function ($, _, Backbone, sb, helpers, angularTrials, playCommon, frequenciesTuner, forms, viewsAdd) {
 
     $('#solmi-config').append(forms.selectFieldForCentralViewScale());
     $('#solmi-config').append(forms.selectFieldForInstruments());

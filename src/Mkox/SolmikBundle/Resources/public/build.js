@@ -20,7 +20,8 @@
         }
     ],
     paths: {
-        jquery: "empty:"
+        jquery: "empty:",
+        angular: "empty:"
     }
 //    generateSourceMaps: true
 });
