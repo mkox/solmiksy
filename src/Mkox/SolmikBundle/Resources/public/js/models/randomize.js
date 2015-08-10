@@ -26,22 +26,59 @@ define([
 
     var selectionAdd = function () {
         var solmistring = $('.used-string .solmistring').text();
-        var soundKey = $('.used-string .sound-key').text();
-        var scale = $('.used-string .scale').text();
-        var stringData = JSON.parse(
-                '{"solmistring": "' + solmistring + '", \n\
+        if (solmistring.length > 0) {
+            var soundKey = $('.used-string .sound-key').text();
+            var scale = $('.used-string .scale').text();
+            var stringData = JSON.parse(
+                    '{"solmistring": "' + solmistring + '", \n\
                 "soundKey": "' + soundKey + '", \n\
                 "scale": "' + scale + '"}'
-                );
-        sb.selectedStrings.push(stringData);
-        console.log(sb.selectedStrings);
-        sb.selectedStringsSum += 1;
-        $('#selection-solmistrings .sum span').text(sb.selectedStringsSum);
+                    );
+            sb.selectedStrings.push(stringData);
+            console.log(sb.selectedStrings);
+            $('#selection-solmistrings .sum span').text(sb.selectedStrings.length);
+        } else {
+            alert(sb.messageNoStringIsUsed);
+        }
     };
-    
+
     var selectionGo = function () {
-        var arrayPosition = Math.floor((Math.random() * sb.selectedStrings.length));
-        return sb.selectedStrings[arrayPosition];
+        if (sb.selectedStrings.length > 0) {
+            var arrayPosition = Math.floor((Math.random() * sb.selectedStrings.length));
+            return sb.selectedStrings[arrayPosition];
+        } else {
+            alert(sb.messageNoSelectedStrings);
+        }
+    };
+
+    var selectionRemove = function () {
+        if (sb.selectedStrings.length > 0) {
+            var stringIsInList = false;
+            var solmistring = $('.used-string .solmistring').text();
+            var soundKey = $('.used-string .sound-key').text();
+            var scale = $('.used-string .scale').text();
+            for (var i = 0; i < sb.selectedStrings.length; i++) {
+                var selectedCompare = [solmistring, sb.selectedStrings[i].solmistring, soundKey, sb.selectedStrings[i].soundKey, scale, sb.selectedStrings[i].scale];
+                if (solmistring === sb.selectedStrings[i].solmistring
+                        && soundKey === sb.selectedStrings[i].soundKey
+                        && scale === sb.selectedStrings[i].scale) {
+                    sb.selectedStrings.splice(i, 1);
+                    $('#selection-solmistrings .sum span').text(sb.selectedStrings.length);
+                    stringIsInList = true;
+                    break;
+                }
+            }
+            if(!stringIsInList){
+                alert(sb.messageNotInListOfSelectedStrings);
+            }
+        } else {
+            alert(sb.messageNoSelectedStrings);
+        }
+    };
+
+    var selectionReset = function () {
+        sb.selectedStrings = [];
+        $('#selection-solmistrings .sum span').text(sb.selectedStrings.length);
     };
 
     return {
@@ -113,7 +150,9 @@ define([
             sb.setSoundKeyCurrent(randomKey);
         },
         selectionAdd: selectionAdd,
-        selectionGo: selectionGo
+        selectionGo: selectionGo,
+        selectionReset: selectionReset,
+        selectionRemove: selectionRemove
 
     };
 });

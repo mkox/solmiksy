@@ -5,10 +5,11 @@ define([
     'helpers/helpers',
     'models/angularTrials',
     'models/playCommon',
+    'models/randomize',
     'models/frequenciesTuner',
     'views/forms',
     'views/additional'
-], function ($, _, sb, helpers, angularTrials, playCommon, frequenciesTuner, forms, viewsAdd) {
+], function ($, _, sb, helpers, angularTrials, playCommon, randomize, frequenciesTuner, forms, viewsAdd) {
 
     $('#solmi-config').append(forms.selectFieldForCentralViewScale());
     $('#solmi-config').append(forms.selectFieldForInstruments());
@@ -70,11 +71,17 @@ define([
 //        return false;
     });
     
-    $('#selection-solmistrings .add').click(function () {
-        playCommon.prepareForPlay(this, 'selection-add');
-    });
     $('#selection-solmistrings .go').click(function () {
         playCommon.prepareForPlay(this, 'selection-go');
+    });
+    $('#selection-solmistrings .add').click(function () {
+        randomize.selectionAdd();
+    });
+    $('#selection-solmistrings .remove').click(function () {
+        randomize.selectionRemove();
+    });
+    $('#selection-solmistrings .reset').click(function () {
+        randomize.selectionReset();
     });
 
     $('#central-view-scale').change(function () {

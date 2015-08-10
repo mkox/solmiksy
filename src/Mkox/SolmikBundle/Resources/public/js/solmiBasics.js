@@ -144,12 +144,15 @@ define([
         frequencies: createFrequencies.getFrequenciesInfo(soundKeys2, basicTonesMajor2, basicTonesMinorRaw2,
                 positionOfHalvesInScale, positionOfFullInScale, noteNamesEnglish),
         selectedStrings: [],
-        selectedStringsSum: 0,
 
         // Messages: later in different place
         messageNotValid: 'Not a valid string in this context: ',
         messageToneOutOfRange: 'This tone can\'t be shown here: ',
         messageToneLengthNotExist: 'This tone length does not exist: ',
-        messageMaxToneNotSmallerThanMin: 'max tone can\'t be smaller than min tone!'
+        messageMaxToneNotSmallerThanMin: 'max tone can\'t be smaller than min tone!',
+        messageModeNotValid: 'The used mode is not valid',
+        messageNoStringIsUsed: 'No string is used at the moment.',
+        messageNoSelectedStrings: 'No string is selected at the moment',
+        messageNotInListOfSelectedStrings: 'This string is not in the list of selected strings.'
     };
 });

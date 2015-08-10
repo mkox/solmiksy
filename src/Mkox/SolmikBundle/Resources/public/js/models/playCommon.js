@@ -170,6 +170,15 @@ define([
             $('#message-staff, .notes-string, .frequencies-string').empty();
             var baseScale = false;
             switch (mode) {
+                case 'standard':
+                    var soundKey = $(currentField).parents('form').find('.sound-keys').val();
+                    var solmiString = $(currentField).parents('form').find('input[type="text"]').val();
+                    baseScale = parseInt($(currentField).parents('form').find('.scales').val());
+                    break;
+                case 'random':
+                    solmiArray = randomize.randomize(currentField);
+                    baseScale = sb.centralViewScaleForStart;
+                    break;
                 case 'repeat':
                     var soundKey = $('.used-string .sound-key').text();
                     var solmiString = $('.used-string .solmistring').text();
@@ -177,15 +186,16 @@ define([
                     break;
                 case 'selection-go':
                     var selectionGo = randomize.selectionGo();
-                    var soundKey = selectionGo.soundKey;
-                    var solmiString = selectionGo.solmistring;
-                    baseScale = selectionGo.scale;
-                    break;
-                case 'standard':
+                    if (selectionGo) {
+                        var soundKey = selectionGo.soundKey;
+                        var solmiString = selectionGo.solmistring;
+                        baseScale = selectionGo.scale;
+                        break;
+                    } else {
+                        return;
+                    }
                 default:
-                    var soundKey = $(currentField).parents('form').find('.sound-keys').val();
-                    var solmiString = $(currentField).parents('form').find('input[type="text"]').val();
-                    baseScale = parseInt($(currentField).parents('form').find('.scales').val());
+                    alert(sb.messageModeNotValid);
             }
             if (mode === 'standard' || mode === 'repeat' || mode === 'selection-go') {
                 sb.setSoundKeyCurrent(soundKey);
@@ -195,20 +205,6 @@ define([
 //console.log('prepareForPlay solmiArray: ' + solmiArray);
             sb.notesInStaff = $.extend(true, {}, sb.notesInStaffStart);
             $('#staff img.sign').remove();
-
-            if (mode === 'random') {
-//                try {
-                solmiArray = randomize.randomize(currentField);
-                baseScale = sb.centralViewScaleForStart;
-//                } catch (e) {
-//                    console.error(e.message);
-////                return false;
-//                    throw new Error(e.message);
-//                }
-            } else if (mode === 'selection-add') {
-                randomize.selectionAdd();
-                return;
-            }
 
             $('.used-string').empty();
             var outputString = '<input class="repeat" type="button" value="Repeat" name="repeat">';

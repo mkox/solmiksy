@@ -61,12 +61,12 @@ function frequenciesForm() {
             form += '<input class="repeat" type="button" value="Repeat" name="repeat">';
             
             form += '<section id="selection-solmistrings">';
-            form += 'Store strings:<br>';
+            form += 'Selected strings <span class="sum">(<span>' + sb.selectedStrings.length + '</span>)</span>:<br>';
             form += '<input class="go" type="button" value="Go" name="go">';
+            form += '<input class="repeat" type="button" value="Repeat" name="repeat">';
             form += '<input class="add" type="button" value="Add" name="add">';
             form += '<input class="remove" type="button" value="Remove" name="remove">';
             form += '<input class="reset" type="button" value="Reset" name="reset">';
-            form += '<span class="sum">(<span>' + sb.selectedStringsSum + '</span>)</span>';
             form += '</section>';
             
             form += '</form>';
