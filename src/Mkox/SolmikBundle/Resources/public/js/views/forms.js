@@ -47,7 +47,7 @@ function frequenciesForm() {
         frequenciesForm: frequenciesForm(),
         randomForm: function () {
             var form = '<form id="random">';
-            form += 'Random: <br>';
+            form += '<strong>Random:</strong><br>';
             form += this.selectFieldForRandomMode() + '<br>';
             form += this.selectFormWithToneNames('min', 0);
             form += this.selectFormWithToneNames('max', 1);
@@ -57,8 +57,18 @@ function frequenciesForm() {
             form += this.selectFieldForFirstStringItem() + '<br>';
             form += this.selectFieldForMaxDeviationFromFirstSound() + '<br>';
 //            form += '<input type="submit" class="go" value="Go">';
-            form += '<input class="go" type="button" value="Go" name="go">';
+            form += '<input class="basic-go" type="button" value="Go" name="go">';
             form += '<input class="repeat" type="button" value="Repeat" name="repeat">';
+            
+            form += '<section id="selection-solmistrings">';
+            form += 'Store strings:<br>';
+            form += '<input class="go" type="button" value="Go" name="go">';
+            form += '<input class="add" type="button" value="Add" name="add">';
+            form += '<input class="remove" type="button" value="Remove" name="remove">';
+            form += '<input class="reset" type="button" value="Reset" name="reset">';
+            form += '<span class="sum">(<span>' + sb.selectedStringsSum + '</span>)</span>';
+            form += '</section>';
+            
             form += '</form>';
             return form;
         },

@@ -59,7 +59,7 @@ define([
 //        return false;
     });
 
-    $('form#random .go').click(function () {
+    $('form#random .basic-go').click(function () {
         console.log('scalesCurrent after click form#random: ', sb.scalesCurrent);
 //        try {
         playCommon.prepareForPlay(this, 'random');
@@ -68,6 +68,13 @@ define([
 //            return false;
 //        }
 //        return false;
+    });
+    
+    $('#selection-solmistrings .add').click(function () {
+        playCommon.prepareForPlay(this, 'selection-add');
+    });
+    $('#selection-solmistrings .go').click(function () {
+        playCommon.prepareForPlay(this, 'selection-go');
     });
 
     $('#central-view-scale').change(function () {

@@ -143,6 +143,8 @@ define([
         toneFrequencies: helpers.createFrequencies(),
         frequencies: createFrequencies.getFrequenciesInfo(soundKeys2, basicTonesMajor2, basicTonesMinorRaw2,
                 positionOfHalvesInScale, positionOfFullInScale, noteNamesEnglish),
+        selectedStrings: [],
+        selectedStringsSum: 0,
 
         // Messages: later in different place
         messageNotValid: 'Not a valid string in this context: ',

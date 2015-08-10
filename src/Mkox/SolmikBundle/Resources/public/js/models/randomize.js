@@ -24,6 +24,26 @@ define([
         }
     }
 
+    var selectionAdd = function () {
+        var solmistring = $('.used-string .solmistring').text();
+        var soundKey = $('.used-string .sound-key').text();
+        var scale = $('.used-string .scale').text();
+        var stringData = JSON.parse(
+                '{"solmistring": "' + solmistring + '", \n\
+                "soundKey": "' + soundKey + '", \n\
+                "scale": "' + scale + '"}'
+                );
+        sb.selectedStrings.push(stringData);
+        console.log(sb.selectedStrings);
+        sb.selectedStringsSum += 1;
+        $('#selection-solmistrings .sum span').text(sb.selectedStringsSum);
+    };
+    
+    var selectionGo = function () {
+        var arrayPosition = Math.floor((Math.random() * sb.selectedStrings.length));
+        return sb.selectedStrings[arrayPosition];
+    };
+
     return {
         randomize: function (currentField) {
             var that = this;
@@ -91,7 +111,9 @@ define([
             }
             var randomKey = soundKeysArray[Math.floor((Math.random() * soundKeysArray.length))];
             sb.setSoundKeyCurrent(randomKey);
-        }
+        },
+        selectionAdd: selectionAdd,
+        selectionGo: selectionGo
 
     };
 });

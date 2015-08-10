@@ -125,18 +125,18 @@ define([
             var tonelength = sb.playData['notes'][position]['length'] * sb.baseToneLength;
 //        playStaff(position, tone);
             playStaff.playStaff(position);
-            if(position > 0){
+            if (position > 0) {
                 playSound.playSound(position);
             }
             sb.currentTimeOfPlay += tonelength;
             var dateNow = Date.now();
             var waitTime = sb.startTimeOfPlay + sb.currentTimeOfPlay - dateNow;
-            if(waitTime < 0){
+            if (waitTime < 0) {
                 console.log('playSolmiString, !: waitTime < 0');
             }
             that.waitTimeDiffSum += tonelength - waitTime;
             var timePassed = dateNow - sb.startTimeOfPlay;
-            var waitTime2 =  sb.currentTimeOfPlay - timePassed;
+            var waitTime2 = sb.currentTimeOfPlay - timePassed;
 //            var timePassedDiff = timePassed - that.timePassedBefore;
             that.timePassedBefore = timePassed;
 //            console.log('playSolmiString dateNow: ', dateNow);
@@ -169,26 +169,25 @@ define([
             sb.samples = [];
             $('#message-staff, .notes-string, .frequencies-string').empty();
             var baseScale = false;
-            if (mode === 'standard') {
-console.log('playCommon.js $(currentField)', $(currentField));
-console.log('playCommon.js $(currentField).parents(form)', $(currentField).parents('form'));
-//                var soundKey = $(currentField).parent('form').find('.sound-keys').val();
-                var soundKey = $(currentField).parents('form').find('.sound-keys').val();
-console.log('playCommon.js soundKey', soundKey);
-console.log('playCommon.js x200');
-console.log('playCommon.js x210');
-                console.log('prepareForPlay, scalesCurrent : ' + sb.scalesCurrent);
-//                var solmiString = $(currentField).parent('form').find('input[type="text"]').val();
-                var solmiString = $(currentField).parents('form').find('input[type="text"]').val();
-//                baseScale = parseInt($(currentField).parent('form').find('.scales').val());
-                baseScale = parseInt($(currentField).parents('form').find('.scales').val());
-                console.log('solmiString: ' + solmiString);
-            } else if (mode === 'repeat') {
-                var soundKey = $('.used-string .sound-key').text();
-                var solmiString = $('.used-string .solmistring').text();
-                baseScale = parseInt($('.used-string .scale').text());
+            switch (mode) {
+                case 'repeat':
+                    var soundKey = $('.used-string .sound-key').text();
+                    var solmiString = $('.used-string .solmistring').text();
+                    baseScale = parseInt($('.used-string .scale').text());
+                    break;
+                case 'selection-go':
+                    var selectionGo = randomize.selectionGo();
+                    var soundKey = selectionGo.soundKey;
+                    var solmiString = selectionGo.solmistring;
+                    baseScale = selectionGo.scale;
+                    break;
+                case 'standard':
+                default:
+                    var soundKey = $(currentField).parents('form').find('.sound-keys').val();
+                    var solmiString = $(currentField).parents('form').find('input[type="text"]').val();
+                    baseScale = parseInt($(currentField).parents('form').find('.scales').val());
             }
-            if(mode === 'standard' || mode === 'repeat'){
+            if (mode === 'standard' || mode === 'repeat' || mode === 'selection-go') {
                 sb.setSoundKeyCurrent(soundKey);
                 var solmiArray = solmiString.split('-');
             }
@@ -199,20 +198,23 @@ console.log('playCommon.js x210');
 
             if (mode === 'random') {
 //                try {
-                    solmiArray = randomize.randomize(currentField);
-                    baseScale = sb.centralViewScaleForStart;
+                solmiArray = randomize.randomize(currentField);
+                baseScale = sb.centralViewScaleForStart;
 //                } catch (e) {
 //                    console.error(e.message);
 ////                return false;
 //                    throw new Error(e.message);
 //                }
+            } else if (mode === 'selection-add') {
+                randomize.selectionAdd();
+                return;
             }
 
             $('.used-string').empty();
             var outputString = '<input class="repeat" type="button" value="Repeat" name="repeat">';
             outputString += '<span class="solmistring">' + solmiArray.join('-') + '</span>';
             outputString += ' (used string), <span class="sound-key">' + sb.soundKeyCurrent['key'] + '</span> ' + sb.soundKeyCurrent['mm']
-            + ', scale <span class="scale">' + baseScale + '</span>';
+                    + ', scale <span class="scale">' + baseScale + '</span>';
             $('.used-string').append(outputString);
 
             playStaff.createKeySignature();
