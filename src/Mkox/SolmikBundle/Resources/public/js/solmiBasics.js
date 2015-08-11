@@ -115,6 +115,7 @@ define([
             console.log("sb setSoundKeyCurrent this.soundKeyCurrent:", this.soundKeyCurrent);
         },
         currentRandomMode: 'withSoundKeysMajor',
+        randomBasicGoCount: 0,
         playData: {'notes': {}},
         notesInStaffStart: notesInStaffStart,
 

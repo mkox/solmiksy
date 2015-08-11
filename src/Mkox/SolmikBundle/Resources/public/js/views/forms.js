@@ -56,9 +56,11 @@ function frequenciesForm() {
             form += '<input class="noIU" type="checkbox"> no i or u in solmization string' + '<br>';
             form += this.selectFieldForFirstStringItem() + '<br>';
             form += this.selectFieldForMaxDeviationFromFirstSound() + '<br>';
-//            form += '<input type="submit" class="go" value="Go">';
+
             form += '<input class="basic-go" type="button" value="Go" name="go">';
             form += '<input class="repeat" type="button" value="Repeat" name="repeat">';
+            form += '<span class="basic-sum">(<span>' + sb.randomBasicGoCount + '</span>)</span>';
+            form += '<input class="basic-reset" type="button" value="Reset" name="basic-reset">';
             
             form += '<section id="selection-solmistrings">';
             form += 'Selected strings <span class="sum">(<span>' + sb.selectedStrings.length + '</span>)</span>:<br>';

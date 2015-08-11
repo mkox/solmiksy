@@ -63,12 +63,17 @@ define([
     $('form#random .basic-go').click(function () {
         console.log('scalesCurrent after click form#random: ', sb.scalesCurrent);
 //        try {
+        randomize.countBasicGo();
         playCommon.prepareForPlay(this, 'random');
 //        } catch (e) {
 //            console.error(e.message);
 //            return false;
 //        }
 //        return false;
+    });
+    
+    $('form#random .basic-reset').click(function () {
+        randomize.resetBasicGo();
     });
     
     $('#selection-solmistrings .go').click(function () {

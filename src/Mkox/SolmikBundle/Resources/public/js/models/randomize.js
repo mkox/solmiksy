@@ -4,6 +4,11 @@ define([
     'solmiBasics',
     'helpers/createSolmiArrayFromToneNumbers'
 ], function ($, _, sb, createSolmiArrayFromToneNumbers) {
+    
+    var countBasicGo = function (){
+        sb.randomBasicGoCount += 1;
+        $('#random .basic-sum span').text(sb.randomBasicGoCount);
+    };
 
     function createToneNumberForSelectedSyllable(syllable) {
 
@@ -23,6 +28,11 @@ define([
             return 0;
         }
     }
+    
+    var resetBasicGo = function (){
+        sb.randomBasicGoCount = 0;
+        $('#random .basic-sum span').text(sb.randomBasicGoCount);
+    };
 
     var selectionAdd = function () {
         var solmistring = $('.used-string .solmistring').text();
@@ -82,6 +92,7 @@ define([
     };
 
     return {
+        countBasicGo: countBasicGo,
         randomize: function (currentField) {
             var that = this;
             console.log('randomize currentField: ', currentField);
@@ -149,10 +160,11 @@ define([
             var randomKey = soundKeysArray[Math.floor((Math.random() * soundKeysArray.length))];
             sb.setSoundKeyCurrent(randomKey);
         },
+        resetBasicGo: resetBasicGo,
         selectionAdd: selectionAdd,
         selectionGo: selectionGo,
-        selectionReset: selectionReset,
-        selectionRemove: selectionRemove
+        selectionRemove: selectionRemove,
+        selectionReset: selectionReset
 
     };
 });
