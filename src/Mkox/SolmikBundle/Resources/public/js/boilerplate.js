@@ -1,4 +1,4 @@
-define(["jquery", "underscore", "angular"], function ($, _, angular) {
+define(["jquery", "underscore", "angular"], function ($, _, ng) {
     return{
     };
 });

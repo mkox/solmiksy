@@ -5,6 +5,8 @@ namespace Mkox\SolmikBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Mkox\SolmikBundle\Form;
 
 class SolmikController extends Controller
@@ -59,5 +61,39 @@ class SolmikController extends Controller
             'categories' => $categoriesList,
             'stringForms' => $stringForms
         );
+    }
+    
+    /**
+     * @Route("/solmik/hello2/{name}")
+     * @Template()
+     */
+    public function index2Action($name)
+    {
+//        return json_encode(array('name' => $name));
+        return new Response(json_encode(array('name' => $name))); 
+        
+        
+//        return new JsonResponse(array('name' => $name));
+    }
+
+    /**
+     * @Route("/solmik/post")
+     * @Template()
+     */
+    public function postAction(Request $request)
+    {
+//        return json_encode(array('name' => array('foo' => $request->request->get('foo'))));
+        return new Response(json_encode(array('name' => array('foo' => $request->request->get('foo'))))); 
+//        return new Response(json_encode(array('name' => array('foo' => $request->server->get('HTTP_HOST')))));
+//        return new Response(json_encode(array('name' => array('foo' => $request))));
+//        return new Response(json_encode(array('name' => array('foo' => $request->query->get('foo'))))); 
+//        return new Response(json_encode(array('name' => array('foo' => $request-> getQueryString())))); 
+//        return new Response(json_encode(array('name' => array('foo' => $request->server->get('$_POST')))));
+//        return new Response(json_encode(array('name' => array('foo' => json_decode($request->getContent(), true)))));
+//        return new Response(json_encode(array('name' => array('foo' => json_decode($request->request->get('foo'), true)))));
+        
+//        json_decode($request->getContent(), true);
+        
+//        return new JsonResponse(array('foo' => $request->request->get('foo')));
     }
 }

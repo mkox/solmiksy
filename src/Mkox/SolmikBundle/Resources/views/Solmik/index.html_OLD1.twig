@@ -79,21 +79,31 @@
     </section>
 
     <section id="solmi-config"></section>
-    
     {#
+    <section id="ng-test2" ng-controller="test2Ctrl">
+    <h1>Hello {{ '{{ name }} '}},</h1>
+    <h2>you POSTed "{{ '{{ foo }} '}}"</h2>
+    </section>
+    #}
+    
     <section id="ng-test1" ng-controller="test1Ctrl">
         First Name: <input type="text" ng-model="firstName"><br>
         Last Name: <input type="text" ng-model="lastName"><br>
         <br>
         Full Name: {{ '{{firstName + " " + lastName}} '}}
     </section>
-    #}
-    <section id="ng-test2" ng-controller="test2Ctrl">
-    <h1>Hello {{ '{{ name }} '}},</h1>
+    
+{#
+    <section id="ng-test3" ng-controller="test3Ctrl">
+        <h1>Hello {{ '{{ name }} '}}, </h1>
     <h2>you POSTed "{{ '{{ foo }} '}}"</h2>
+    
+        333 First Name: <input type="text" ng-model="firstName"><br>
+        Last Name: <input type="text" ng-model="lastName"><br>
+        <br>
+        Full Name: {{ '{{firstName + " " + lastName}} '}} 
     </section>
-    
-    
+#}
     <section id="categories">
         <p class="categories-top">
             <strong>Categories</strong>

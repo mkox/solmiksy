@@ -1,6 +1,8 @@
 define([
   'solmiBasics',
   'solmiMain'
+  ,
+  'models/angularTrials'
 ], function(solmiBasics, solmiMain){
 //], function(solmiBasics){
   console.log('solmi.js, solmiBasics', solmiBasics);
