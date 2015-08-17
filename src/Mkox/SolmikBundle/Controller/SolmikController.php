@@ -82,18 +82,11 @@ class SolmikController extends Controller
      */
     public function postAction(Request $request)
     {
-//        return json_encode(array('name' => array('foo' => $request->request->get('foo'))));
-        return new Response(json_encode(array('name' => array('foo' => $request->request->get('foo'))))); 
-//        return new Response(json_encode(array('name' => array('foo' => $request->server->get('HTTP_HOST')))));
-//        return new Response(json_encode(array('name' => array('foo' => $request))));
-//        return new Response(json_encode(array('name' => array('foo' => $request->query->get('foo'))))); 
-//        return new Response(json_encode(array('name' => array('foo' => $request-> getQueryString())))); 
-//        return new Response(json_encode(array('name' => array('foo' => $request->server->get('$_POST')))));
-//        return new Response(json_encode(array('name' => array('foo' => json_decode($request->getContent(), true)))));
-//        return new Response(json_encode(array('name' => array('foo' => json_decode($request->request->get('foo'), true)))));
-        
-//        json_decode($request->getContent(), true);
-        
-//        return new JsonResponse(array('foo' => $request->request->get('foo')));
+        $isAjax = $request->isXmlHttpRequest();
+        if($isAjax) {
+            return new Response(json_encode(array('name' => array('foo' => $request->request->get('foo'))))); 
+        } else {
+            return new Response(json_encode(array('name' => array('foo' => 'zzz')))); 
+        }
     }
 }

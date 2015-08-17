@@ -61,6 +61,10 @@ define(["jquery", "underscore", "angular"], function ($, _, angular) {
             }];
     });
 
+    app.config(['$httpProvider', function ($httpProvider) {
+            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+        }]);
+
     return app;
 
 });
