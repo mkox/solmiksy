@@ -2,7 +2,7 @@
 {% set title = 'Delete solmization string' %}
 {% block title %}{{ title }}{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>{{ title }}</h1>
 
     <form action="{{ path('solmik-string-delete', {'id' : solmistring.getId()}) }}" method="post">

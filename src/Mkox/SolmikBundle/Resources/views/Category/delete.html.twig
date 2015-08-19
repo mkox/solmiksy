@@ -2,7 +2,7 @@
 {% set title = 'Delete Category' %}
 {% block title %}{{ title }}{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>{{ title }}</h1>
 
     <form action="{{ path('solmik-category-delete', {'id' : category.getId()}) }}" method="post">
