@@ -100,7 +100,6 @@ js/config.js
 js/helpers/helpers.js
 js/helpers/createFrequencies.js
 js/solmiBasics.js
-js/models/angularTrials.js
 js/models/playSound.js
 js/models/playStaff.js
 js/helpers/createSolmiArrayFromToneNumbers.js
@@ -115,6 +114,8 @@ js/config.js
 
 js/infrastructure.js
 ----------------
-js/libs/audiosynth/audiosynth.js
 js/libs/underscore/underscore-min-1.7.0.js
+js/ngSolmik.js
+js/models/angularTrials.js
+js/libs/audiosynth/audiosynth.js
 js/infrastructure.js

@@ -1,0 +1,1 @@
+define(["jquery","underscore","angular","ngSolmik"],function(e,t,n,r){return console.log("angularTrials.js  top"),r.controller("test1Ctrl",function(e){e.firstName="John",e.lastName="Doe"}),r});

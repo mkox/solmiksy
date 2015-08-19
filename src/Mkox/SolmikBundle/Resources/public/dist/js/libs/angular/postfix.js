@@ -1,0 +1,4 @@
+// // Orginal code from: http://victorblog.com/2012/12/20/make-angularjs-http-service-behave-like-jquery-ajax/
+// Copyrights: Ezekiel Victor
+
+define(["angular"],function(e){e.module("httpPostFix",[],function(t){t.defaults.headers.post["Content-Type"]="application/x-www-form-urlencoded;charset=utf-8",t.defaults.transformRequest=[function(t){var n=function(e){var t="",r,i,s,o,u,a,f;for(r in e){i=e[r];if(i instanceof Array)for(f=0;f<i.length;++f)u=i[f],s=r+"["+f+"]",a={},a[s]=u,t+=n(a)+"&";else if(i instanceof Object)for(o in i)u=i[o],s=r+"["+o+"]",a={},a[s]=u,t+=n(a)+"&";else i!==undefined&&i!==null&&(t+=encodeURIComponent(r)+"="+encodeURIComponent(i)+"&")}return t.length?t.substr(0,t.length-1):t};return e.isObject(t)&&String(t)!=="[object File]"?n(t):t}]})});

@@ -1,5 +1,5 @@
 require.config({
-    urlArgs: "cachebust=" + (new Date()).getTime(),
+//    urlArgs: "cachebust=" + (new Date()).getTime(),
 //  baseUrl: 'js/',
     paths: {
         jquery: [ 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min', 'libs/jquery/jquery-1.11.2.min' ],
