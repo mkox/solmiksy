@@ -13,7 +13,7 @@ define(["jquery", "underscore", "angular", "ngSolmik"], function ($, _, ng, ngSo
 //    
 //    return ngSolmik;
 
-    return ngSolmik.controller('test2Ctrl', function ($scope, $http) {
+    return ngSolmik.controller('test2Ctrl', ['$scope', '$http', function ($scope, $http) {
 //    return ngSolmik.controller('test2Ctrl', function ($scope) {
 
 //        $scope.name = 'MichaX';
@@ -26,6 +26,6 @@ define(["jquery", "underscore", "angular", "ngSolmik"], function ($, _, ng, ngSo
         $http.post('/solmik/post', {"foo": "bar"}).success(function (data) {
             $scope.foo = data.name.foo;
         });
-    });
+    }]);
 });
 

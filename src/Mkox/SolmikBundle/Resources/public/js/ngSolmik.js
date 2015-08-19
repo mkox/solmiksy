@@ -3,7 +3,7 @@ define(["jquery", "underscore", "angular"], function ($, _, angular) {
 //define(["jquery", "underscore", "angular", "ngResource", "ngRoute"], function ($, _, ng, ngRoute) {
 //alert('angularTrials.js is reached');
 
-    var app = angular.module('ngSolmik', [], function ($httpProvider)
+    var app = angular.module('ngSolmik', [], ['$httpProvider', function ($httpProvider)
     {
 
         // Use x-www-form-urlencoded Content-Type
@@ -59,7 +59,7 @@ define(["jquery", "underscore", "angular"], function ($, _, angular) {
 
                 return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
             }];
-    });
+    }]);
 
     app.config(['$httpProvider', function ($httpProvider) {
             $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
