@@ -88,12 +88,19 @@
         Full Name: {{ '{{firstName + " " + lastName}} '}}
     </section>
     #}
-    {#
+    
     <section id="ng-test2" ng-controller="test2Ctrl">
     <h1>Hello {{ '{{ name }} '}},</h1>
     <h2>you POSTed "{{ '{{ foo }} '}}"</h2>
+    <div ng-repeat="x in stringsInCategories">
+        <p>A</p>
+        <p>{{ '{{ x.id }} '}}</p>
+        <p>{{ '{{ x.name }} '}}</p>
+        <p>{% verbatim %}{{ x.name }}{% endverbatim %}</p>
+    </div>
+    
     </section>
-    #}
+    
     
     <section id="categories">
         <p class="categories-top">

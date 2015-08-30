@@ -26,6 +26,11 @@ define(["jquery", "underscore", "angular", "ngSolmik"], function ($, _, ng, ngSo
         $http.post('/solmik/post', {"foo": "bar"}).success(function (data) {
             $scope.foo = data.name.foo;
         });
+        
+        $http.post('/solmik/strings-in-categories', {}).success(function (data) {
+            $scope.stringsInCategories = data;
+            console.log('$scope.stringsInCategories', $scope.stringsInCategories);
+        });
     }]);
 });
 
