@@ -79,7 +79,7 @@
     </section>
 
     <section id="solmi-config"></section>
-    
+
     {#
     <section id="ng-test1" ng-controller="test1Ctrl">
         First Name: <input type="text" ng-model="firstName"><br>
@@ -88,20 +88,24 @@
         Full Name: {{ '{{firstName + " " + lastName}} '}}
     </section>
     #}
-    
+
     <section id="ng-test2" ng-controller="test2Ctrl">
-    <h1>Hello {{ '{{ name }} '}},</h1>
-    <h2>you POSTed "{{ '{{ foo }} '}}"</h2>
-    <div ng-repeat="x in stringsInCategories">
-        <p>A</p>
-        <p>{{ '{{ x.id }} '}}</p>
-        <p>{{ '{{ x.name }} '}}</p>
-        <p>{% verbatim %}{{ x.name }}{% endverbatim %}</p>
-    </div>
-    
+        <h1>Hello {{ '{{ name }} '}},</h1>
+        <h2>you POSTed "{{ '{{ foo }} '}}"</h2>
+        {#<div ng-repeat="x in stringsInCategories">
+            <p>A</p>
+            {% verbatim %}{{ getObjectData(x)}}{% endverbatim %} 
+            <p>{{ '{{ x.id }} '}}</p>
+            <p>{{ '{{ x.name }} '}}</p>
+            <p>{% verbatim %}{{ x.name}}{% endverbatim %}</p>
+        </div>#}
+        <table class="table" id="solmi-strings" ng-repeat="category in stringsInCategories">
+            <tr><td>{% verbatim %}{{ category.name }}{% endverbatim %}</td></tr>
+        </table>
+
     </section>
-    
-    
+
+
     <section id="categories">
         <p class="categories-top">
             <strong>Categories</strong>

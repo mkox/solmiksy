@@ -92,6 +92,37 @@ class SolmikController extends Controller {
     }
 
     /**
+     * @Route("/solmik/strings-in-categories1")
+     * @Template()
+     */
+    public function stringsInCategories1Action() {
+//        $encoders = array(new JsonEncoder());
+        $encoder = new JsonEncoder();
+//        $normalizers = array(new ObjectNormalizer());
+        $normalizer = new ObjectNormalizer();
+//        $serializer = new Serializer($normalizers, $encoders);
+
+        $categoriesList = $this->getDoctrine()
+                ->getRepository('MkoxSolmikBundle:Category')
+                ->findBy(array(), array('name' => 'ASC'));
+        $categoriesList2 = array();
+        for ($i = 0; $i < count($categoriesList); $i++) {
+//            $categoriesList2[] = $serializer->serialize($categoriesList[$i], 'json');
+            $category = $categoriesList[$i];
+            $normalizer->setCircularReferenceHandler(function ($category) {
+                return $category->getId();
+            });
+            $serializer = new Serializer(array($normalizer), array($encoder));
+            $categoriesList2[] = $serializer->serialize($category, 'json');
+        }
+        echo json_encode($categoriesList2);
+//        echo "{result: [" . json_encode($categoriesList2) . "]}";
+//        echo "{\"result\": [" . json_encode($categoriesList2) . "]}";
+//        echo "{\"result\":" . json_encode($categoriesList2) . "}";
+        exit;
+    }
+    
+    /**
      * @Route("/solmik/strings-in-categories")
      * @Template()
      */
@@ -115,7 +146,8 @@ class SolmikController extends Controller {
             $serializer = new Serializer(array($normalizer), array($encoder));
             $categoriesList2[] = $serializer->serialize($category, 'json');
         }
-        echo json_encode($categoriesList2);
+        $categoriesForJson = implode(',', $categoriesList2);
+        echo "{\"result\":[" . $categoriesForJson . "]}";
         exit;
     }
 

@@ -19,18 +19,55 @@ define(["jquery", "underscore", "angular", "ngSolmik"], function ($, _, ng, ngSo
 //        $scope.name = 'MichaX';
 //        $scope.foo = 'bar';
 
-        $http.get('/solmik/hello2/you').success(function (data) {
-            $scope.name = data.name;
-        });
+            $http.get('/solmik/hello2/you').success(function (data) {
+                $scope.name = data.name;
+            });
 
-        $http.post('/solmik/post', {"foo": "bar"}).success(function (data) {
-            $scope.foo = data.name.foo;
-        });
-        
-        $http.post('/solmik/strings-in-categories', {}).success(function (data) {
-            $scope.stringsInCategories = data;
-            console.log('$scope.stringsInCategories', $scope.stringsInCategories);
-        });
-    }]);
+            $http.post('/solmik/post', {"foo": "bar"}).success(function (data) {
+                $scope.foo = data.name.foo;
+            });
+
+            $http.post('/solmik/strings-in-categories', {}).success(function (data) {
+                $scope.stringsInCategories = data.result;
+//                $scope.stringsInCategories = [];
+
+
+//            $scope.stringsInCategories = JSON.parse('{' + data + '}');
+//                $scope.stringsInCategories = JSON.parse(data);
+//                $scope.stringsInCategories = JSON.parse(data.result);
+
+//                data = JSON.stringify(data);
+//                $scope.stringsInCategories = JSON.parse(data);
+
+//                $scope.stringsInCategories = data.result;
+//                for (var x in $scope.stringsInCategories) {
+//                    for ( var y in x) {
+////                        $scope.stringsInCategories.x.y = JSON.parse($scope.stringsInCategories.x.y);
+//                        $scope.stringsInCategories[x][y] = JSON.parse($scope.stringsInCategories[x][y]);
+////                        $scope.stringsInCategories[x].y = JSON.parse($scope.stringsInCategories[x].y);
+//                    }
+//                }
+
+
+
+
+//                for (var x in data.result) {
+//                    $scope.stringsInCategories.push(JSON.parse(data.result[x]));
+//                }
+
+                console.log('$scope.stringsInCategories: ', $scope.stringsInCategories);
+            });
+            $scope.getObjectData = function (theObject) {
+//                theObject = JSON.parse(theObject);
+//                var dataString = ""
+//                for (z in theObject) {
+//                    dataString += z;
+//                    dataString += '<br>';
+//                    dataString += theObject[z];
+//                    dataString += '<br>';
+//                }
+//                return dataString
+            }
+        }]);
 });
 
