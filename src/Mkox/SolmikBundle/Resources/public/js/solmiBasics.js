@@ -72,6 +72,19 @@ define([
             11: {'name': 'b', 'position': 11, 'half': 'u', 'signs': 5}, 12: {'name': 'h', 'position': 12, 'half': 'i', 'signs': 2}
         } // (Was first not in List: 4->dis/es)
     }; // 2: Des + cis; 9: As + gis
+    
+    function getSoundKeysArray() {
+        var soundKeys = [];
+        var mm = new Array('major', 'minor');
+        for (var i = 0; i < mm.length; i++) {
+            for (var soundkey in soundKeys2[mm[i]]) {
+                soundKeys.push(soundKeys2[mm[i]][soundkey]);
+            }
+        }
+        return soundKeys;
+    };
+    
+    var soundKeysArray = getSoundKeysArray();
 
     return {
         bPath: '/bundles/mkoxsolmik/', // bundle path in web folder
@@ -99,6 +112,7 @@ define([
         positionInSquare: {'n': 'center', 'u': 'center bottom', 'i': 'center top'},
         soundKeys: soundKeys, // //DEPRECIATED
         soundKeys2: soundKeys2,
+        soundKeysArray: soundKeysArray,
         startTimeOfPlay: 0, //0 since require.js
         currentTimeOfPlay: 0,
         positonsSharp: new Array(0, -3, 1, -2, -5),

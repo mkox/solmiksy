@@ -100,7 +100,37 @@
             <p>{% verbatim %}{{ x.name}}{% endverbatim %}</p>
         </div>#}
         <table class="table" id="solmi-strings" ng-repeat="category in stringsInCategories">
-            <tr><td>{% verbatim %}{{ category.name }}{% endverbatim %}</td></tr>
+            <tr><td>{% verbatim %}{{ category.name}}{% endverbatim %}</td></tr>
+            <tr>
+                <td>
+                    <ul ng-repeat="solmistring in category.solmistrings">
+                        <form name="solmik_solmistring_for_list" method="post" action="" class="solmistring-form-for-list">
+                            <div id="solmik_solmistring_for_list">
+                                <div>
+                                    <button type="button" id="solmik_solmistring_for_list_save" name="solmik_solmistring_for_list[save]" class="go">Go</button>
+                                </div>
+                                <div>
+                                    <select name="solmik_solmistring_for_list[soundKey]" id="solmik_solmistring_for_list_soundKey"
+                                            ng-options="option.name for option in soundKeysArray track by option.name"
+                                            get-sound-key ng-model="solmistring.soundKey"
+                                            >
+                                    </select>
+                                </div>
+                                <div>
+                                    <select  id="solmik_solmistring_for_list_baseScale" name="solmik_solmistring_for_list[baseScale]" class="scales"
+                                        ng-model="solmistring.baseScale" ng-options="n for n in [] | range:1:9">
+                                    </select>
+                                </div>
+                                <div>
+                                    <input type="text" id="solmik_solmistring_for_list_string" name="solmik_solmistring_for_list[string]" required="required" value="{% verbatim %}{{ solmistring.string}}{% endverbatim %}" />
+                                </div>
+                                <input type="hidden" id="solmik_solmistring_for_list__token" name="solmik_solmistring_for_list[_token]" value="EjVHBUxlpaV5usl1fMtk0NlFqb7R_FEIzKOWOS_22ko" />
+                            </div>
+                        </form>
+                        {% verbatim %}{{ solmistring.name}}{% endverbatim %}
+                    </ul>
+                </td>
+            </tr>
         </table>
 
     </section>
