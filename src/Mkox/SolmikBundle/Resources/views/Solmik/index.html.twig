@@ -159,6 +159,9 @@
                 </td>
             </tr>
         </table>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div id="solmik-authenticated" style="display:hidden;"></div>
+        {% endif %}
 
     </section>
 

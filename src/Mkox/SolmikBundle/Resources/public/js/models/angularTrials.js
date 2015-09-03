@@ -87,7 +87,11 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 $scope.foo = data.name.foo;
             });
 
-            $scope.loggedin = true;
+            $scope.loggedin = false;
+            console.log('angularTrials.js #solmik-authenticated', $('#solmik-authenticated'));
+            if($('#solmik-authenticated').length){
+                $scope.loggedin = true;
+            }
             $scope.soundKeysArray = sb.soundKeysArray;
             console.log('ngSolmik.controller $scope.soundKeysArray', $scope.soundKeysArray);
 //            $scope.soundKey = function (soundKeyName) {
