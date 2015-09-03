@@ -87,9 +87,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 $scope.foo = data.name.foo;
             });
 
-//            $scope.soundKeys = sb.soundKeys2['major'] + sb.soundKeys2['minor'];
-//            $scope.soundKeys = jQuery.extend({}, sb.soundKeys2['major'], sb.soundKeys2['minor']);
-//            $scope.soundKeys = jQuery.extend({}, sb.soundKeys2['major']);
+            $scope.loggedin = true;
             $scope.soundKeysArray = sb.soundKeysArray;
             console.log('ngSolmik.controller $scope.soundKeysArray', $scope.soundKeysArray);
 //            $scope.soundKey = function (soundKeyName) {

@@ -99,8 +99,24 @@
             <p>{{ '{{ x.name }} '}}</p>
             <p>{% verbatim %}{{ x.name}}{% endverbatim %}</p>
         </div>#}
+
+
+        <p class="categories-top">
+            <strong>Categories</strong>
+            <span ng-show="loggedin">- <a href="/solmik/category/create">Add new Category</a></span>
+        </p>
         <table class="table" id="solmi-strings" ng-repeat="category in stringsInCategories">
-            <tr><td>{% verbatim %}{{ category.name}}{% endverbatim %}</td></tr>
+            <tr>
+                <td>{% verbatim %}{{ category.name}}{% endverbatim %}
+                    <span ng-show="loggedin">
+                        <a href="/solmik/category/edit?id={% verbatim %}{{ category.id}}{% endverbatim %}">Edit</a>
+                        -
+                        <a href="/solmik/category/delete?id={% verbatim %}{{ category.id}}{% endverbatim %}">Delete</a>
+                        -
+                        <a href="/solmik/string/create?category_id={% verbatim %}{{ category.id}}{% endverbatim %}">Add string</a>
+                    </span>
+                </td>
+            </tr>
             <tr>
                 <td>
                     <ul ng-repeat="solmistring in category.solmistrings">
@@ -132,6 +148,12 @@
                                 <input type="hidden" id="solmik_solmistring_for_list__token" name="solmik_solmistring_for_list[_token]" value="EjVHBUxlpaV5usl1fMtk0NlFqb7R_FEIzKOWOS_22ko" />
                             </div>
                         </form>
+                        <span ng-show="loggedin">
+                            <a href="/solmik/string/edit?id={% verbatim %}{{ solmistring.id}}{% endverbatim %}">Edit</a>
+                            -
+                            <a href="/solmik/string/delete?id={% verbatim %}{{ solmistring.id}}{% endverbatim %}">Delete</a>
+                            - 
+                        </span>
                         {% verbatim %}{{ solmistring.name}}{% endverbatim %}
                     </ul>
                 </td>
