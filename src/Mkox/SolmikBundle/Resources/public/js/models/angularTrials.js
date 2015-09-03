@@ -13,15 +13,16 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
 //    
 //    return ngSolmik;
 
-    ngSolmik.filter('range', function () {
-        return function (input, min, max) {
-            min = parseInt(min); //Make string input int
-            max = parseInt(max);
-            for (var i = min; i < max; i++)
-                input.push(i);
-            return input;
-        };
-    });
+//    ngSolmik.filter('range', function () {
+//        return function (input, min, max) {
+//            min = parseInt(min); //Make string input int
+//            max = parseInt(max);
+//            for (var i = min; i <= max; i++)
+//                input.push(i);
+//            console.log('angularTrials.js filter range, input', input);
+//            return input;
+//        };
+//    });
 
     ngSolmik.directive('getSoundKey', function () {
 
@@ -52,10 +53,10 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
 //                });
 
                 ngModel.$formatters.push(function (value) {
-                    console.log('ngModel.$formatters value', value);
+//                    console.log('ngModel.$formatters value', value);
                     var selectedKey = {};
                     selectedKey.name = value;
-                    console.log('ngModel.$formatters selectedKey', selectedKey);
+//                    console.log('ngModel.$formatters selectedKey', selectedKey);
                     return selectedKey;
 
 //                    var fh = _.find(flughaefen, function (fh) {

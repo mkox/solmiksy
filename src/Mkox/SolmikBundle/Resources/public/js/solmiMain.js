@@ -35,7 +35,7 @@ define([
         }
     });
 
-    $('#solmi-strings form .go').click(function () {
+    $('body').on('click', '#solmi-strings form .go', function () {
         console.log('scalesCurrent after click go: ', sb.scalesCurrent);
 //        try {
         playCommon.prepareForPlay(this, 'standard');
