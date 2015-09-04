@@ -103,7 +103,11 @@
 
         <p class="categories-top">
             <strong>Categories</strong>
-            <span ng-show="loggedin">- <a href="/solmik/category/create">Add new Category</a></span>
+            <span ng-show="loggedin">
+                {#- <a href="/solmik/category/create">Add new Category</a>#}
+                - <a ng-click="formNewCategory()" href="">Add new Category</a>
+            </span>
+            <div ng-show="showFormNewCategory" ng-include="path.categoryNew"></div>
         </p>
         <table class="table" id="solmi-strings" ng-repeat="category in stringsInCategories">
             <tr>
