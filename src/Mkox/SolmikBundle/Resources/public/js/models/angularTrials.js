@@ -125,11 +125,13 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
 //                }
 //                return dataString
             };
-            $scope.solmikCategory = {
-                name : 'abc',
-                public : true,
+            var solmikCategory = {
+                name : '',
+                public : false,
                 save : ''
             };
+//            $scope.solmikCategory = solmikCategory;
+            $scope.solmikCategory = $.extend(true, {}, solmikCategory);
             $scope.saveCategoryNew = function () {
                 console.log('$scope.saveCategoryNew $scope.solmikCategory: ', $scope.solmikCategory);
                 $http.post('/solmik/category/create', {"solmik_category": $scope.solmikCategory}).success(function (data) {
@@ -137,6 +139,9 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                     $scope.stringsInCategories.push(JSON.parse(data.category));
                     console.log('$scope.saveCategoryNew success JSON.parse(data.category): ', JSON.parse(data.category));
                     console.log('$scope.stringsInCategories: ', $scope.stringsInCategories);
+                    console.log('saveCategoryNew -> solmikCategory: ', solmikCategory);
+                    $scope.solmikCategory = $.extend(true, {}, solmikCategory);
+                    $scope.showFormNewCategory = false;
                 });
             };
         }]);
