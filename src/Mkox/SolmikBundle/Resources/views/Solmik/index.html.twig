@@ -109,7 +109,7 @@
             </span>
             <div ng-show="showFormNewCategory" ng-include="path.categoryNew"></div>
         </p>
-        <table class="table" id="solmi-strings" ng-repeat="category in stringsInCategories">
+        <table class="table" id="solmi-strings" ng-repeat="category in stringsInCategories | orderBy:'name'">
             <tr>
                 <td>{% verbatim %}{{ category.name}}{% endverbatim %}
                     <span ng-show="loggedin">

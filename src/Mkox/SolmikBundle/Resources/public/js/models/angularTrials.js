@@ -134,8 +134,9 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 console.log('$scope.saveCategoryNew $scope.solmikCategory: ', $scope.solmikCategory);
                 $http.post('/solmik/category/create', {"solmik_category": $scope.solmikCategory}).success(function (data) {
 //                    $scope.stringsInCategories = data.result;
-
-                    console.log('$scope.saveCategoryNew success data: ', data);
+                    $scope.stringsInCategories.push(JSON.parse(data.category));
+                    console.log('$scope.saveCategoryNew success JSON.parse(data.category): ', JSON.parse(data.category));
+                    console.log('$scope.stringsInCategories: ', $scope.stringsInCategories);
                 });
             };
         }]);

@@ -7,6 +7,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Mkox\SolmikBundle\Form;
 use Mkox\SolmikBundle\Entity;
 
@@ -54,16 +58,21 @@ class CategoryController extends Controller {
             $this->em->persist($category);
             $this->em->flush();
             if ($isAjax) {
-                echo new Response(json_encode(array('data' => $this->getRequest()->request->all(), 'errors' => (string) $form->getErrors(true, false))));
-                exit;
+                $encoder = new JsonEncoder();
+                $normalizer = new ObjectNormalizer();
+                $normalizer->setCircularReferenceHandler(function ($category) {
+                    return $category->getId();
+                });
+                $serializer = new Serializer(array($normalizer), array($encoder));
+                $categoryJson = $serializer->serialize($category, 'json');
+                return new JsonResponse(array('category' => $categoryJson, 'errors' => (string) $form->getErrors(true, false)));
             } else {
                 return $this->redirectToRoute('solmik-start');
             }
         }
 //        }
         if ($isAjax) {
-            echo new Response(json_encode(array('data' => $this->getRequest()->request->all(), 'errors' => (string) $form->getErrors(true, false))));
-            exit;
+            return new Response(json_encode(array('category' => $this->getRequest()->request->all(), 'errors' => (string) $form->getErrors(true, false))));
         } else {
             return array('form' => $form->createView());
         }
