@@ -100,7 +100,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             $scope.formNewCategory = function () {
                 $scope.showFormNewCategory = true;
             };
-            
+
             $scope.formDeleteCategory = function (event, category) {
                 console.log('$scope.formDeleteCategory this', this);
                 console.log('$scope.formDeleteCategory event', event);
@@ -108,6 +108,24 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 $scope.category = category;
                 $(event.currentTarget).parents(".category").append($compile('<div ng-include="path.categoryDelete"></div>')($scope));
 
+            };
+//            $scope.deleteCategoryValue = 'start';
+            $scope.deleteCategory = function (event, categoryId) {
+                console.log('$scope.deleteCategory [event, categoryId]:', [event, categoryId]);
+                if (event.target.defaultValue === 'Yes') {
+                    $http.post('/solmik/category/delete', {"id": categoryId, "del": event.target.defaultValue}).success(function (data) {
+//                        console.log('$scope.deleteCategory success $scope.stringsInCategories 1: ', $scope.stringsInCategories);
+                        for (var key in $scope.stringsInCategories) {
+                            if ($scope.stringsInCategories[key].id === categoryId) {
+                                $scope.stringsInCategories.splice(key, 1);
+                                break;
+                            }
+                        }
+//                        console.log('$scope.deleteCategory success $scope.stringsInCategories 2: ', $scope.stringsInCategories);
+                    });
+                } else {
+                   $(event.currentTarget).parents(".delete-category").remove();
+                }
             };
 
             $scope.soundKeysArray = sb.soundKeysArray;
@@ -118,7 +136,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
 
                 console.log('$scope.stringsInCategories: ', $scope.stringsInCategories);
             });
-            $scope.getObjectData = function (theObject) {
+//            $scope.getObjectData = function (theObject) {
 //                theObject = JSON.parse(theObject);
 //                var dataString = ""
 //                for (z in theObject) {
@@ -128,7 +146,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
 //                    dataString += '<br>';
 //                }
 //                return dataString
-            };
+//            };
             var solmikCategory = {
                 name: '',
                 public: false,

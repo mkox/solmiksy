@@ -125,35 +125,45 @@ class CategoryController extends Controller {
             throw $this->createAccessDeniedException();
         }
 
-        $id = $request->query->get('id');
+        $isAjax = $request->isXmlHttpRequest();
+
+        if ($isAjax) {
+            $id = $request->request->get('id');
+        } else {
+            $id = $request->query->get('id');
+        }
         if (!$id) {
-            return $this->redirect()->toRoute('solmik');
+            if (!$isAjax) {
+                return $this->redirect()->toRoute('solmik');
+            } else {
+                return new Response(json_encode(array('message' => 'No id.', 'category' => $this->getRequest()->request->all())));
+            }
         }
 
-//dump($request->query->get('del'));
-//dump($request);
-//dump($request->request->get('del'));
-//exit;
-//        $request = $this->getRequest();
         if ($request->request->get('del')) {
-//            $del = $request->getPost('del', 'No');
             $del = $request->request->get('del');
 
             if ($del == 'Yes') {
-//                $id = (int) $request->getPost('id');
                 $this->em = $this->getDoctrine()->getManager();
                 $this->em->remove($this->em->find('MkoxSolmikBundle:Category', $id));
                 $this->em->flush();
+                if ($isAjax) {
+                    return new Response(json_encode(array('message' => 'Category deleted.', 'category' => $this->getRequest()->request->all())));
+                }
             }
-
-            return $this->redirectToRoute('solmik-start');
+            if (!$isAjax) {
+                return $this->redirectToRoute('solmik-start');
+            }
         }
 
-        return array(
-            'id' => $id,
-//            'category' => $this->em->find('MkoxSolmikBundle:Category', $id)
-            'category' => $this->getDoctrine()->getRepository('MkoxSolmikBundle:Category')->find($id)
-        );
+        if (!$isAjax) {
+            return array(
+                'id' => $id,
+                'category' => $this->getDoctrine()->getRepository('MkoxSolmikBundle:Category')->find($id)
+            );
+        } else {
+            return new Response(json_encode(array('message' => 'No deletion.', 'category' => $this->getRequest()->request->all())));
+        }
     }
 
 //    protected function attachDefaultListeners() {
