@@ -76,7 +76,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
         };
     });
 
-    return ngSolmik.controller('test2Ctrl', ['$scope', '$http', function ($scope, $http) {
+    return ngSolmik.controller('test2Ctrl', ['$scope', '$http', '$compile', '$sce', function ($scope, $http, $compile, $sce) {
 //    return ngSolmik.controller('test2Ctrl', function ($scope) {
 
             $http.get('/solmik/hello2/you').success(function (data) {
@@ -93,22 +93,26 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 $scope.loggedin = true;
             }
             $scope.path = {
-                categoryNew: sb.bPath + 'partials/categoryNew.html'
+                categoryNew: sb.bPath + 'partials/categoryNew.html',
+                categoryDelete: sb.bPath + 'partials/categoryDelete.html'
             };
             $scope.showFormNewCategory = false;
             $scope.formNewCategory = function () {
                 $scope.showFormNewCategory = true;
             };
+            
+            $scope.formDeleteCategory = function (event, category) {
+                console.log('$scope.formDeleteCategory this', this);
+                console.log('$scope.formDeleteCategory event', event);
+                console.log('$scope.formDeleteCategory category', category);
+                $scope.category = category;
+                $(event.currentTarget).parents(".category").append($compile('<div ng-include="path.categoryDelete"></div>')($scope));
+
+            };
+
             $scope.soundKeysArray = sb.soundKeysArray;
             console.log('ngSolmik.controller $scope.soundKeysArray', $scope.soundKeysArray);
-//            $scope.soundKey = function (soundKeyName) {
-//                for (var soundKey in $scope.soundKeys) {
-//                    if (soundKey.name === soundKeyName) {
-//                        return soundKey;
-//                    }
-//                }
-//            }
-            console.log('$scope.soundKeys: ', $scope.soundKeys);
+
             $http.post('/solmik/strings-in-categories', {}).success(function (data) {
                 $scope.stringsInCategories = data.result;
 
@@ -126,9 +130,9 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
 //                return dataString
             };
             var solmikCategory = {
-                name : '',
-                public : false,
-                save : ''
+                name: '',
+                public: false,
+                save: ''
             };
 //            $scope.solmikCategory = solmikCategory;
             $scope.solmikCategory = $.extend(true, {}, solmikCategory);

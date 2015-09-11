@@ -1,68 +1,78 @@
-define(["jquery", "underscore", "angular"], function ($, _, angular) {
-//define(["jquery", "underscore", "angular", 'models/angularTrials'], function ($, _, ng) {
-//define(["jquery", "underscore", "angular", "ngResource", "ngRoute"], function ($, _, ng, ngRoute) {
-//alert('angularTrials.js is reached');
+define(["jquery", "underscore", "solmiBasics", "angular", "uiRouter"], function ($, _, sb, angular) {
 
-    var app = angular.module('ngSolmik', [], ['$httpProvider', function ($httpProvider)
-    {
+    var app = angular.module('ngSolmik', ['ui.router'], ['$httpProvider', function ($httpProvider)
+        {
 
-        // Use x-www-form-urlencoded Content-Type
-        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+            // Use x-www-form-urlencoded Content-Type
+            $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
-        // Override $http service's default transformRequest
-        $httpProvider.defaults.transformRequest = [function (data)
-            {
-                /**
-                 * The workhorse; converts an object to x-www-form-urlencoded serialization.
-                 * @param {Object} obj
-                 * @return {String}
-                 */
-                var param = function (obj)
+            // Override $http service's default transformRequest
+            $httpProvider.defaults.transformRequest = [function (data)
                 {
-                    var query = '';
-                    var name, value, fullSubName, subName, subValue, innerObj, i;
-
-                    for (name in obj)
+                    /**
+                     * The workhorse; converts an object to x-www-form-urlencoded serialization.
+                     * @param {Object} obj
+                     * @return {String}
+                     */
+                    var param = function (obj)
                     {
-                        value = obj[name];
+                        var query = '';
+                        var name, value, fullSubName, subName, subValue, innerObj, i;
 
-                        if (value instanceof Array)
+                        for (name in obj)
                         {
-                            for (i = 0; i < value.length; ++i)
+                            value = obj[name];
+
+                            if (value instanceof Array)
                             {
-                                subValue = value[i];
-                                fullSubName = name + '[' + i + ']';
-                                innerObj = {};
-                                innerObj[fullSubName] = subValue;
-                                query += param(innerObj) + '&';
+                                for (i = 0; i < value.length; ++i)
+                                {
+                                    subValue = value[i];
+                                    fullSubName = name + '[' + i + ']';
+                                    innerObj = {};
+                                    innerObj[fullSubName] = subValue;
+                                    query += param(innerObj) + '&';
+                                }
+                            }
+                            else if (value instanceof Object)
+                            {
+                                for (subName in value)
+                                {
+                                    subValue = value[subName];
+                                    fullSubName = name + '[' + subName + ']';
+                                    innerObj = {};
+                                    innerObj[fullSubName] = subValue;
+                                    query += param(innerObj) + '&';
+                                }
+                            }
+                            else if (value !== undefined && value !== null)
+                            {
+                                query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
                             }
                         }
-                        else if (value instanceof Object)
-                        {
-                            for (subName in value)
-                            {
-                                subValue = value[subName];
-                                fullSubName = name + '[' + subName + ']';
-                                innerObj = {};
-                                innerObj[fullSubName] = subValue;
-                                query += param(innerObj) + '&';
-                            }
-                        }
-                        else if (value !== undefined && value !== null)
-                        {
-                            query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
-                        }
-                    }
 
-                    return query.length ? query.substr(0, query.length - 1) : query;
-                };
+                        return query.length ? query.substr(0, query.length - 1) : query;
+                    };
 
-                return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
-            }];
-    }]);
+                    return angular.isObject(data) && String(data) !== '[object File]' ? param(data) : data;
+                }];
+        }]);
 
-    app.config(['$httpProvider', function ($httpProvider) {
+//    app.config(['$httpProvider', '$sceProvider', function ($httpProvider, $sceProvider) {
+    app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$sceProvider', function ($httpProvider, $stateProvider, $urlRouterProvider, $sceProvider) {
             $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+//            $sceProvider.enabled(false);  // Does not work.
+
+//            $stateProvider.state('categoryDelete', {
+//                url: '/category/delete/:cid',
+//                templateUrl: sb.bPath + 'partials/categoryDelete.html',
+//                controller: function($scope, $stateParams, $compile){
+//                    console.log('$stateProvider categoryDelete controller [$scope, $stateParams]', [$scope, $stateParams]);
+//                    $('.cat-and-strings-' + $stateParams.cid + ' .category').append($compile('<div ui-view></div>')($scope));
+//                    $scope.category = {};
+//                    $scope.category.id = $stateParams.cid;
+//                }
+//            });
         }]);
 
     return app;

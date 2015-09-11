@@ -3,7 +3,6 @@ define([
     "angular",
 //    "libs/angular/postfix",
     "ngSolmik",
-//    "ngRoute",
     'models/angularTrials',
     "audiosynth",
 //    "tuner",
