@@ -114,7 +114,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             $scope.deleteCategory = function (event, categoryId) {
                 console.log('$scope.deleteCategory [event, categoryId]:', [event, categoryId]);
                 if (event.target.defaultValue === 'Yes') {
-                    $http.post('/solmik/category/delete', {"id": categoryId, "del": event.target.defaultValue}).success(function (data) {
+                    $http.post('/solmik/category/delete?id=' + categoryId, {"del": event.target.defaultValue}).success(function (data) {
 //                        console.log('$scope.deleteCategory success $scope.stringsInCategories 1: ', $scope.stringsInCategories);
                         for (var key in $scope.stringsInCategories) {
                             if ($scope.stringsInCategories[key].id === categoryId) {

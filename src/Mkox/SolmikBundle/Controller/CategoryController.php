@@ -86,13 +86,13 @@ class CategoryController extends Controller {
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createAccessDeniedException();
         }
-        
+
         $isAjax = $request->isXmlHttpRequest();
 
 //        if ($isAjax) {
 //            $id = $request->request->get('id');
 //        } else {
-            $id = $request->query->get('id');
+        $id = $request->query->get('id');
 //        }
 
         $category = $this->getDoctrine()
@@ -110,8 +110,7 @@ class CategoryController extends Controller {
             } else {
                 return $this->redirectToRoute('solmik-start');
             }
-        } 
-        else {
+        } else {
             if ($isAjax) {
                 return new Response(json_encode(array('message' => 'Category form is NOT valid.', 'category' => $this->getRequest()->request->all(), 'errors' => (string) $form->getErrors(true, false))));
             }
@@ -135,11 +134,8 @@ class CategoryController extends Controller {
 
         $isAjax = $request->isXmlHttpRequest();
 
-        if ($isAjax) {
-            $id = $request->request->get('id');
-        } else {
-            $id = $request->query->get('id');
-        }
+        $id = $request->query->get('id');
+
         if (!$id) {
             if (!$isAjax) {
                 return $this->redirect()->toRoute('solmik');
