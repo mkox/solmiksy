@@ -94,7 +94,8 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             }
             $scope.path = {
                 categoryNew: sb.bPath + 'partials/categoryNew.html',
-                categoryDelete: sb.bPath + 'partials/categoryDelete.html'
+                categoryDelete: sb.bPath + 'partials/categoryDelete.html',
+                categoryEdit: sb.bPath + 'partials/categoryEdit.html'
             };
             $scope.showFormNewCategory = false;
             $scope.formNewCategory = function () {
@@ -124,8 +125,31 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
 //                        console.log('$scope.deleteCategory success $scope.stringsInCategories 2: ', $scope.stringsInCategories);
                     });
                 } else {
-                   $(event.currentTarget).parents(".delete-category").remove();
+                    $(event.currentTarget).parents(".delete-category").remove();
                 }
+            };
+            $scope.formEditCategory = function (event, category) {
+                console.log('$scope.formDeleteCategory this', this);
+                console.log('$scope.formDeleteCategory event', event);
+                console.log('$scope.formDeleteCategory category', category);
+                $scope.category = category;
+                $(event.currentTarget).parents(".category").append($compile('<div ng-include="path.categoryEdit"></div>')($scope));
+
+            };
+            $scope.editCategory = function (event, category) {
+                console.log('$scope.editCategory [event, category]:', [event, category]);
+                var category2 = $.extend(true, {}, category);
+                delete category2.$$hashKey;
+                delete category2.id;
+
+                $http.post('/solmik/category/edit?id=' + category.id, {"solmik_category": category2})
+                        .then(function (data) {
+                            console.log('$scope.editCategory success $scope.stringsInCategories 1: ', $scope.stringsInCategories);
+                            $(event.currentTarget).remove();
+                        })
+                        .catch(function (error) {
+                            console.log('$scope.editCategory catch error: ', error);
+                        });
             };
 
             $scope.soundKeysArray = sb.soundKeysArray;

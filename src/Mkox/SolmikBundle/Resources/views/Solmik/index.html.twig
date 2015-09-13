@@ -113,7 +113,7 @@
         <div class="cat-and-strings cat-and-strings-{% verbatim %}{{ category.id}}{% endverbatim %}">
             <div class="category">{% verbatim %}{{ category.name}}{% endverbatim %}
                 <span ng-show="loggedin">
-                    <a href="/solmik/category/edit?id={% verbatim %}{{ category.id}}{% endverbatim %}">Edit</a>
+                    <a href=""ng-click="formEditCategory($event, category)">Edit</a>
                     -
                     <a href="" ng-click="formDeleteCategory($event, category)">Delete</a>
                     {#<a href="" ui-sref="/category/delete/{% verbatim %}{{ category.id}}{% endverbatim %}">Delete</a>#}

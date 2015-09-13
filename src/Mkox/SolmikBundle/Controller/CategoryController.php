@@ -86,34 +86,42 @@ class CategoryController extends Controller {
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createAccessDeniedException();
         }
+        
+        $isAjax = $request->isXmlHttpRequest();
 
-//        $id = (int) $this->params()->fromRoute('id', 0);
-        $id = $request->query->get('id');
-
-        // Create the form and inject the EntityManager
-//        $form = new Form\UpdateCategoryForm($this->em);
-//        $category = $this->em->find('Solmik\Entity\Category', $id);
-//        $form->bind($category);
+//        if ($isAjax) {
+//            $id = $request->request->get('id');
+//        } else {
+            $id = $request->query->get('id');
+//        }
 
         $category = $this->getDoctrine()
                 ->getRepository('MkoxSolmikBundle:Category')
                 ->find($id);
         $form = $this->createForm(new Form\Type\CategoryType(), $category);
-
         $form->handleRequest($request);
-
-//        if ($this->request->isPost()) {
-//            $form->setData($this->request->getPost());
 
         if ($form->isValid()) {
             // Save the changes
             $this->em = $this->getDoctrine()->getManager();
             $this->em->flush();
-            return $this->redirectToRoute('solmik-start');
+            if ($isAjax) {
+                return new Response(json_encode(array('message' => 'Category is edited.', 'category' => $this->getRequest()->request->all())));
+            } else {
+                return $this->redirectToRoute('solmik-start');
+            }
+        } 
+        else {
+            if ($isAjax) {
+                return new Response(json_encode(array('message' => 'Category form is NOT valid.', 'category' => $this->getRequest()->request->all(), 'errors' => (string) $form->getErrors(true, false))));
+            }
         }
-//        }
 
-        return array('form' => $form->createView());
+        if ($isAjax) {
+            return new Response(json_encode(array('message' => 'Category is NOT edited.', 'category' => $this->getRequest()->request->all(), 'errors' => (string) $form->getErrors(true, false))));
+        } else {
+            return array('form' => $form->createView());
+        }
     }
 
     /**
