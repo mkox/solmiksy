@@ -29,6 +29,9 @@ class SolmistringController extends Controller {
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createAccessDeniedException();
         }
+//        print_r($this->getRequest()->request->all());
+//        exit;
+        $isAjax = $request->isXmlHttpRequest();
         
         $solmistring = new Entity\Solmistring();
         $form = $this->createForm(new Form\Type\SolmistringType(), $solmistring);
@@ -42,11 +45,25 @@ class SolmistringController extends Controller {
                 $this->em = $this->getDoctrine()->getManager();
                 $this->em->persist($solmistring);
                 $this->em->flush();
-                return $this->redirectToRoute('solmik-start');
+                if($isAjax){
+                    $encoder = new JsonEncoder();
+                    $normalizer = new ObjectNormalizer();
+                    $normalizer->setCircularReferenceHandler(function ($solmistring) {
+                        return $solmistring->getId();
+                    });
+                    $serializer = new Serializer(array($normalizer), array($encoder));
+                    $solmistringJson = $serializer->serialize($category, 'json');
+                    return new Response(json_encode(array('message' => 'Solmistring is created.', 'solmistring' => $solmistringJson, 'requestDataOriginal' => $this->getRequest()->request->all())));
+                } else {
+                    return $this->redirectToRoute('solmik-start');
+                }
             }
 //        }
-
-        return array('form' => $form->createView());
+        if($isAjax){
+            return new Response(json_encode(array('message' => 'Solmistring form is NOT created.', 'requestDataOriginal' => $this->getRequest()->request->all(), 'errors' => (string) $form->getErrors(true, false))));
+        } else {
+            return array('form' => $form->createView());
+        }
     }
 
     /**

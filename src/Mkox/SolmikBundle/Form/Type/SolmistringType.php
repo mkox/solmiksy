@@ -55,6 +55,7 @@ class SolmistringType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Mkox\SolmikBundle\Entity\Solmistring',
+            'csrf_protection' => false
         ));
     }
 
