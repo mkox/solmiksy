@@ -119,7 +119,7 @@
                     {#<a href="" ui-sref="/category/delete/{% verbatim %}{{ category.id}}{% endverbatim %}">Delete</a>#}
                     {#<a href="" ui-sref="categoryDelete({% verbatim %}{cid: {{ category.id}}}{% endverbatim %})">Delete</a>#}
                     -
-                    <a href="/solmik/string/create?category_id={% verbatim %}{{ category.id}}{% endverbatim %}">Add string</a>
+                    <a href="" ng-click="formNewString($event, category, soundKeysArray)">Add string</a>
                 </span>
             </div>
         
@@ -142,7 +142,7 @@
                                 {#<select  id="solmik_solmistring_for_list_baseScale" name="solmik_solmistring_for_list[baseScale]" class="scales"
                                          ng-model="solmistring.baseScale" ng-options="n for n in [] | range:1:9">
                                 </select>#}
-                                <input type="number" name="input" ng-model="solmistring.baseScale"
+                                <input type="number" ng-model="solmistring.baseScale"
                                        min="1" max="9" required
                                        id="solmik_solmistring_for_list_baseScale" name="solmik_solmistring_for_list[baseScale]" class="scales"
                                        >

@@ -76,7 +76,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
         };
     });
 
-    return ngSolmik.controller('test2Ctrl', ['$scope', '$http', '$compile', '$sce', function ($scope, $http, $compile, $sce) {
+    return ngSolmik.controller('test2Ctrl', ['$scope', '$rootScope', '$http', '$compile', '$sce', function ($scope, $rootScope, $http, $compile, $sce) {
 //    return ngSolmik.controller('test2Ctrl', function ($scope) {
 
             $http.get('/solmik/hello2/you').success(function (data) {
@@ -95,7 +95,8 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             $scope.path = {
                 categoryNew: sb.bPath + 'partials/categoryNew.html',
                 categoryDelete: sb.bPath + 'partials/categoryDelete.html',
-                categoryEdit: sb.bPath + 'partials/categoryEdit.html'
+                categoryEdit: sb.bPath + 'partials/categoryEdit.html',
+                stringNew: sb.bPath + 'partials/stringNew.html'
             };
             $scope.showFormNewCategory = false;
             $scope.formNewCategory = function () {
@@ -150,6 +151,17 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                         .catch(function (error) {
                             console.log('$scope.editCategory catch error: ', error);
                         });
+            };
+            
+            $scope.formNewString = function (event, category) {
+//                console.log('$scope.formNewString this', this);
+//                console.log('$scope.formNewString event', event);
+//                console.log('$scope.formNewString category', category);
+                $scope.standardSoundKeyForNewString = JSON.parse('{"name": "C"}');
+                $scope.categoriesForNewScope = [];
+                $scope.categoriesForNewScope.push(category);
+                $(event.currentTarget).parents(".category").append($compile('<div ng-include="path.stringNew"></div>')($scope));
+
             };
 
             $scope.soundKeysArray = sb.soundKeysArray;
