@@ -168,30 +168,35 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 $(event.currentTarget).parents(".category").append($compile('<div ng-include="path.stringNew"></div>')($scope));
 
             };
-            
+
             $scope.saveNewString = function (event, category) {
                 console.log('$scope.saveNewString [event, category, $scope.string]: ', [event, category, $scope.string]);
                 event.preventDefault();
-                var string2 = $.extend(true, {}, category);
+                var string2 = $.extend(true, {}, $scope.string);
+                string2.soundKey = $scope.string.soundKey.name;
                 var selectedCategories = string2.categories;
                 string2.categories = [];
-                for (var key in selectedCategories){
+                for (var key in selectedCategories) {
                     string2.categories.push(selectedCategories[key].id);
                 }
                 console.log('$scope.saveNewString $scope.solmikCategory: ', $scope.solmikCategory);
-                $http.post('/solmik/string/create?category_id=' + category.id, {"solmik_solmistring": $scope.string}).then(function (data) {
-                    console.log('$scope.saveNewString catch then data: ', data);
-////                    $scope.stringsInCategories = data.result;
-//                    $scope.stringsInCategories.push(JSON.parse(data.category));
-//                    console.log('$scope.saveCategoryNew success JSON.parse(data.category): ', JSON.parse(data.category));
-//                    console.log('$scope.stringsInCategories: ', $scope.stringsInCategories);
-//                    console.log('saveCategoryNew -> solmikCategory: ', solmikCategory);
-//                    $scope.solmikCategory = $.extend(true, {}, solmikCategory);
-//                    $scope.showFormNewCategory = false;
-                })
-                .catch(function (error) {
-                    console.log('$scope.saveNewString catch error: ', error);
-                });
+                $http.post('/solmik/string/create?category_id=' + category.id, {"solmik_solmistring": string2})
+                        .then(function (data) {
+                            console.log('$scope.saveNewString catch then data: ', data);
+                            for (var i = 0; i < string2.categories.length; i++) {
+                                for (var key in $scope.stringsInCategories) {
+                                    if ($scope.stringsInCategories[key].id === string2.categories[i]) {
+                                        $scope.stringsInCategories[key].solmistrings.push(string2);
+                                        break;
+                                    }
+                                }
+
+                            }
+                            $(event.target).remove();
+                        })
+                        .catch(function (error) {
+                            console.log('$scope.saveNewString catch error: ', error);
+                        });
             };
 
             $scope.soundKeysArray = sb.soundKeysArray;

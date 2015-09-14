@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Mkox\SolmikBundle\Form;
 use Mkox\SolmikBundle\Entity;
 
@@ -52,7 +56,7 @@ class SolmistringController extends Controller {
                         return $solmistring->getId();
                     });
                     $serializer = new Serializer(array($normalizer), array($encoder));
-                    $solmistringJson = $serializer->serialize($category, 'json');
+                    $solmistringJson = $serializer->serialize($solmistring, 'json');
                     return new Response(json_encode(array('message' => 'Solmistring is created.', 'solmistring' => $solmistringJson, 'requestDataOriginal' => $this->getRequest()->request->all())));
                 } else {
                     return $this->redirectToRoute('solmik-start');
