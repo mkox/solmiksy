@@ -124,7 +124,7 @@
             </div>
         
             <div class="solmistrings">
-                <ul ng-repeat="solmistring in category.solmistrings">
+                <ul ng-repeat="solmistring in category.solmistrings | orderBy:'name'">
                     <form name="solmik_solmistring_for_list" method="post" action="" class="solmistring-form-for-list">
                         <div id="solmik_solmistring_for_list">
                             <div>
