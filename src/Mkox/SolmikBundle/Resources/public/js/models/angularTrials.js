@@ -31,13 +31,13 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
 
     return ngSolmik.controller('test2Ctrl', ['$scope', '$rootScope', '$http', '$compile', '$sce', '$log', function ($scope, $rootScope, $http, $compile, $sce, $log) {
 
-            $http.get('/solmik/hello2/you').success(function (data) {
-                $scope.name = data.name;
-            });
-
-            $http.post('/solmik/post', {"foo": "bar"}).success(function (data) {
-                $scope.foo = data.name.foo;
-            });
+//            $http.get('/solmik/hello2/you').success(function (data) {
+//                $scope.name = data.name;
+//            });
+//
+//            $http.post('/solmik/post', {"foo": "bar"}).success(function (data) {
+//                $scope.foo = data.name.foo;
+//            });
 
             $scope.loggedin = false;
             $log.debug('angularTrials.js #solmik-authenticated', $('#solmik-authenticated'));
