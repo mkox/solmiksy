@@ -105,7 +105,7 @@
                     <a href="" ng-click="formNewString($event, category)">Add string</a>
                 </span>
             </div>
-        
+
             <ul class="solmistrings">
                 <li class="solmistring" ng-repeat="solmistring in category.solmistrings | orderBy:'name'">
                     <form name="solmik_solmistring_for_list" method="post" action="" class="solmistring-form-for-list">
@@ -154,51 +154,52 @@
 
 </section>
 
+{% if not showOnlyAngularForms %}
+    <section id="categories">
+        <p class="categories-top">
+            <strong>Categories</strong>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                - <a href="{{ path('solmik-category-create') }}">Add new Category</a>
+            {% endif %}
+        </p>
+        <table class="table" id="solmi-strings">
+            {% for cKey, category in categories %}
+                <tr>
+                    <td>{{ category.getName() }}
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <a href="{{ path('solmik-category-edit', {'id' : category.getId()}) }}">Edit</a> - 
+                            <a href="{{ path('solmik-category-delete', {'id' : category.getId()}) }}">Delete</a> - 
+                            <a href="{{ path('solmik-string-create', {'category_id' : category.getId()}) }}">Add string</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {% if stringForms[cKey] %}
+                            <ul>
+                                {% set solmistrings = category.getSolmistrings() %}
+                                {% for sF in stringForms[cKey] %}
+                                    {% set j = loop.index0 %}
+                                    <li>
+                                        {% set stringForm = stringForms[cKey][j] %}
 
-<section id="categories">
-    <p class="categories-top">
-        <strong>Categories</strong>
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            - <a href="{{ path('solmik-category-create') }}">Add new Category</a>
-        {% endif %}
-    </p>
-    <table class="table" id="solmi-strings">
-        {% for cKey, category in categories %}
-            <tr>
-                <td>{{ category.getName() }}
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a href="{{ path('solmik-category-edit', {'id' : category.getId()}) }}">Edit</a> - 
-                        <a href="{{ path('solmik-category-delete', {'id' : category.getId()}) }}">Delete</a> - 
-                        <a href="{{ path('solmik-string-create', {'category_id' : category.getId()}) }}">Add string</a>
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {% if stringForms[cKey] %}
-                        <ul>
-                            {% set solmistrings = category.getSolmistrings() %}
-                            {% for sF in stringForms[cKey] %}
-                                {% set j = loop.index0 %}
-                                <li>
-                                    {% set stringForm = stringForms[cKey][j] %}
-
-                                    {{ form_start(stringForm, { 'attr': { 'class': 'solmistring-form-for-list' }}) }}
-                                    {{ form_widget(stringForm) }}
-                                    {{ form_end(stringForm) }}
-                                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                        <a href="{{ path('solmik-string-edit', {'id' : solmistrings[j].getId()}) }}">Edit</a> - 
-                                        <a href="{{ path('solmik-string-delete', {'id' : solmistrings[j].getId()}) }}">Delete</a>
-                                        - 
-                                    {% endif %}
-                                    {{ solmistrings[j].getName() }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-</section>
+                                        {{ form_start(stringForm, { 'attr': { 'class': 'solmistring-form-for-list' }}) }}
+                                        {{ form_widget(stringForm) }}
+                                        {{ form_end(stringForm) }}
+                                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                            <a href="{{ path('solmik-string-edit', {'id' : solmistrings[j].getId()}) }}">Edit</a> - 
+                                            <a href="{{ path('solmik-string-delete', {'id' : solmistrings[j].getId()}) }}">Delete</a>
+                                            - 
+                                        {% endif %}
+                                        {{ solmistrings[j].getName() }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+{% endif %}
 {% endblock %}

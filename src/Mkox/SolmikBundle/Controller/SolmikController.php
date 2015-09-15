@@ -19,36 +19,29 @@ class SolmikController extends Controller {
      * @Template()
      */
     public function indexAction() {
-
-//        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-//        $repository = $objectManager->getRepository('Solmik\Entity\Category');
-//        $categoriesList = $repository->findBy(array(), array('name' => 'ASC'));
+        
+        $showOnlyAngularForms = true;
 
         $categoriesList = $this->getDoctrine()
                 ->getRepository('MkoxSolmikBundle:Category')
                 ->findBy(array(), array('name' => 'ASC'));
 
         $stringForms = array();
-//        var_dump($categoriesList);
-//        exit();
+
         for ($i = 0; $i < count($categoriesList); $i++) {
 
             $solmistrings = $categoriesList[$i]->getSolmistrings();
-//            var_dump($solmistrings);
-//        exit();
+
             if ($solmistrings) {
 
                 $stringForms[$i] = array();
                 for ($j = 0; $j < count($solmistrings); $j++) {
-//var_dump($solmistrings[$j]);
-//        exit();
+
 //                    $stringForm = new Form\SolmistringFormForList($objectManager);
 //                    $stringForms[$i][] = $stringForm->bind($solmistrings[$j]);
 
                     $stringForms[$i][] = $this->createForm(new Form\Type\SolmistringForListType(), $solmistrings[$j])->createView();
 //                    $stringForms[$i][] = $this->createForm(new Form\Type\SolmistringForListType());
-//var_dump($solmistrings[$j]);
-//        exit();
                 }
             }
         }
@@ -62,7 +55,8 @@ class SolmikController extends Controller {
         return array(
 //            'form' => $form->createView(),
             'categories' => $categoriesList,
-            'stringForms' => $stringForms
+            'stringForms' => $stringForms,
+            'showOnlyAngularForms' => $showOnlyAngularForms
         );
     }
 
