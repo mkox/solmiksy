@@ -106,6 +106,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             };
 
             $scope.formDeleteCategory = function (event, category) {
+                removeOpenForms();
                 $log.debug('$scope.formDeleteCategory this', this);
                 $log.debug('$scope.formDeleteCategory event', event);
                 $log.debug('$scope.formDeleteCategory category', category);
@@ -132,6 +133,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 }
             };
             $scope.formEditCategory = function (event, category) {
+                removeOpenForms();
                 $log.debug('$scope.formDeleteCategory this', this);
                 $log.debug('$scope.formDeleteCategory event', event);
                 $log.debug('$scope.formDeleteCategory category', category);
@@ -156,6 +158,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             };
 
             $scope.formNewString = function (event, category) {
+                removeOpenForms();
 //                $log.debug('$scope.formNewString this', this);
 //                $log.debug('$scope.formNewString event', event);
 //                $log.debug('$scope.formNewString category', category);
@@ -202,6 +205,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             };
 
             $scope.formEditString = function (event, solmistring) {
+                removeOpenForms();
                 $log.debug('$scope.formEditString event', event);
                 $scope.string = $.extend(true, {}, solmistring);
                 $log.debug('$scope.formEditString $scope.string 1', $scope.string);
@@ -289,6 +293,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             };
 
             $scope.formDeleteString = function (event, solmistring) {
+                removeOpenForms();
                 $log.debug('$scope.formDeleteString this', this);
                 $log.debug('$scope.formDeleteString event', event);
                 $log.debug('$scope.formDeleteString solmistring', solmistring);
@@ -360,6 +365,11 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                     $scope.solmikCategory = $.extend(true, {}, solmikCategory);
                     $scope.showFormNewCategory = false;
                 });
+            };
+            var removeOpenForms = function(){
+                $('.remove-open-form').remove();
+                $scope.solmikCategory = $.extend(true, {}, solmikCategory);
+                $scope.showFormNewCategory = false;
             };
         }]);
 });
