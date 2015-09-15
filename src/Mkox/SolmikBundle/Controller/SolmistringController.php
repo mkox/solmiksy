@@ -79,6 +79,8 @@ class SolmistringController extends Controller {
             throw $this->createAccessDeniedException();
         }
         
+        $isAjax = $request->isXmlHttpRequest();
+        
         $id = $request->query->get('id');
         
         $solmistring = $this->getDoctrine()
@@ -95,11 +97,26 @@ class SolmistringController extends Controller {
                 // Save the changes
                 $this->em = $this->getDoctrine()->getManager();
                 $this->em->flush();
-                return $this->redirectToRoute('solmik-start');
+                if($isAjax){
+                    $encoder = new JsonEncoder();
+                    $normalizer = new ObjectNormalizer();
+                    $normalizer->setCircularReferenceHandler(function ($solmistring) {
+                        return $solmistring->getId();
+                    });
+                    $serializer = new Serializer(array($normalizer), array($encoder));
+                    $solmistringJson = $serializer->serialize($solmistring, 'json');
+                    return new Response(json_encode(array('message' => 'Solmistring is created.', 'solmistring' => $solmistringJson, 'requestDataOriginal' => $this->getRequest()->request->all())));
+                } else {
+                    return $this->redirectToRoute('solmik-start');
+                }
             }
 //        }
 
-        return array('form' => $form->createView());
+        if($isAjax){
+            return new Response(json_encode(array('message' => 'Solmistring form is NOT edited.', 'requestDataOriginal' => $this->getRequest()->request->all(), 'errors' => (string) $form->getErrors(true, false))));
+        } else {
+            return array('form' => $form->createView());
+        }
     }
 
     /**

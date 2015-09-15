@@ -76,7 +76,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
         };
     });
 
-    return ngSolmik.controller('test2Ctrl', ['$scope', '$rootScope', '$http', '$compile', '$sce', function ($scope, $rootScope, $http, $compile, $sce) {
+    return ngSolmik.controller('test2Ctrl', ['$scope', '$rootScope', '$http', '$compile', '$sce', '$log', function ($scope, $rootScope, $http, $compile, $sce, $log) {
 //    return ngSolmik.controller('test2Ctrl', function ($scope) {
 
             $http.get('/solmik/hello2/you').success(function (data) {
@@ -96,7 +96,8 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 categoryNew: sb.bPath + 'partials/categoryNew.html',
                 categoryDelete: sb.bPath + 'partials/categoryDelete.html',
                 categoryEdit: sb.bPath + 'partials/categoryEdit.html',
-                stringNew: sb.bPath + 'partials/stringNew.html'
+                stringNew: sb.bPath + 'partials/stringNew.html',
+                stringEdit: sb.bPath + 'partials/stringEdit.html'
             };
             $scope.showFormNewCategory = false;
             $scope.formNewCategory = function () {
@@ -199,13 +200,100 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                         });
             };
 
+            $scope.formEditString = function (event, solmistring) {
+                $log.debug('$scope.formEditString event', event);
+                $scope.string = $.extend(true, {}, solmistring);
+                $log.debug('$scope.formEditString $scope.string 1', $scope.string);
+                $scope.string.soundKey = JSON.parse('{"name": "' + $scope.string.soundKey + '"}');
+                $scope.originalCategoryIdsOfString = $scope.string.categories;
+                var categoriesForEditForm = [];
+                for (var key in solmistring.categories) {
+                    categoriesForEditForm.push(_.find($scope.stringsInCategories, function (c) {
+                        return c.id === solmistring.categories[key];
+                    }));
+                }
+                $scope.string.categories = categoriesForEditForm;
+                $log.debug('$scope.formEditString $scope.string 2', $scope.string);
+
+                $(event.currentTarget).parents(".solmistring").append($compile('<div ng-include="path.stringEdit"></div>')($scope));
+
+            };
+
+            $scope.saveEditString = function (event) {
+                $log.debug('$scope.saveEditString [event, $scope.string]: ', [event, $scope.string]);
+                event.preventDefault();
+                $scope.string.soundKey = $scope.string.soundKey.name;
+                var selectedCategories = $scope.string.categories;
+                $scope.string.categories = [];
+                for (var key in selectedCategories) {
+                    $scope.string.categories.push(selectedCategories[key].id);
+                }
+                var deletedCategories = _.difference($scope.originalCategoryIdsOfString, $scope.string.categories);
+                $log.debug('$scope.saveEditString $scope.string: ', $scope.string);
+                var string2 = $.extend(true, {}, $scope.string);
+                if (string2.$$hashKey) {
+                    delete string2.$$hashKey;
+                }
+                delete string2.id;
+                $http.post('/solmik/string/edit?id=' + $scope.string.id, {"solmik_solmistring": string2})
+                        .then(function (data) {
+                            $log.debug('$scope.saveEditString post then data: ', data);
+                            for (var i = 0; i < $scope.string.categories.length; i++) {
+                                for (var key in $scope.stringsInCategories) {
+                                    if ($scope.stringsInCategories[key].id === $scope.string.categories[i]) {
+                                        $log.debug('$scope.saveEditString post then $scope.stringsInCategories[key].id: ', $scope.stringsInCategories[key].id);
+                                        if ($scope.stringsInCategories[key].solmistrings) {
+                                            var solmistringFound = false;
+                                            for (var keyS in $scope.stringsInCategories[key].solmistrings) {
+                                                $log.debug('$scope.saveEditString post then [$scope.stringsInCategories[key].solmistrings[keyS].id, $scope.string.id]: ', [$scope.stringsInCategories[key].solmistrings[keyS].id, $scope.string.id]);
+                                                $log.debug('$scope.saveEditString post then $scope.stringsInCategories[key].solmistrings[keyS].id 2: ', $scope.stringsInCategories[key].solmistrings[keyS].id);
+                                                if ($scope.stringsInCategories[key].solmistrings[keyS].id === $scope.string.id) {
+                                                    $scope.stringsInCategories[key].solmistrings[keyS] = $scope.string;
+                                                    solmistringFound = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (!solmistringFound) {
+                                                $scope.stringsInCategories[key].solmistrings.push($scope.string);
+                                            }
+                                        } else {
+                                            $log.debug('No solmistring in category before.');
+                                            $scope.stringsInCategories[key].solmistrings.push($scope.string);
+                                        }
+                                    }
+                                }
+
+                            }
+                            if (deletedCategories.length > 0) {
+                                $log.debug('$scope.saveEditString post then deletedCategories: ', deletedCategories);
+                                for (var i = 0; i < deletedCategories.length; i++) {
+                                    var selectedCategory = _.find($scope.stringsInCategories, function (c) {
+                                        return c.id === deletedCategories[i];
+                                    });
+//                                    $log.debug('$scope.saveEditString post then selectedCategory: ', selectedCategory);
+                                    for (var key in selectedCategory.solmistrings) {
+//                                        $log.debug('$scope.saveEditString post then, loop selectedCategory.solmistrings');
+                                        if (selectedCategory.solmistrings[key].id === $scope.string.id) {
+                                            selectedCategory.solmistrings.splice(key, 1);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            $(event.target).remove();
+                        })
+                        .catch(function (error) {
+                            console.log('$scope.saveEditString catch error: ', error);
+                        });
+            };
+
             $scope.soundKeysArray = sb.soundKeysArray;
             console.log('ngSolmik.controller $scope.soundKeysArray', $scope.soundKeysArray);
 
             $http.post('/solmik/strings-in-categories', {}).success(function (data) {
                 $scope.stringsInCategories = data.result;
 
-                console.log('$scope.stringsInCategories: ', $scope.stringsInCategories);
+                console.log('$scope.stringsInCategories nach post: ', $scope.stringsInCategories);
             });
 //            $scope.getObjectData = function (theObject) {
 //                theObject = JSON.parse(theObject);

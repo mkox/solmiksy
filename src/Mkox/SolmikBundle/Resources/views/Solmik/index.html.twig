@@ -119,12 +119,12 @@
                     {#<a href="" ui-sref="/category/delete/{% verbatim %}{{ category.id}}{% endverbatim %}">Delete</a>#}
                     {#<a href="" ui-sref="categoryDelete({% verbatim %}{cid: {{ category.id}}}{% endverbatim %})">Delete</a>#}
                     -
-                    <a href="" ng-click="formNewString($event, category, soundKeysArray)">Add string</a>
+                    <a href="" ng-click="formNewString($event, category)">Add string</a>
                 </span>
             </div>
         
-            <div class="solmistrings">
-                <ul ng-repeat="solmistring in category.solmistrings | orderBy:'name'">
+            <ul class="solmistrings">
+                <li class="solmistring" ng-repeat="solmistring in category.solmistrings | orderBy:'name'">
                     <form name="solmik_solmistring_for_list" method="post" action="" class="solmistring-form-for-list">
                         <div id="solmik_solmistring_for_list">
                             <div>
@@ -154,14 +154,14 @@
                         </div>
                     </form>
                     <span ng-show="loggedin">
-                        <a href="/solmik/string/edit?id={% verbatim %}{{ solmistring.id}}{% endverbatim %}">Edit</a>
+                        <a href="" ng-click="formEditString($event, solmistring)">Edit</a>
                         -
                         <a href="/solmik/string/delete?id={% verbatim %}{{ solmistring.id}}{% endverbatim %}">Delete</a>
                         - 
                     </span>
                     {% verbatim %}{{ solmistring.name}}{% endverbatim %}
-                </ul>
-            </div>
+                </li>
+            </ul>
         </div>
     </div>
     {#<div ui-view></div>#}
