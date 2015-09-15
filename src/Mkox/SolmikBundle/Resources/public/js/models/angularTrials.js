@@ -88,7 +88,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             });
 
             $scope.loggedin = false;
-            console.log('angularTrials.js #solmik-authenticated', $('#solmik-authenticated'));
+            $log.debug('angularTrials.js #solmik-authenticated', $('#solmik-authenticated'));
             if ($('#solmik-authenticated').length) {
                 $scope.loggedin = true;
             }
@@ -105,48 +105,48 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             };
 
             $scope.formDeleteCategory = function (event, category) {
-                console.log('$scope.formDeleteCategory this', this);
-                console.log('$scope.formDeleteCategory event', event);
-                console.log('$scope.formDeleteCategory category', category);
+                $log.debug('$scope.formDeleteCategory this', this);
+                $log.debug('$scope.formDeleteCategory event', event);
+                $log.debug('$scope.formDeleteCategory category', category);
                 $scope.category = category;
                 $(event.currentTarget).parents(".category").append($compile('<div ng-include="path.categoryDelete"></div>')($scope));
 
             };
 //            $scope.deleteCategoryValue = 'start';
             $scope.deleteCategory = function (event, categoryId) {
-                console.log('$scope.deleteCategory [event, categoryId]:', [event, categoryId]);
+                $log.debug('$scope.deleteCategory [event, categoryId]:', [event, categoryId]);
                 if (event.target.defaultValue === 'Yes') {
                     $http.post('/solmik/category/delete?id=' + categoryId, {"del": event.target.defaultValue}).success(function (data) {
-//                        console.log('$scope.deleteCategory success $scope.stringsInCategories 1: ', $scope.stringsInCategories);
+//                        $log.debug('$scope.deleteCategory success $scope.stringsInCategories 1: ', $scope.stringsInCategories);
                         for (var key in $scope.stringsInCategories) {
                             if ($scope.stringsInCategories[key].id === categoryId) {
                                 $scope.stringsInCategories.splice(key, 1);
                                 break;
                             }
                         }
-//                        console.log('$scope.deleteCategory success $scope.stringsInCategories 2: ', $scope.stringsInCategories);
+//                        $log.debug('$scope.deleteCategory success $scope.stringsInCategories 2: ', $scope.stringsInCategories);
                     });
                 } else {
                     $(event.currentTarget).parents(".delete-category").remove();
                 }
             };
             $scope.formEditCategory = function (event, category) {
-                console.log('$scope.formDeleteCategory this', this);
-                console.log('$scope.formDeleteCategory event', event);
-                console.log('$scope.formDeleteCategory category', category);
+                $log.debug('$scope.formDeleteCategory this', this);
+                $log.debug('$scope.formDeleteCategory event', event);
+                $log.debug('$scope.formDeleteCategory category', category);
                 $scope.category = category;
                 $(event.currentTarget).parents(".category").append($compile('<div ng-include="path.categoryEdit"></div>')($scope));
 
             };
             $scope.editCategory = function (event, category) {
-                console.log('$scope.editCategory [event, category]:', [event, category]);
+                $log.debug('$scope.editCategory [event, category]:', [event, category]);
                 var category2 = $.extend(true, {}, category);
                 delete category2.$$hashKey;
                 delete category2.id;
 
                 $http.post('/solmik/category/edit?id=' + category.id, {"solmik_category": category2})
                         .then(function (data) {
-                            console.log('$scope.editCategory success $scope.stringsInCategories 1: ', $scope.stringsInCategories);
+                            $log.debug('$scope.editCategory success $scope.stringsInCategories 1: ', $scope.stringsInCategories);
                             $(event.currentTarget).remove();
                         })
                         .catch(function (error) {
@@ -155,9 +155,9 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             };
 
             $scope.formNewString = function (event, category) {
-//                console.log('$scope.formNewString this', this);
-//                console.log('$scope.formNewString event', event);
-//                console.log('$scope.formNewString category', category);
+//                $log.debug('$scope.formNewString this', this);
+//                $log.debug('$scope.formNewString event', event);
+//                $log.debug('$scope.formNewString category', category);
                 $scope.string = {};
                 var standardSoundKeyForNewString = JSON.parse('{"name": "C"}');
                 $scope.string.soundKey = standardSoundKeyForNewString;
@@ -171,7 +171,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             };
 
             $scope.saveNewString = function (event, category) {
-                console.log('$scope.saveNewString [event, category, $scope.string]: ', [event, category, $scope.string]);
+                $log.debug('$scope.saveNewString [event, category, $scope.string]: ', [event, category, $scope.string]);
                 event.preventDefault();
                 var string2 = $.extend(true, {}, $scope.string);
                 string2.soundKey = $scope.string.soundKey.name;
@@ -180,10 +180,10 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 for (var key in selectedCategories) {
                     string2.categories.push(selectedCategories[key].id);
                 }
-                console.log('$scope.saveNewString $scope.solmikCategory: ', $scope.solmikCategory);
+                $log.debug('$scope.saveNewString $scope.solmikCategory: ', $scope.solmikCategory);
                 $http.post('/solmik/string/create?category_id=' + category.id, {"solmik_solmistring": string2})
                         .then(function (data) {
-                            console.log('$scope.saveNewString catch then data: ', data);
+                            $log.debug('$scope.saveNewString catch then data: ', data);
                             for (var i = 0; i < string2.categories.length; i++) {
                                 for (var key in $scope.stringsInCategories) {
                                     if ($scope.stringsInCategories[key].id === string2.categories[i]) {
@@ -288,12 +288,12 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             };
 
             $scope.soundKeysArray = sb.soundKeysArray;
-            console.log('ngSolmik.controller $scope.soundKeysArray', $scope.soundKeysArray);
+            $log.debug('ngSolmik.controller $scope.soundKeysArray', $scope.soundKeysArray);
 
             $http.post('/solmik/strings-in-categories', {}).success(function (data) {
                 $scope.stringsInCategories = data.result;
 
-                console.log('$scope.stringsInCategories nach post: ', $scope.stringsInCategories);
+                $log.debug('$scope.stringsInCategories nach post: ', $scope.stringsInCategories);
             });
 //            $scope.getObjectData = function (theObject) {
 //                theObject = JSON.parse(theObject);
@@ -314,13 +314,13 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
 //            $scope.solmikCategory = solmikCategory;
             $scope.solmikCategory = $.extend(true, {}, solmikCategory);
             $scope.saveCategoryNew = function () {
-                console.log('$scope.saveCategoryNew $scope.solmikCategory: ', $scope.solmikCategory);
+                $log.debug('$scope.saveCategoryNew $scope.solmikCategory: ', $scope.solmikCategory);
                 $http.post('/solmik/category/create', {"solmik_category": $scope.solmikCategory}).success(function (data) {
 //                    $scope.stringsInCategories = data.result;
                     $scope.stringsInCategories.push(JSON.parse(data.category));
-                    console.log('$scope.saveCategoryNew success JSON.parse(data.category): ', JSON.parse(data.category));
-                    console.log('$scope.stringsInCategories: ', $scope.stringsInCategories);
-                    console.log('saveCategoryNew -> solmikCategory: ', solmikCategory);
+                    $log.debug('$scope.saveCategoryNew success JSON.parse(data.category): ', JSON.parse(data.category));
+                    $log.debug('$scope.stringsInCategories: ', $scope.stringsInCategories);
+                    $log.debug('saveCategoryNew -> solmikCategory: ', solmikCategory);
                     $scope.solmikCategory = $.extend(true, {}, solmikCategory);
                     $scope.showFormNewCategory = false;
                 });
