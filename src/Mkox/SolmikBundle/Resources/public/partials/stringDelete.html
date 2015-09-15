@@ -1,7 +1,7 @@
-<form action="/solmik/string/delete?id=9" method="post">
-    <div>
-        <input type="hidden" name="id" value="9" />
-        <input type="submit" name="del" value="Yes" />
-        <input type="submit" name="del" value="No" />
+<form class="delete-string">
+    <div>Delete solmization string: 
+        <input type="hidden" name="id" value="{{string.id}}" />
+        <input type="submit" ng-click="deleteString($event, string.id)" name="del" value="Yes" />
+        <input type="submit" ng-click="deleteString($event, string.id)" name="del" value="No" />
     </div>
 </form>

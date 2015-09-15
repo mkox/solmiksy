@@ -97,6 +97,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 categoryDelete: sb.bPath + 'partials/categoryDelete.html',
                 categoryEdit: sb.bPath + 'partials/categoryEdit.html',
                 stringNew: sb.bPath + 'partials/stringNew.html',
+                stringDelete: sb.bPath + 'partials/stringDelete.html',
                 stringEdit: sb.bPath + 'partials/stringEdit.html'
             };
             $scope.showFormNewCategory = false;
@@ -285,6 +286,41 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                         .catch(function (error) {
                             console.log('$scope.saveEditString catch error: ', error);
                         });
+            };
+
+            $scope.formDeleteString = function (event, solmistring) {
+                $log.debug('$scope.formDeleteString this', this);
+                $log.debug('$scope.formDeleteString event', event);
+                $log.debug('$scope.formDeleteString solmistring', solmistring);
+                $scope.string = solmistring;
+                $(event.currentTarget).parents(".solmistring").append($compile('<div ng-include="path.stringDelete"></div>')($scope));
+
+            };
+
+            $scope.deleteString = function (event, stringId) {
+                $log.debug('$scope.deleteString [event, categoryId]:', [event, stringId]);
+                if (event.target.defaultValue === 'Yes') {
+                    $http.post('/solmik/string/delete?id=' + stringId, {"del": event.target.defaultValue}).success(function (data) {
+//                        $log.debug('$scope.deleteCategory success $scope.stringsInCategories 1: ', $scope.stringsInCategories);
+                        for (var key in $scope.stringsInCategories) {
+//                            if ($scope.stringsInCategories[key].id === stringId) {
+//                                $scope.stringsInCategories.splice(key, 1);
+//                                break;
+//                            }
+                            if ($.inArray($scope.stringsInCategories[key].id, $scope.string.categories)) {
+                                for (var keyS in $scope.stringsInCategories[key].solmistrings) {
+                                    if ($scope.stringsInCategories[key].solmistrings[keyS].id === $scope.string.id) {
+                                        $scope.stringsInCategories[key].solmistrings.splice(keyS, 1);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+//                        $log.debug('$scope.deleteCategory success $scope.stringsInCategories 2: ', $scope.stringsInCategories);
+                    });
+                } else {
+                    $(event.currentTarget).parents(".delete-string").remove();
+                }
             };
 
             $scope.soundKeysArray = sb.soundKeysArray;

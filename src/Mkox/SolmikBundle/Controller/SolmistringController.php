@@ -128,6 +128,8 @@ class SolmistringController extends Controller {
             throw $this->createAccessDeniedException();
         }
         
+        $isAjax = $request->isXmlHttpRequest();
+        
         $id = $request->query->get('id');
         if (!$id) {
             return $this->redirect()->toRoute('solmik');
@@ -142,13 +144,21 @@ class SolmistringController extends Controller {
                 $this->em->flush();
             }
 
-            return $this->redirectToRoute('solmik-start');
+            if($isAjax){
+                    return new Response(json_encode(array('message' => 'Solmistring is deleted.', 'requestDataOriginal' => $this->getRequest()->request->all())));
+                } else {
+                    return $this->redirectToRoute('solmik-start');
+                }
         }
         
-        return array(
-            'id' => $id,
-            'solmistring' => $this->getDoctrine()->getRepository('MkoxSolmikBundle:Solmistring')->find($id)
-        );
+        if($isAjax){
+            return new Response(json_encode(array('message' => 'Solmistring is NOT deleted.', 'requestDataOriginal' => $this->getRequest()->request->all())));
+        } else {
+            return array(
+                'id' => $id,
+                'solmistring' => $this->getDoctrine()->getRepository('MkoxSolmikBundle:Solmistring')->find($id)
+            );
+        }
     }
 
 //    protected function attachDefaultListeners() {
