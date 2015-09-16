@@ -1,17 +1,16 @@
 
-<form name="solmik_category" method="post" action="">
+<form class="edit-category remove-open-form" ng-submit="editCategory($event, category)" name="solmik_category" >
     <div id="solmik_category">
         <div>                
             <label for="solmik_category_name" class="required">Name</label>
-            <input type="text" id="solmik_category_name" name="solmik_category[name]" required="required" value="0 actual" />
+            <input type="text" ng-model="category.name" id="solmik_category_name" name="solmik_category[name]" required="required" value="0 actual" />
         </div>
         <div>                
             <label for="solmik_category_public">Public</label>
-            <input type="checkbox" id="solmik_category_public" name="solmik_category[public]" value="1" checked="checked" />
+            <input type="checkbox" ng-model="category.public" id="solmik_category_public" name="solmik_category[public]" value="1" checked="checked" />
         </div>
         <div>
             <button type="submit" id="solmik_category_save" name="solmik_category[save]">Save</button>
         </div>
-        <input type="hidden" id="solmik_category__token" name="solmik_category[_token]" value="fxGpDkP4hqjftEuVt8zXF7iJ7O7zHM4I2u_hUSstAws" />
     </div>
 </form>

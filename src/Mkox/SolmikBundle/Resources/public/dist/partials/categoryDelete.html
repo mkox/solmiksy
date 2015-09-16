@@ -1,7 +1,7 @@
-<form action="/solmik/category/delete?id=1" method="post">
-    <div>
-        <input type="hidden" name="id" value="1" />
-        <input type="submit" name="del" value="Yes" />
-        <input type="submit" name="del" value="No" />
+<form class="delete-category remove-open-form">
+    <div>Delete category: 
+        <input type="hidden" name="id" value="{{category.id}}" />
+        <input type="submit" ng-click="deleteCategory($event, category.id)" name="del" value="Yes" />
+        <input type="submit" ng-click="deleteCategory($event, category.id)" name="del" value="No" />
     </div>
 </form>

@@ -5,8 +5,8 @@ require.config({
     paths: {
         jquery: [ 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min', 'libs/jquery/jquery-1.11.2.min' ],
         underscore: 'libs/underscore/underscore-min-1.7.0',
-//        angular: [ 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min', 'libs/angular/angular.min' ],
-        angular: [ 'libs/angular/angular' ],
+        angular: [ 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min', 'libs/angular/angular.min' ],
+//        angular: [ 'libs/angular/angular' ],
 //        angularUiRouter: [ 'libs/angular/angular-ui-router.min' ],
         uiRouter: [ 'libs/angular/angular-ui-router.min' ],
 //        ngResource: [ 'libs/angular/angular-resource' ],

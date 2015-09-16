@@ -62,7 +62,7 @@ define(["jquery", "underscore", "solmiBasics", "angular", "uiRouter"], function 
     app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$sceProvider', '$logProvider', function ($httpProvider, $stateProvider, $urlRouterProvider, $sceProvider, $logProvider) {
             $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 //            $sceProvider.enabled(false);  // Does not work.
-            $logProvider.debugEnabled(true);
+            $logProvider.debugEnabled(false);
 
 //            $stateProvider.state('categoryDelete', {
 //                url: '/category/delete/:cid',

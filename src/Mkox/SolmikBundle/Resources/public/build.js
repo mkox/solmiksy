@@ -21,7 +21,8 @@
     ],
     paths: {
         jquery: "empty:",
-        angular: "empty:"
+        angular: "empty:",
+        uiRouter: "empty:"
     }
 //    generateSourceMaps: true
 });

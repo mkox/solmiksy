@@ -1,70 +1,40 @@
-<form name="solmik_solmistring" method="post" action="">
+<form class="new-string remove-open-form" ng-submit="saveNewString($event, category)" name="solmik_solmistring" method="post" action="">
     <div id="solmik_solmistring">
+        New String:
         <div>                
             <label for="solmik_solmistring_name" class="required">Name</label>
-            <input type="text" id="solmik_solmistring_name" name="solmik_solmistring[name]" required="required" />
+            <input ng-model="string.name" type="text" id="solmik_solmistring_name" name="solmik_solmistring[name]" required="required" />
         </div>
         <div>                
             <label for="solmik_solmistring_soundKey" class="required">Sound key</label>
-            <select id="solmik_solmistring_soundKey" name="solmik_solmistring[soundKey]">            
-                <option value="C" >C</option>            
-                <option value="Des" >Des</option>            
-                <option value="D" >D</option>            
-                <option value="Es" >Es</option>           
-                <option value="E" >E</option>            
-                <option value="F" >F</option>            
-                <option value="G" >G</option>            
-                <option value="As" >As</option>            
-                <option value="A" >A</option>            
-                <option value="B" >B</option>            
-                <option value="H" >H</option>            
-                <option value="c" >c</option>            
-                <option value="cis" >cis</option>            
-                <option value="d" >d</option>            
-                <option value="e" >e</option>            
-                <option value="f" >f</option>            
-                <option value="fis" >fis</option>            
-                <option value="g" >g</option>            
-                <option value="gis" >gis</option>            
-                <option value="a" >a</option>            
-                <option value="b" >b</option>            
-                <option value="h" >h</option>
+            <select name="solmik_solmistring_for_list[soundKey]" id="solmik_solmistring_for_list_soundKey" class="sound-keys" 
+                    ng-model="string.soundKey" 
+                    ng-options="option.name for option in soundKeysArray track by option.name"
+                    >
             </select>
         </div>
         <div>                
             <label for="solmik_solmistring_baseScale" class="required">Base scale
             </label>
-            <select id="solmik_solmistring_baseScale" name="solmik_solmistring[baseScale]">
-                <option value="1" >1</option>            
-                <option value="2" >2</option>            
-                <option value="3" >3</option>            
-                <option value="4" >4</option>            
-                <option value="5" >5</option>            
-                <option value="6" >6</option>            
-                <option value="7" >7</option>            
-                <option value="8" >8</option>            
-                <option value="9" >9</option>
-            </select>
+            <input ng-model="string.baseScale" type="number" min="1" max="9" required
+                   id="solmik_solmistring_for_list_baseScale" name="solmik_solmistring_for_list[baseScale]" class="scales" value="4"
+                   >
         </div>
         <div>                
             <label for="solmik_solmistring_string" class="required">String</label>
-            <input type="text" id="solmik_solmistring_string" name="solmik_solmistring[string]" required="required" />
+            <input ng-model="string.string" type="text" id="solmik_solmistring_string" name="solmik_solmistring[string]" required="required" />
         </div>
         <div>                
             <label for="solmik_solmistring_categories" class="required">Categories
-            </label><select id="solmik_solmistring_categories" name="solmik_solmistring[categories][]" required="required" multiple="multiple">
-                <option value="1" >0 actual</option>
-                <option value="2" >1 main</option>
-                <option value="4" >c20150708-b</option>
-                <option value="5" >c20150708-d</option>
-                <option value="6" >c20150708-e zzz</option>
-                <option value="7" >c20150708-f</option>
-                <option value="8" >c20150719-a</option>
+            </label>
+            <select id="solmik_solmistring_categories" name="solmik_solmistring[categories][]" required="required" multiple="multiple"
+                    ng-model="string.categories" 
+                    ng-options="option.name for option in stringsInCategories track by option.id"
+                    >
             </select>
         </div>
         <div>
             <button type="submit" id="solmik_solmistring_save" name="solmik_solmistring[save]">Save</button>
         </div>
-        <input type="hidden" id="solmik_solmistring__token" name="solmik_solmistring[_token]" value="38c5rgUeUl4rFSDJIQwe7wBWCp6LxWst62LxW5zdxyQ" />
     </div>
 </form>
