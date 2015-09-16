@@ -4,13 +4,14 @@ solmiksy - solmization tool
 Introduction
 ------------
 A test presentation of this you find in **http://solmiksytest1.michaelkox.de/**.
-It is best tested with Firefox. It does not work with Internet Explorer, because the wav audio format is used.
+It is best tested with Firefox. It does not work with Internet Explorer, because the wav audio format is used 
+(but it works with Microsoft Edge).
 It is not ready to use for a general public, but already has a lot of functionality. 
 
 Some of the tools used for it:
 - Symfony: http://symfony.com/
 - Doctrine, Object Relational Mapper (ORM): http://www.doctrine-project.org/projects/orm.html
-- requireJS: http://requirejs.org/
+- Javascript: jQuery (http://jquery.com/), angularJS (https://angularjs.org/), requireJS: (http://requirejs.org/)
 
 My own code you find mainly in folder src/Mkox/SolmikBundle.
 
