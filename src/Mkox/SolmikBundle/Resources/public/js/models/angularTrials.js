@@ -255,20 +255,24 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             $scope.deleteString = function (event, stringId) {
                 $log.debug('$scope.deleteString [event, categoryId]:', [event, stringId]);
                 if (event.target.defaultValue === 'Yes') {
-                    $http.post('/solmik/string/delete?id=' + stringId, {"del": event.target.defaultValue}).success(function (data) {
+                    $http.post('/solmik/string/delete?id=' + stringId, {"del": event.target.defaultValue})
+                            .then(function (data) {
 //                        $log.debug('$scope.deleteCategory success $scope.stringsInCategories 1: ', $scope.stringsInCategories);
-                        for (var key in $scope.stringsInCategories) {
-                            if ($.inArray($scope.stringsInCategories[key].id, $scope.string.categories)) {
-                                for (var keyS in $scope.stringsInCategories[key].solmistrings) {
-                                    if ($scope.stringsInCategories[key].solmistrings[keyS].id === $scope.string.id) {
-                                        $scope.stringsInCategories[key].solmistrings.splice(keyS, 1);
-                                        break;
+                                for (var key in $scope.stringsInCategories) {
+                                    if ($.inArray($scope.stringsInCategories[key].id, $scope.string.categories) > -1) {
+                                        for (var keyS in $scope.stringsInCategories[key].solmistrings) {
+                                            if ($scope.stringsInCategories[key].solmistrings[keyS].id === $scope.string.id) {
+                                                $scope.stringsInCategories[key].solmistrings.splice(keyS, 1);
+                                                break;
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                        }
 //                        $log.debug('$scope.deleteCategory success $scope.stringsInCategories 2: ', $scope.stringsInCategories);
-                    });
+                            })
+                        .catch(function (error) {
+                            console.log('$scope.deleteString catch error: ', error);
+                        });
                 } else {
                     $(event.currentTarget).parents(".delete-string").remove();
                 }
@@ -278,19 +282,19 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             $log.debug('ngSolmik.controller $scope.soundKeysArray', $scope.soundKeysArray);
 
             $http.post('/solmik/strings-in-categories', {}).success(function (data) {
-                
+
                 // temporary solution:
                 var stringsInCat = data.result;
-                for(var i = 0; i < stringsInCat.length; i++){
-                    for(var j = 0; j < stringsInCat[i].solmistrings.length; j++){
-                        for(var k = 0; k < stringsInCat[i].solmistrings[j].categories.length; k++){
-                            if(typeof stringsInCat[i].solmistrings[j].categories[k] === 'object'){
+                for (var i = 0; i < stringsInCat.length; i++) {
+                    for (var j = 0; j < stringsInCat[i].solmistrings.length; j++) {
+                        for (var k = 0; k < stringsInCat[i].solmistrings[j].categories.length; k++) {
+                            if (typeof stringsInCat[i].solmistrings[j].categories[k] === 'object') {
                                 stringsInCat[i].solmistrings[j].categories[k] = stringsInCat[i].solmistrings[j].categories[k].id;
                             }
                         }
                     }
                 }
-                
+
 //                $scope.stringsInCategories = data.result;
                 $scope.stringsInCategories = stringsInCat;
 
@@ -315,7 +319,7 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                     $scope.showFormNewCategory = false;
                 });
             };
-            var removeOpenForms = function(){
+            var removeOpenForms = function () {
                 $('.remove-open-form').remove();
                 $scope.solmikCategory = $.extend(true, {}, solmikCategory);
                 $scope.showFormNewCategory = false;
