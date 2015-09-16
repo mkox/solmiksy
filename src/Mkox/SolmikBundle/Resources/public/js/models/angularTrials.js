@@ -136,8 +136,9 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 }
                 $log.debug('$scope.saveNewString $scope.solmikCategory: ', $scope.solmikCategory);
                 $http.post('/solmik/string/create?category_id=' + category.id, {"solmik_solmistring": string2})
-                        .then(function (data) {
-                            $log.debug('$scope.saveNewString catch then data: ', data);
+                        .then(function (backData) {
+                            $log.debug('$scope.saveNewString catch then backData: ', backData);
+                            string2.id = backData.data.solmistring.id;
                             for (var i = 0; i < string2.categories.length; i++) {
                                 for (var key in $scope.stringsInCategories) {
                                     if ($scope.stringsInCategories[key].id === string2.categories[i]) {
@@ -185,11 +186,14 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                 }
                 var deletedCategories = _.difference($scope.originalCategoryIdsOfString, $scope.string.categories);
                 $log.debug('$scope.saveEditString $scope.string: ', $scope.string);
+                
+                
                 var string2 = $.extend(true, {}, $scope.string);
                 if (string2.$$hashKey) {
                     delete string2.$$hashKey;
                 }
                 delete string2.id;
+                $log.debug('$scope.saveEditString [$scope.string.id, string2]', [$scope.string.id, string2]);
                 $http.post('/solmik/string/edit?id=' + $scope.string.id, {"solmik_solmistring": string2})
                         .then(function (data) {
                             $log.debug('$scope.saveEditString post then data: ', data);
@@ -200,8 +204,6 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                                         if ($scope.stringsInCategories[key].solmistrings) {
                                             var solmistringFound = false;
                                             for (var keyS in $scope.stringsInCategories[key].solmistrings) {
-                                                $log.debug('$scope.saveEditString post then [$scope.stringsInCategories[key].solmistrings[keyS].id, $scope.string.id]: ', [$scope.stringsInCategories[key].solmistrings[keyS].id, $scope.string.id]);
-                                                $log.debug('$scope.saveEditString post then $scope.stringsInCategories[key].solmistrings[keyS].id 2: ', $scope.stringsInCategories[key].solmistrings[keyS].id);
                                                 if ($scope.stringsInCategories[key].solmistrings[keyS].id === $scope.string.id) {
                                                     $scope.stringsInCategories[key].solmistrings[keyS] = $scope.string;
                                                     solmistringFound = true;
@@ -255,9 +257,9 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             $scope.deleteString = function (event, stringId) {
                 $log.debug('$scope.deleteString [event, categoryId]:', [event, stringId]);
                 if (event.target.defaultValue === 'Yes') {
+                    $log.debug('$scope.deleteString then $scope.stringsInCategories 1: ', $scope.stringsInCategories);
                     $http.post('/solmik/string/delete?id=' + stringId, {"del": event.target.defaultValue})
                             .then(function (data) {
-//                        $log.debug('$scope.deleteCategory success $scope.stringsInCategories 1: ', $scope.stringsInCategories);
                                 for (var key in $scope.stringsInCategories) {
                                     if ($.inArray($scope.stringsInCategories[key].id, $scope.string.categories) > -1) {
                                         for (var keyS in $scope.stringsInCategories[key].solmistrings) {
@@ -270,9 +272,9 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
                                 }
 //                        $log.debug('$scope.deleteCategory success $scope.stringsInCategories 2: ', $scope.stringsInCategories);
                             })
-                        .catch(function (error) {
-                            console.log('$scope.deleteString catch error: ', error);
-                        });
+                            .catch(function (error) {
+                                console.log('$scope.deleteString catch error: ', error);
+                            });
                 } else {
                     $(event.currentTarget).parents(".delete-string").remove();
                 }

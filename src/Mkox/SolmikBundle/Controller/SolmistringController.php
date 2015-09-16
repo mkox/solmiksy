@@ -57,7 +57,8 @@ class SolmistringController extends Controller {
                     });
                     $serializer = new Serializer(array($normalizer), array($encoder));
                     $solmistringJson = $serializer->serialize($solmistring, 'json');
-                    return new Response(json_encode(array('message' => 'Solmistring is created.', 'solmistring' => $solmistringJson, 'requestDataOriginal' => $this->getRequest()->request->all())));
+//                    return new Response(json_encode(array('message' => 'Solmistring is created.', 'solmistring' => $solmistringJson, 'requestDataOriginal' => $this->getRequest()->request->all())));
+                    return new Response('{ "message": "Solmistring is created.", "solmistring": ' . $solmistringJson . ', "requestDataOriginal": ' . json_encode($this->getRequest()->request->all()) . '}');
                 } else {
                     return $this->redirectToRoute('solmik-start');
                 }
