@@ -11,7 +11,7 @@ It is not ready to use for a general public, but already has a lot of functional
 Some of the tools used for it:
 - Symfony: http://symfony.com/
 - Doctrine, Object Relational Mapper (ORM): http://www.doctrine-project.org/projects/orm.html
-- Javascript: jQuery (http://jquery.com/), angularJS (https://angularjs.org/), requireJS: (http://requirejs.org/)
+- Javascript: jQuery (http://jquery.com/), angularJS (https://angularjs.org/), requireJS (http://requirejs.org/)
 
 My own code you find mainly in folder src/Mkox/SolmikBundle.
 
