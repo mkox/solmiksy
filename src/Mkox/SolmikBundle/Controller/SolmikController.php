@@ -109,6 +109,9 @@ class SolmikController extends Controller {
             $serializer = new Serializer(array($normalizer), array($encoder));
             $categoriesList2[] = $serializer->serialize($category, 'json');
         }
+//        echo print_r($categoriesList2);
+//        exit;
+        
         $categoriesForJson = implode(',', $categoriesList2);
         echo "{\"result\":[" . $categoriesForJson . "]}";
         exit;

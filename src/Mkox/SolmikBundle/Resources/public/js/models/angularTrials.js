@@ -278,7 +278,21 @@ define(["jquery", "underscore", "angular", "ngSolmik", "solmiBasics"], function 
             $log.debug('ngSolmik.controller $scope.soundKeysArray', $scope.soundKeysArray);
 
             $http.post('/solmik/strings-in-categories', {}).success(function (data) {
-                $scope.stringsInCategories = data.result;
+                
+                // temporary solution:
+                var stringsInCat = data.result;
+                for(var i = 0; i < stringsInCat.length; i++){
+                    for(var j = 0; j < stringsInCat[i].solmistrings.length; j++){
+                        for(var k = 0; k < stringsInCat[i].solmistrings[j].categories.length; k++){
+                            if(typeof stringsInCat[i].solmistrings[j].categories[k] === 'object'){
+                                stringsInCat[i].solmistrings[j].categories[k] = stringsInCat[i].solmistrings[j].categories[k].id;
+                            }
+                        }
+                    }
+                }
+                
+//                $scope.stringsInCategories = data.result;
+                $scope.stringsInCategories = stringsInCat;
 
                 $log.debug('$scope.stringsInCategories nach post: ', $scope.stringsInCategories);
             });
