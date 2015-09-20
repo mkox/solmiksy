@@ -37,15 +37,12 @@ define([
     var selectionAdd = function () {
         var solmistring = $('.used-string .solmistring').text();
         if (solmistring.length > 0) {
-            var soundKey = $('.used-string .sound-key').text();
-            var scale = $('.used-string .scale').text();
-            var stringData = JSON.parse(
-                    '{"solmistring": "' + solmistring + '", \n\
-                "soundKey": "' + soundKey + '", \n\
-                "scale": "' + scale + '"}'
-                    );
+            var stringData = {};
+            stringData.solmistring = solmistring;
+            stringData.soundKey = $('.used-string .sound-key').text();
+            stringData.scale = parseInt($('.used-string .scale').text());
             sb.selectedStrings.push(stringData);
-            console.log(sb.selectedStrings);
+            console.log('createToneNumberForSelectedSyllable selectionAdd sb.selectedStrings', sb.selectedStrings);
             $('#selection-solmistrings .sum span').text(sb.selectedStrings.length);
         } else {
             alert(sb.messageNoStringIsUsed);
