@@ -63,9 +63,8 @@ define([
             var stringIsInList = false;
             var solmistring = $('.used-string .solmistring').text();
             var soundKey = $('.used-string .sound-key').text();
-            var scale = $('.used-string .scale').text();
+            var scale = parseInt($('.used-string .scale').text());
             for (var i = 0; i < sb.selectedStrings.length; i++) {
-                var selectedCompare = [solmistring, sb.selectedStrings[i].solmistring, soundKey, sb.selectedStrings[i].soundKey, scale, sb.selectedStrings[i].scale];
                 if (solmistring === sb.selectedStrings[i].solmistring
                         && soundKey === sb.selectedStrings[i].soundKey
                         && scale === sb.selectedStrings[i].scale) {
