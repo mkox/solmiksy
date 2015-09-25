@@ -3,13 +3,12 @@ define([
     'underscore',
     'solmiBasics',
     'helpers/helpers',
-    'models/angularTrials',
     'models/playCommon',
     'models/randomize',
     'models/frequenciesTuner',
     'views/forms',
     'views/additional'
-], function ($, _, sb, helpers, angularTrials, playCommon, randomize, frequenciesTuner, forms, viewsAdd) {
+], function ($, _, sb, helpers, playCommon, randomize, frequenciesTuner, forms, viewsAdd) {
 
     $('#solmi-config').append(forms.selectFieldForCentralViewScale());
     $('#solmi-config').append(forms.selectFieldForInstruments());

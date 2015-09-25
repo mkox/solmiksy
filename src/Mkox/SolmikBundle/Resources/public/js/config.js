@@ -12,8 +12,9 @@ require.config({
 //        ngResource: [ 'libs/angular/angular-resource' ],
 //        ngRoute: [ 'libs/angular/angular-route' ],
         
-        audiosynth: 'libs/audiosynth/audiosynth'
+        audiosynth: 'libs/audiosynth/audiosynth',
 //        tuner: 'models/tuner',
+        cas: 'categoriesAndStrings'
     },
     shim: {
         audiosynth: {

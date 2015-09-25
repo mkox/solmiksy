@@ -80,34 +80,34 @@
 
     <section id="solmi-config"></section>
 
-    <section id="ng-test2" ng-controller="test2Ctrl">
+    <section id="ng-categories-and-strings" ng-controller="categoriesAndStringsCtrl">
         {#<h1>Hello {{ '{{ name }} '}},</h1>#}
         {#<h2>you POSTed "{{ '{{ foo }} '}}"</h2>#}
 
         <p class="categories-top">
             <strong>Categories</strong>
-            <span ng-show="loggedin">
+            <span ng-show="vm.loggedin">
                 {#- <a href="/solmik/category/create">Add new Category</a>#}
-                - <a ng-click="formNewCategory()" href="">Add new Category</a>
+                - <a ng-click="vm.formNewCategory()" href="">Add new Category</a>
             </span>
-        <div ng-show="showFormNewCategory" ng-include="path.categoryNew"></div>
+        <div ng-show="vm.showFormNewCategory" ng-include="vm.path.categoryNew"></div>
     </p>
-    <div class="table" id="solmi-strings" ng-repeat="category in stringsInCategories | orderBy:'name'">
+    <div class="table" id="solmi-strings" ng-repeat="category in vm.stringsInCategories | orderBy:'name'">
         <div class="cat-and-strings cat-and-strings-{% verbatim %}{{ category.id}}{% endverbatim %}">
             <div class="category">{% verbatim %}{{ category.name}}{% endverbatim %}
-                <span ng-show="loggedin">
-                    <a href=""ng-click="formEditCategory($event, category)">Edit</a>
+                <span ng-show="vm.loggedin">
+                    <a href=""ng-click="vm.formEditCategory($event, category)">Edit</a>
                     -
-                    <a href="" ng-click="formDeleteCategory($event, category)">Delete</a>
+                    <a href="" ng-click="vm.formDeleteCategory($event, category)">Delete</a>
                     {#<a href="" ui-sref="/category/delete/{% verbatim %}{{ category.id}}{% endverbatim %}">Delete</a>#}
                     {#<a href="" ui-sref="categoryDelete({% verbatim %}{cid: {{ category.id}}}{% endverbatim %})">Delete</a>#}
                     -
-                    <a href="" ng-click="formNewString($event, category)">Add string</a>
+                    <a href="" ng-click="vm.formNewString($event, category)">Add string</a>
                 </span>
             </div>
 
             <ul class="solmistrings">
-                <li class="solmistring" ng-repeat="solmistring in category.solmistrings | orderBy:'name'">
+                <li class="solmistring" ng-repeat="solmistring in vm.category.solmistrings | orderBy:'name'">
                     <form name="solmik_solmistring_for_list" method="post" action="" class="solmistring-form-for-list">
                         <div id="solmik_solmistring_for_list">
                             <div>
@@ -116,7 +116,7 @@
                             <div>
                                 <select name="solmik_solmistring_for_list[soundKey]" id="solmik_solmistring_for_list_soundKey" 
                                         class="sound-keys"
-                                        ng-options="option.name for option in soundKeysArray track by option.name"
+                                        ng-options="option.name for option in vm.soundKeysArray track by option.name"
                                         get-sound-key ng-model="solmistring.soundKey"
                                         >
                                 </select>
@@ -136,10 +136,10 @@
                             <input type="hidden" id="solmik_solmistring_for_list__token" name="solmik_solmistring_for_list[_token]" value="EjVHBUxlpaV5usl1fMtk0NlFqb7R_FEIzKOWOS_22ko" />
                         </div>
                     </form>
-                    <span ng-show="loggedin">
-                        <a href="" ng-click="formEditString($event, solmistring)">Edit</a>
+                    <span ng-show="vm.loggedin">
+                        <a href="" ng-click="vm.formEditString($event, solmistring)">Edit</a>
                         -
-                        <a href="" ng-click="formDeleteString($event, solmistring)">Delete</a>
+                        <a href="" ng-click="vm.formDeleteString($event, solmistring)">Delete</a>
                         - 
                     </span>
                     {% verbatim %}{{ solmistring.name}}{% endverbatim %}

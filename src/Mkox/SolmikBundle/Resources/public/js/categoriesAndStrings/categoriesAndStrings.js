@@ -1,6 +1,6 @@
 define(["jquery", "underscore", "solmiBasics", "angular", "uiRouter"], function ($, _, sb, angular) {
 
-    var app = angular.module('ngSolmik', ['ui.router'], ['$httpProvider', function ($httpProvider)
+    var app = angular.module('categoriesAndStrings', ['ui.router'], ['$httpProvider', function ($httpProvider)
         {
 
             // Use x-www-form-urlencoded Content-Type
@@ -62,7 +62,7 @@ define(["jquery", "underscore", "solmiBasics", "angular", "uiRouter"], function 
     app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$sceProvider', '$logProvider', function ($httpProvider, $stateProvider, $urlRouterProvider, $sceProvider, $logProvider) {
             $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 //            $sceProvider.enabled(false);  // Does not work.
-            $logProvider.debugEnabled(false);
+            $logProvider.debugEnabled(true);
 
 //            $stateProvider.state('categoryDelete', {
 //                url: '/category/delete/:cid',

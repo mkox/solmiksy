@@ -2,14 +2,14 @@
     <div id="solmik_category">
         <div>                
             <label for="solmik_category_name" class="required">Name</label>
-            <input type="text" id="solmik_category_name" ng-model="solmikCategory.name" name="solmik_category[name]" required="required" />
+            <input type="text" id="solmik_category_name" ng-model="vm.solmikCategory.name" name="solmik_category[name]" required="required" />
         </div>
         <div>                
             <label for="solmik_category_public">Public</label>
-            <input type="checkbox" id="solmik_category_public" ng-model="solmikCategory.public" name="solmik_category[public]" value="1" />
+            <input type="checkbox" id="solmik_category_public" ng-model="vm.solmikCategory.public" name="solmik_category[public]" value="1" />
         </div>
         <div>
-            <button type="button" id="solmik_category_save" ng-model="solmikCategory.save" ng-click="saveCategoryNew()" name="solmik_category[save]">Save</button>
+            <button type="button" id="solmik_category_save" ng-model="vm.solmikCategory.save" ng-click="vm.saveCategoryNew()" name="solmik_category[save]">Save</button>
         </div>
         <!-- <input type="hidden" id="solmik_category__token" ng-model="solmik_category._token" name="solmik_category[_token]" value="fxGpDkP4hqjftEuVt8zXF7iJ7O7zHM4I2u_hUSstAws" /> -->
     </div>
