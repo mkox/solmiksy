@@ -96,18 +96,31 @@
         <div class="cat-and-strings cat-and-strings-{% verbatim %}{{ category.id}}{% endverbatim %}">
             <div class="category">{% verbatim %}{{ category.name}}{% endverbatim %}
                 <span ng-show="vm.loggedin">
-                    <a href=""ng-click="vm.formEditCategory($event, category)">Edit</a>
+                    <a href=""ng-click="vm.setStateCategory(category.id, 'edit')">Edit</a>
                     -
-                    <a href="" ng-click="vm.formDeleteCategory($event, category)">Delete</a>
-                    {#<a href="" ui-sref="/category/delete/{% verbatim %}{{ category.id}}{% endverbatim %}">Delete</a>#}
-                    {#<a href="" ui-sref="categoryDelete({% verbatim %}{cid: {{ category.id}}}{% endverbatim %})">Delete</a>#}
+                    <a href=""ng-click="vm.setStateCategory(category.id, 'delete')">Delete</a>
                     -
-                    <a href="" ng-click="vm.formNewString($event, category)">Add string</a>
+                    {#<a href="" ng-click="vm.formNewString($event, category)">Add string</a>#}
+                    <a href=""ng-click="vm.setStateCategory(category.id, 'stringNew')">Add string</a>
                 </span>
+                <div ng-switch="vm.stateCategory[category.id]">
+                    <div class="step" ng-switch-when="edit">
+                        <div ng-include="vm.path.categoryEdit"></div>
+                    </div>
+                    <div class="step" ng-switch-when="delete">
+                        <div ng-include="vm.path.categoryDelete"></div>
+                    </div>
+                    <div class="step" ng-switch-when="stringNew" form-new-string category="{% verbatim %}{{ category}}{% endverbatim %}">
+                        {#<div ng-include="vm.path.stringNew"></div>#}
+                    </div>
+                    <div class="step" ng-switch-default>
+
+                    </div>
+                </div>
             </div>
 
             <ul class="solmistrings">
-                <li class="solmistring" ng-repeat="solmistring in vm.category.solmistrings | orderBy:'name'">
+                <li class="solmistring" ng-repeat="solmistring in category.solmistrings | orderBy:'name'">
                     <form name="solmik_solmistring_for_list" method="post" action="" class="solmistring-form-for-list">
                         <div id="solmik_solmistring_for_list">
                             <div>

@@ -1,5 +1,6 @@
-define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBasics"], function ($, _, ng, cas, sb) {
-
+//define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBasics"], function ($, _, ng, cas, sb) {
+define(function(require) {
+  var cas = require('cas/categoriesAndStrings');
     cas.directive('getSoundKey', function () {
 
         return {

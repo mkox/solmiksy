@@ -1,8 +1,9 @@
 define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBasics"], function ($, _, ng, cas, sb) {
 
-    var categoriesAndStringsVM = function ($rootScope, $http, $compile, $sce, $log) {
+    var categoriesAndStringsVM = function ($scope, $rootScope, $http, $compile, $sce, $log) {
 
         var that = this;
+        this.$scope = $scope;
 
 //            $http.get('/solmik/hello2/you').success(function (data) {
 //                $scope.name = data.name;
@@ -30,16 +31,6 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
             that.showFormNewCategory = true;
         };
 
-        this.formDeleteCategory = function (event, category) {
-            removeOpenForms();
-            $log.debug('this.formDeleteCategory this', this);
-            $log.debug('this.formDeleteCategory event', event);
-            $log.debug('this.formDeleteCategory category', category);
-            that.category = category;
-            $(event.currentTarget).parents(".category").append($compile('<div ng-include="path.categoryDelete"></div>')(that));
-
-        };
-
         this.deleteCategory = function (event, categoryId) {
             $log.debug('this.deleteCategory [event, categoryId]:', [event, categoryId]);
             if (event.target.defaultValue === 'Yes') {
@@ -54,17 +45,8 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
 //                        $log.debug('this.deleteCategory success that.stringsInCategories 2: ', that.stringsInCategories);
                 });
             } else {
-                $(event.currentTarget).parents(".delete-category").remove();
+                that.stateCategory[categoryId] = '';
             }
-        };
-        this.formEditCategory = function (event, category) {
-            removeOpenForms();
-            $log.debug('this.formEditCategory this', this);
-            $log.debug('this.formEditCategory event', event);
-            $log.debug('this.formEditCategory category', category);
-            that.category = category;
-            $(event.currentTarget).parents(".category").append($compile('<div ng-include="path.categoryEdit"></div>')(that));
-
         };
         this.editCategory = function (event, category) {
             $log.debug('this.editCategory [event, category]:', [event, category]);
@@ -75,7 +57,9 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
             $http.post('/solmik/category/edit?id=' + category.id, {"solmik_category": category2})
                     .then(function (data) {
                         $log.debug('this.editCategory success that.stringsInCategories 1: ', that.stringsInCategories);
-                        $(event.currentTarget).remove();
+//                        $log.debug('this.editCategory success event.currentTarget: ', event.currentTarget);
+                        that.stateCategory[category.id] = '';
+                        
                     })
                     .catch(function (error) {
                         console.log('this.editCategory catch error: ', error);
@@ -295,10 +279,22 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                 that.showFormNewCategory = false;
             });
         };
+        this.stateCategory = {};
+        this.setStateCategory = function (categoryId, state) {
+            $log.debug('this.setStateSolmistring [categoryId, state]', [categoryId, state]);
+            that.stateCategory[categoryId] = state;
+            $log.debug('this.setStateSolmistring that.stateCategory', that.stateCategory);
+        };
+        this.stateSolmistring = {};
+        this.setStateSolmistring = function (solmistringId, state) {
+            that.stateSolmistring[solmistringId] = state;
+        };
         var removeOpenForms = function () {
             $('.remove-open-form').remove();
             that.solmikCategory = $.extend(true, {}, solmikCategory);
             that.showFormNewCategory = false;
+            that.stateCategory = {};
+            that.stateSolmistring = {};
         };
     };
 

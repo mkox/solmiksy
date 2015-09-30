@@ -1,4 +1,4 @@
-<form class="new-string remove-open-form" ng-submit="saveNewString($event, category)" name="solmik_solmistring" method="post" action="">
+<form class="new-string remove-open-form" ng-submit="vm.saveNewString($event, category)" name="solmik_solmistring" method="post" action="">
     <div id="solmik_solmistring">
         New String:
         <div>                
@@ -9,7 +9,7 @@
             <label for="solmik_solmistring_soundKey" class="required">Sound key</label>
             <select name="solmik_solmistring_for_list[soundKey]" id="solmik_solmistring_for_list_soundKey" class="sound-keys" 
                     ng-model="string.soundKey" 
-                    ng-options="option.name for option in soundKeysArray track by option.name"
+                    ng-options="option.name for option in vm.soundKeysArray track by option.name"
                     >
             </select>
         </div>
@@ -29,7 +29,7 @@
             </label>
             <select id="solmik_solmistring_categories" name="solmik_solmistring[categories][]" required="required" multiple="multiple"
                     ng-model="string.categories" 
-                    ng-options="option.name for option in stringsInCategories track by option.id"
+                    ng-options="option.name for option in vm.stringsInCategories track by option.id"
                     >
             </select>
         </div>
