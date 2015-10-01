@@ -110,7 +110,10 @@
                     <div class="step" ng-switch-when="delete">
                         <div ng-include="vm.path.categoryDelete"></div>
                     </div>
-                    <div class="step" ng-switch-when="stringNew" form-new-string category="{% verbatim %}{{ category}}{% endverbatim %}">
+                    {#<div class="step" ng-switch-when="stringNew" form-new-string category="{% verbatim %}{{ category}}{% endverbatim %}">#}
+                    {#<div class="step" ng-switch-when="stringNew" form-new-string ng-attr-category="{% verbatim %}{{ category }}{% endverbatim %}">#}
+                    <div class="step" ng-switch-when="stringNew" form-new-string ng-attr-category="category" ng-attr-vm="vm">
+                    {#<div class="step" ng-switch-when="stringNew" form-new-string ng-attr-category="{{ category}}">#}
                         {#<div ng-include="vm.path.stringNew"></div>#}
                     </div>
                     <div class="step" ng-switch-default>

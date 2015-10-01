@@ -59,7 +59,7 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                         $log.debug('this.editCategory success that.stringsInCategories 1: ', that.stringsInCategories);
 //                        $log.debug('this.editCategory success event.currentTarget: ', event.currentTarget);
                         that.stateCategory[category.id] = '';
-                        
+
                     })
                     .catch(function (error) {
                         console.log('this.editCategory catch error: ', error);
@@ -289,12 +289,22 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
         this.setStateSolmistring = function (solmistringId, state) {
             that.stateSolmistring[solmistringId] = state;
         };
-        var removeOpenForms = function () {
-            $('.remove-open-form').remove();
+        this.removeOpenForms = function (categoryId) {
+            if (categoryId) {
+                for (var catId in that.stateCategory) {
+//                    $log.debug('this.removeOpenForms [catId, categoryId]: ', [catId, categoryId]);
+                    if (parseInt(catId) === categoryId) {
+//                        $log.debug('this.removeOpenForms if');
+                        continue;
+                    } else {
+//                        $log.debug('this.removeOpenForms else');
+                        that.stateCategory[catId] = '';
+                    }
+                }
+            }
+
             that.solmikCategory = $.extend(true, {}, solmikCategory);
             that.showFormNewCategory = false;
-            that.stateCategory = {};
-            that.stateSolmistring = {};
         };
     };
 

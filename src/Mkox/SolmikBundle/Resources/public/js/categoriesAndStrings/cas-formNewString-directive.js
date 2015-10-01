@@ -6,18 +6,22 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
         return {
             templateUrl: sb.bPath + 'partials/stringNew.html',
             scope: {
-//                stringsInCategories: '=stringsInCategories'
+                category: '=',
+                vm: '='
             },
             controller: function ($scope, $element, $attrs) {
-                $scope.string = {};
+                console.log('cas-formNewString-directive [$scope, $element, $attrs]: ', [$scope, $element, $attrs]);
+                $scope.vm.removeOpenForms($scope.category.id);
+                $scope.vm.string = {};
                 var standardSoundKeyForNewString = JSON.parse('{"name": "C"}');
-                $scope.string.soundKey = standardSoundKeyForNewString;
+                $scope.vm.string.soundKey = standardSoundKeyForNewString;
                 var categoriesForNewScope = [];
-//                categoriesForNewScope.push($scope.stringsInCategories[$attrs.categoryId]);
-console.log('cas-formNewString-directive $attrs.category: ', $attrs.category);
-                categoriesForNewScope.push($attrs.category);
-                $scope.string.baseScale = 4;
-                $scope.string.categories = categoriesForNewScope;
+//console.log('cas-formNewString-directive $scope.myCategory: ', $scope.category);
+                categoriesForNewScope.push($scope.category);
+//                console.log('cas-formNewString-directive categoriesForNewScope): ', categoriesForNewScope);
+                $scope.vm.string.baseScale = 4;
+                $scope.vm.string.categories = categoriesForNewScope;
+                console.log('cas-formNewString-directive controller bottom');
             }
 
         };
