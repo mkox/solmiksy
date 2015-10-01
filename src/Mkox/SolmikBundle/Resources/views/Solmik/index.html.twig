@@ -110,10 +110,7 @@
                     <div class="step" ng-switch-when="delete">
                         <div ng-include="vm.path.categoryDelete"></div>
                     </div>
-                    {#<div class="step" ng-switch-when="stringNew" form-new-string category="{% verbatim %}{{ category}}{% endverbatim %}">#}
-                    {#<div class="step" ng-switch-when="stringNew" form-new-string ng-attr-category="{% verbatim %}{{ category }}{% endverbatim %}">#}
                     <div class="step" ng-switch-when="stringNew" form-new-string ng-attr-category="category" ng-attr-vm="vm">
-                    {#<div class="step" ng-switch-when="stringNew" form-new-string ng-attr-category="{{ category}}">#}
                         {#<div ng-include="vm.path.stringNew"></div>#}
                     </div>
                     <div class="step" ng-switch-default>
@@ -153,12 +150,23 @@
                         </div>
                     </form>
                     <span ng-show="vm.loggedin">
-                        <a href="" ng-click="vm.formEditString($event, solmistring)">Edit</a>
+                        <a href=""ng-click="vm.setStateSolmistring(solmistring.id, 'edit')">Edit</a>
                         -
                         <a href="" ng-click="vm.formDeleteString($event, solmistring)">Delete</a>
                         - 
                     </span>
                     {% verbatim %}{{ solmistring.name}}{% endverbatim %}
+                    <div ng-switch="vm.stateSolmistring[solmistring.id]">
+                        <div class="step" ng-switch-when="edit" form-edit-string ng-attr-category="category" ng-attr-solmistring="solmistring" ng-attr-vm="vm">
+                            {#<div ng-include="vm.path.categoryEdit"></div>#}
+                        </div>
+                        <div class="step" ng-switch-when="delete">
+                            <div ng-include="vm.path.categoryDelete"></div>
+                        </div>
+                        <div class="step" ng-switch-default>
+
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>

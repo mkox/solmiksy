@@ -66,21 +66,6 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                     });
         };
 
-        this.formNewString = function (event, category) {
-            removeOpenForms();
-
-            that.string = {};
-            var standardSoundKeyForNewString = JSON.parse('{"name": "C"}');
-            that.string.soundKey = standardSoundKeyForNewString;
-            var categoriesForNewScope = [];
-            categoriesForNewScope.push(category);
-            that.string.baseScale = 4;
-            that.string.categories = categoriesForNewScope;
-            that.category = category;
-            $(event.currentTarget).parents(".category").append($compile('<div ng-include="path.stringNew"></div>')(that));
-
-        };
-
         this.saveNewString = function (event, category) {
             $log.debug('this.saveNewString [event, category, that.string]: ', [event, category, that.string]);
             event.preventDefault();
@@ -105,31 +90,11 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                             }
 
                         }
-                        $(event.target).remove();
+                        that.stateCategory[category.id] = '';
                     })
                     .catch(function (error) {
                         console.log('this.saveNewString catch error: ', error);
                     });
-        };
-
-        this.formEditString = function (event, solmistring) {
-            removeOpenForms();
-            $log.debug('this.formEditString event', event);
-            that.string = $.extend(true, {}, solmistring);
-            $log.debug('this.formEditString that.string 1', that.string);
-            that.string.soundKey = JSON.parse('{"name": "' + that.string.soundKey + '"}');
-            that.originalCategoryIdsOfString = that.string.categories;
-            var categoriesForEditForm = [];
-            for (var key in solmistring.categories) {
-                categoriesForEditForm.push(_.find(that.stringsInCategories, function (c) {
-                    return c.id === solmistring.categories[key];
-                }));
-            }
-            that.string.categories = categoriesForEditForm;
-            $log.debug('this.formEditString that.string 2', that.string);
-
-            $(event.currentTarget).parents(".solmistring").append($compile('<div ng-include="path.stringEdit"></div>')(that));
-
         };
 
         this.saveEditString = function (event) {
@@ -194,7 +159,7 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                                 }
                             }
                         }
-                        $(event.target).remove();
+                        that.stateSolmistring[that.string.id] = '';
                     })
                     .catch(function (error) {
                         console.log('this.saveEditString catch error: ', error);
