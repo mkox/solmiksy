@@ -159,7 +159,7 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                                 }
                             }
                         }
-                        that.stateSolmistring[that.string.id] = '';
+                        that.stateSolmistring[that.solmikCategory.id][that.string.id] = '';
                     })
                     .catch(function (error) {
                         console.log('this.saveEditString catch error: ', error);
@@ -199,7 +199,7 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                         });
             } else {
 //                $(event.currentTarget).parents(".delete-string").remove();
-                that.stateSolmistring[stringId] = '';
+                that.stateSolmistring[that.solmikCategory.id][stringId] = '';
             }
         };
 
@@ -247,13 +247,15 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
         };
         this.stateCategory = {};
         this.setStateCategory = function (categoryId, state) {
-            $log.debug('this.setStateSolmistring [categoryId, state]', [categoryId, state]);
+            $log.debug('this.setStateCategory [categoryId, state]', [categoryId, state]);
             that.stateCategory[categoryId] = state;
-            $log.debug('this.setStateSolmistring that.stateCategory', that.stateCategory);
+            $log.debug('this.setStateCategory that.stateCategory', that.stateCategory);
         };
         this.stateSolmistring = {};
-        this.setStateSolmistring = function (solmistringId, state) {
-            that.stateSolmistring[solmistringId] = state;
+        this.setStateSolmistring = function (categoryId, solmistringId, state) {
+            that.stateSolmistring[categoryId] = {};
+            that.stateSolmistring[categoryId][solmistringId] = state;
+            $log.debug('this.setStateSolmistring that.stateSolmistring', that.stateSolmistring);
         };
         this.removeOpenForms = function (categoryId) {
             if (categoryId) {

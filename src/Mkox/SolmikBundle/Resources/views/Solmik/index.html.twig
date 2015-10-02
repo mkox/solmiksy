@@ -150,13 +150,13 @@
                         </div>
                     </form>
                     <span ng-show="vm.loggedin">
-                        <a href=""ng-click="vm.setStateSolmistring(solmistring.id, 'edit')">Edit</a>
+                        <a href=""ng-click="vm.setStateSolmistring(category.id, solmistring.id, 'edit')">Edit</a>
                         -
-                        <a href=""ng-click="vm.setStateSolmistring(solmistring.id, 'delete')">Delete</a>
+                        <a href=""ng-click="vm.setStateSolmistring(category.id, solmistring.id, 'delete')">Delete</a>
                         - 
                     </span>
                     {% verbatim %}{{ solmistring.name}}{% endverbatim %}
-                    <div ng-switch="vm.stateSolmistring[solmistring.id]">
+                    <div ng-switch="vm.stateSolmistring[category.id][solmistring.id]">
                         <div class="step" ng-switch-when="edit" form-edit-string ng-attr-category="category" ng-attr-solmistring="solmistring" ng-attr-vm="vm">
                             {#<div ng-include="vm.path.categoryEdit"></div>#}
                         </div>
