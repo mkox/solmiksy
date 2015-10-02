@@ -1,6 +1,6 @@
 <form class="delete-category remove-open-form">
     <div>Delete category: 
-        <input type="hidden" name="id" value="{{vm.category.id}}" />
+        <input type="hidden" name="id" value="{{category.id}}" />
         <input type="submit" ng-click="vm.deleteCategory($event, category.id)" name="del" value="Yes" />
         <input type="submit" ng-click="vm.deleteCategory($event, category.id)" name="del" value="No" />
     </div>
