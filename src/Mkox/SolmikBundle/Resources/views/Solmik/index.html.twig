@@ -104,7 +104,7 @@
                     <a href=""ng-click="vm.setStateCategory(category.id, 'stringNew')">Add string</a>
                 </span>
                 <div ng-switch="vm.stateCategory[category.id]">
-                    <div class="step" ng-switch-when="edit">
+                    <div class="step" ng-switch-when="edit" form-edit-category ng-attr-category="category" ng-attr-vm="vm">
                         <div ng-include="vm.path.categoryEdit"></div>
                     </div>
                     <div class="step" ng-switch-when="delete" form-delete-category ng-attr-category="category" ng-attr-vm="vm">
