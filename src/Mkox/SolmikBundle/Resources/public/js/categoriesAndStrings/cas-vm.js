@@ -166,16 +166,6 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                     });
         };
 
-        this.formDeleteString = function (event, solmistring) {
-            removeOpenForms();
-            $log.debug('this.formDeleteString this', this);
-            $log.debug('this.formDeleteString event', event);
-            $log.debug('this.formDeleteString solmistring', solmistring);
-            that.string = solmistring;
-            $(event.currentTarget).parents(".solmistring").append($compile('<div ng-include="path.stringDelete"></div>')(that));
-
-        };
-
         this.deleteString = function (event, stringId) {
             $log.debug('this.deleteString [event, categoryId]:', [event, stringId]);
             if (event.target.defaultValue === 'Yes') {
