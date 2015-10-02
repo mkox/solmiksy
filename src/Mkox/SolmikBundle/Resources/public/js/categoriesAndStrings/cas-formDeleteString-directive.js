@@ -11,7 +11,7 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                 vm: '='
             },
             controller: function ($scope, $element, $attrs) {
-                console.log('cas-formNewString-directive [$scope, $element, $attrs]: ', [$scope, $element, $attrs]);
+//                console.log('cas-formDeleteString-directive [$scope, $element, $attrs]: ', [$scope, $element, $attrs]);
                 
                 $scope.vm.removeOpenForms($scope.category.id);
                 $scope.vm.solmikCategory = $scope.category;
