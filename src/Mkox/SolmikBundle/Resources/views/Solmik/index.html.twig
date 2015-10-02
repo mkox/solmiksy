@@ -152,7 +152,7 @@
                     <span ng-show="vm.loggedin">
                         <a href=""ng-click="vm.setStateSolmistring(solmistring.id, 'edit')">Edit</a>
                         -
-                        <a href="" ng-click="vm.formDeleteString($event, solmistring)">Delete</a>
+                        <a href=""ng-click="vm.setStateSolmistring(solmistring.id, 'delete')">Delete</a>
                         - 
                     </span>
                     {% verbatim %}{{ solmistring.name}}{% endverbatim %}
@@ -160,8 +160,7 @@
                         <div class="step" ng-switch-when="edit" form-edit-string ng-attr-category="category" ng-attr-solmistring="solmistring" ng-attr-vm="vm">
                             {#<div ng-include="vm.path.categoryEdit"></div>#}
                         </div>
-                        <div class="step" ng-switch-when="delete">
-                            <div ng-include="vm.path.categoryDelete"></div>
+                        <div class="step" ng-switch-when="delete" ng-attr-category="category" ng-attr-solmistring="solmistring" form-delete-string ng-attr-vm="vm">
                         </div>
                         <div class="step" ng-switch-default>
 

@@ -198,7 +198,8 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                             console.log('this.deleteString catch error: ', error);
                         });
             } else {
-                $(event.currentTarget).parents(".delete-string").remove();
+//                $(event.currentTarget).parents(".delete-string").remove();
+                that.stateSolmistring[stringId] = '';
             }
         };
 
