@@ -1,4 +1,4 @@
-define(["jquery", "underscore", "solmiBasics"], function ($, _, sb) {    
+define(["jquery", "underscore", "solmiBasics"], function ($, _, sb) {
 
     var categoriesAndStringsVM = function ($http, $log) {
 
@@ -248,50 +248,38 @@ define(["jquery", "underscore", "solmiBasics"], function ($, _, sb) {
             that.stateCategory[categoryId] = '';
             $log.debug('this.setStateSolmistring that.stateSolmistring', that.stateSolmistring);
         };
+
         this.removeOpenForms = function (categoryId, solmistringId) {
-            if (Object.keys(that.stateCategory).length > 0) {
-                for (var catId in that.stateCategory) {
-//                    $log.debug('this.removeOpenForms [catId, categoryId]: ', [catId, categoryId]);
-                    if (categoryId && parseInt(catId) === categoryId) {
-//                        $log.debug('this.removeOpenForms if');
-                        if (solmistringId) {
-//                            $log.debug('this.removeOpenForms if, if (solmistringId)');
-                            for (var stringId in that.stateSolmistring[catId]) {
-                                if (parseInt(stringId) === solmistringId) {
-                                    continue;
-                                } else {
-                                    that.stateSolmistring[catId][stringId] = '';
-                                }
-                            }
-//                            that.stateCategory[catId] = '';
-                        } else {
-//                            $log.debug('this.removeOpenForms if, else');
-//                            $log.debug('this.removeOpenForms if, else [that.stateSolmistring, catId]: ', [that.stateSolmistring, catId]);
-//                            $log.debug('this.removeOpenForms if, else that.stateSolmistring[catId]: ', that.stateSolmistring[catId]);
-//                            $log.debug('this.removeOpenForms if, else Object.keys(that.stateSolmistring[catId]): ', Object.keys(that.stateSolmistring[catId]));
-                            if (that.stateSolmistring[catId] && Object.keys(that.stateSolmistring[catId]).length > 0) {
-//                                $log.debug('this.removeOpenForms if, else that.stateSolmistring[catId]: ', that.stateSolmistring[catId]);
-                                for (var stringId in that.stateSolmistring[catId]) {
-                                    that.stateSolmistring[catId][stringId] = '';
-                                }
-                            }
-                            continue;
-                        }
-                    } else {
-//                        $log.debug('this.removeOpenForms else');
-                        that.stateCategory[catId] = '';
-                        if (!categoryId) {
-                            for (var stringId in that.stateSolmistring[catId]) {
-                                that.stateSolmistring[catId][stringId] = '';
-                            }
-                        }
-                    }
-                }
-            }
+            closeOpenCategoryForms(categoryId);
+            closeOpenSolmistringForms(solmistringId);
 
             that.solmikCategory = $.extend(true, {}, solmikCategory);
             that.showFormNewCategory = false;
         };
+        
+        var closeOpenCategoryForms = function(categoryId){
+            if (Object.keys(that.stateCategory).length > 0) {
+                for (var catId in that.stateCategory) {
+                    if (categoryId && parseInt(catId) === categoryId) {
+                            continue;
+                    } else {
+                        that.stateCategory[catId] = '';
+                    }
+                }
+            }
+        };
+
+        var closeOpenSolmistringForms = function (solmistringId) {
+            for (var catId in that.stateSolmistring) {
+                for (var stringId in that.stateSolmistring[catId]) {
+                    if (solmistringId && parseInt(stringId) === solmistringId) {
+                        continue;
+                    }
+                    that.stateSolmistring[catId][stringId] = '';
+                }
+            }
+        };
+
     };
 
     return {
