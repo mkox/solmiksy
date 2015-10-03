@@ -1,9 +1,8 @@
 define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBasics"], function ($, _, ng, cas, sb) {
 
-    var categoriesAndStringsVM = function ($scope, $rootScope, $http, $compile, $sce, $log) {
+    var categoriesAndStringsVM = function ($http, $log) {
 
         var that = this;
-        this.$scope = $scope;
 
 //            $http.get('/solmik/hello2/you').success(function (data) {
 //                $scope.name = data.name;

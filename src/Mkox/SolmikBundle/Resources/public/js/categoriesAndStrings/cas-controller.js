@@ -8,10 +8,8 @@ define(["angular",
     "cas/cas-formEditCategory-directive", 
     "cas/cas-formDeleteCategory-directive"], function (ng, cas, vm) {
     console.log('in cas-controller.js');
-    cas.controller('categoriesAndStringsCtrl', ['$scope', '$rootScope', '$http', '$compile', '$sce', '$log', function ($scope, $rootScope, $http, $compile, $sce, $log) {
-            $log.debug('categoriesAndStringsCtrl $compile: ', $compile);
-//        $scope.vm = new categoriesAndStringsVM($rootScope, $http, $compile, $sce, $log);
-            $scope.vm = new vm.categoriesAndStringsVM($scope, $rootScope, $http, $compile, $sce, $log);
+    cas.controller('categoriesAndStringsCtrl', ['$scope', '$http', '$log', function ($scope, $http, $log) {
+            $scope.vm = new vm.categoriesAndStringsVM($http, $log);
             $log.debug('$scope.vm', $scope.vm);
         }]);
 
