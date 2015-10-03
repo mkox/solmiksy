@@ -1,60 +1,78 @@
-define([
-  'solmiBasics',
-  'solmiMain'
-//  ,
-//  'models/angularTrials'
-], function(solmiBasics, solmiMain){
-//], function(solmiBasics){
-  console.log('solmi.js, solmiBasics', solmiBasics);
-  return {};
+require.config({
+//    urlArgs: "cachebust=" + (new Date()).getTime(),
+//  baseUrl: 'js/',
+//  baseUrl: '/',
+    paths: {
+        jquery: ['http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min', 'libs/jquery/jquery-1.11.2.min'],
+        underscore: 'libs/underscore/underscore-min-1.7.0',
+        angular: ['https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min', 'libs/angular/angular.min'],
+//        angular: [ 'libs/angular/angular' ],
+//        angularUiRouter: [ 'libs/angular/angular-ui-router.min' ],
+        uiRouter: ['libs/angular/angular-ui-router.min'],
+//        ngResource: [ 'libs/angular/angular-resource' ],
+//        ngRoute: [ 'libs/angular/angular-route' ],
+
+        audiosynth: 'libs/audiosynth/audiosynth',
+//        tuner: 'models/tuner',
+        cas: 'categoriesAndStrings'
+    },
+    shim: {
+        audiosynth: {
+        },
+//        tuner: {},
+        underscore: {
+            exports: "_"
+        },
+//        backbone: {
+//            deps: ["jquery", "underscore"],
+//            exports: "Backbone"
+//        },
+        angular: {
+            exports: "angular"
+        },
+//        angularUiRouter: {
+//            exports: "uiRouter",
+//            deps: ["angular"]
+//        }
+        uiRouter: {
+            deps: ["angular"]
+        }
+//        angularUiRouter: {
+//            
+//        }
+//        ,
+//        ngResource: {
+//            deps: ["angular"]
+//        },
+//        ,
+//        ngRoute: {
+//            deps: ["angular"]
+//        }
+    }
+//    deps: ['solmi']
+
 });
 
-// TODO:
-//     
-// - Categories with solmistrings: browse while still seeing the upper part of the page
-// - Find sounds with more correct frequencies
-// - minor sound keys: random min/max values are not correct
-//   - correction is nessessary in createSolmiArrayFromToneNumbers.js -> create
-// - $('#base-tone-length').change(function() {
-//   - add handling of wrong input (not int, not within a limit)
-// - "DEPRECIATED": rewrite code so that code marked with "DEPRECIATED" needs not be used any more
-// - maybe still problem with minor
-// - make additional test output for getFrequenciesInfo()
-// - random
-//   - make repeat button beside the go button
-//     
-// later:
-// - choose between English and German
-// - when a new solmiString is played before an other has ended:
-//   - Interrupt the old one before the new one is played
-// - throw new Error:
-//   - Where is output?
-// - 'please wait' or similar (eg circuling mouse pointer)
-//   - when long solmiString is selected
-// - test for whitespace in solmi string
-//   - string = string.trim()
-// - (better picture(s) for u/i in solmi view?)
-// - 
-// - special code to make pixels less visible?
-// - createFrequencies(): Calculate 111
-// - limit Length of solmiString?
-//   - might only be relevant, if somebody gets into the access restricted backend.
-// - sound off/on
-// - better implementation of input through microphone, output
-//   - ...
-//   - don't show further small frequencies
-// - include soundkey in solmi-string
-// - solmistring-form-for-list: class instead of id
-// - Login
-//   - better page for wrong login, maybe backbutton
-// - /** -> more comments
-// - after click on "add string"
-//   - show pre-selected category
-// - message "Value is required and can't be empty": more precisely
-// - getSolmiToneOfSoundKeyFromFrequency(...)
-//    Maybe other solution for the following code:
-//            } else if (half === '') { // for soundKey C, a
-//                solmiToneNr--;
-//                half = 'i';
-//            }
-//    => maybe adapt it better in var soundKeys2
+require(["infrastructure"], function () {
+    require(['solmiBasics',
+        'solmiMain',
+        "angular",
+        'cas/cas-controller'], function (sB, sM, ng) {
+//        app.init();
+        ng.element(document).ready(function () {
+            ng.bootstrap(document, ['categoriesAndStrings']);
+        });
+    });
+});
+
+
+//require([
+//
+//  // Load our app module and pass it to our definition function
+////  'solmiBasics'
+//  'test10'
+//], function(sb){
+////    console.log('solmiBasics', sb);
+//  // The "app" dependency is passed in as "App"
+////  App.initialize();
+//});

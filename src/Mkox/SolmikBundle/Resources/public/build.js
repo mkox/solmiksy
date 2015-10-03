@@ -9,7 +9,7 @@
     optimizeCss: "standard",
     modules: [
         {
-            name: "config",
+            name: "solmi",
             exclude: [
                 "boilerplate",
                 "infrastructure"

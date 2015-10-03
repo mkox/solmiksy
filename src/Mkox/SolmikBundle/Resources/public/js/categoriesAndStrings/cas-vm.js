@@ -1,4 +1,4 @@
-define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBasics"], function ($, _, ng, cas, sb) {
+define(["jquery", "underscore", "solmiBasics"], function ($, _, sb) {    
 
     var categoriesAndStringsVM = function ($http, $log) {
 
