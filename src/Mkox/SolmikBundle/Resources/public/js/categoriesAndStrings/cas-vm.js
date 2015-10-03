@@ -28,6 +28,7 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
         };
         this.showFormNewCategory = false;
         this.formNewCategory = function () {
+            this.removeOpenForms();
             that.showFormNewCategory = true;
         };
 
@@ -245,13 +246,14 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
         this.setStateSolmistring = function (categoryId, solmistringId, state) {
             that.stateSolmistring[categoryId] = {};
             that.stateSolmistring[categoryId][solmistringId] = state;
+            that.stateCategory[categoryId] = '';
             $log.debug('this.setStateSolmistring that.stateSolmistring', that.stateSolmistring);
         };
         this.removeOpenForms = function (categoryId, solmistringId) {
-            if (categoryId) {
+            if (Object.keys(that.stateCategory).length > 0) {
                 for (var catId in that.stateCategory) {
 //                    $log.debug('this.removeOpenForms [catId, categoryId]: ', [catId, categoryId]);
-                    if (parseInt(catId) === categoryId) {
+                    if (categoryId && parseInt(catId) === categoryId) {
 //                        $log.debug('this.removeOpenForms if');
                         if (solmistringId) {
 //                            $log.debug('this.removeOpenForms if, if (solmistringId)');
@@ -268,7 +270,7 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
 //                            $log.debug('this.removeOpenForms if, else [that.stateSolmistring, catId]: ', [that.stateSolmistring, catId]);
 //                            $log.debug('this.removeOpenForms if, else that.stateSolmistring[catId]: ', that.stateSolmistring[catId]);
 //                            $log.debug('this.removeOpenForms if, else Object.keys(that.stateSolmistring[catId]): ', Object.keys(that.stateSolmistring[catId]));
-                            if (that.stateSolmistring[catId] &&  Object.keys(that.stateSolmistring[catId]).length > 0) {
+                            if (that.stateSolmistring[catId] && Object.keys(that.stateSolmistring[catId]).length > 0) {
 //                                $log.debug('this.removeOpenForms if, else that.stateSolmistring[catId]: ', that.stateSolmistring[catId]);
                                 for (var stringId in that.stateSolmistring[catId]) {
                                     that.stateSolmistring[catId][stringId] = '';
@@ -279,6 +281,11 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                     } else {
 //                        $log.debug('this.removeOpenForms else');
                         that.stateCategory[catId] = '';
+                        if (!categoryId) {
+                            for (var stringId in that.stateSolmistring[catId]) {
+                                that.stateSolmistring[catId][stringId] = '';
+                            }
+                        }
                     }
                 }
             }
