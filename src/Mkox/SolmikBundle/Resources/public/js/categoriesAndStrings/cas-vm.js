@@ -247,13 +247,35 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
             that.stateSolmistring[categoryId][solmistringId] = state;
             $log.debug('this.setStateSolmistring that.stateSolmistring', that.stateSolmistring);
         };
-        this.removeOpenForms = function (categoryId) {
+        this.removeOpenForms = function (categoryId, solmistringId) {
             if (categoryId) {
                 for (var catId in that.stateCategory) {
 //                    $log.debug('this.removeOpenForms [catId, categoryId]: ', [catId, categoryId]);
                     if (parseInt(catId) === categoryId) {
 //                        $log.debug('this.removeOpenForms if');
-                        continue;
+                        if (solmistringId) {
+//                            $log.debug('this.removeOpenForms if, if (solmistringId)');
+                            for (var stringId in that.stateSolmistring[catId]) {
+                                if (parseInt(stringId) === solmistringId) {
+                                    continue;
+                                } else {
+                                    that.stateSolmistring[catId][stringId] = '';
+                                }
+                            }
+                            that.stateCategory[catId] = '';
+                        } else {
+//                            $log.debug('this.removeOpenForms if, else');
+//                            $log.debug('this.removeOpenForms if, else [that.stateSolmistring, catId]: ', [that.stateSolmistring, catId]);
+//                            $log.debug('this.removeOpenForms if, else that.stateSolmistring[catId]: ', that.stateSolmistring[catId]);
+//                            $log.debug('this.removeOpenForms if, else Object.keys(that.stateSolmistring[catId]): ', Object.keys(that.stateSolmistring[catId]));
+                            if (that.stateSolmistring[catId] &&  Object.keys(that.stateSolmistring[catId]).length > 0) {
+//                                $log.debug('this.removeOpenForms if, else that.stateSolmistring[catId]: ', that.stateSolmistring[catId]);
+                                for (var stringId in that.stateSolmistring[catId]) {
+                                    that.stateSolmistring[catId][stringId] = '';
+                                }
+                            }
+                            continue;
+                        }
                     } else {
 //                        $log.debug('this.removeOpenForms else');
                         that.stateCategory[catId] = '';

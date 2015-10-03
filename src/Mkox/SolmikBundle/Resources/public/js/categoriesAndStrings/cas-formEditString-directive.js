@@ -13,7 +13,7 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
             controller: function ($scope, $element, $attrs) {
                 console.log('cas-formNewString-directive [$scope, $element, $attrs]: ', [$scope, $element, $attrs]);
                 
-                $scope.vm.removeOpenForms($scope.category.id);
+                $scope.vm.removeOpenForms($scope.category.id, $scope.solmistring.id);
                 $scope.vm.solmikCategory = $scope.category;
 
                 $scope.vm.string = $.extend(true, {}, $scope.solmistring);
