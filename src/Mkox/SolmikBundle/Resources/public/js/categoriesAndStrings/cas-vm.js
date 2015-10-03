@@ -264,7 +264,7 @@ define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBas
                                     that.stateSolmistring[catId][stringId] = '';
                                 }
                             }
-                            that.stateCategory[catId] = '';
+//                            that.stateCategory[catId] = '';
                         } else {
 //                            $log.debug('this.removeOpenForms if, else');
 //                            $log.debug('this.removeOpenForms if, else [that.stateSolmistring, catId]: ', [that.stateSolmistring, catId]);
