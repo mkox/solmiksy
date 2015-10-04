@@ -256,12 +256,12 @@ define(["jquery", "underscore", "solmiBasics"], function ($, _, sb) {
             that.solmikCategory = $.extend(true, {}, solmikCategory);
             that.showFormNewCategory = false;
         };
-        
-        var closeOpenCategoryForms = function(categoryId){
+
+        var closeOpenCategoryForms = function (categoryId) {
             if (Object.keys(that.stateCategory).length > 0) {
                 for (var catId in that.stateCategory) {
-                    if (categoryId && parseInt(catId) === categoryId) {
-                            continue;
+                    if (categoryId && parseInt(catId) === categoryId) { //don't care about solmistringId here, see in this.setStateSolmistring: "that.stateCategory[categoryId] = '';"
+                        continue;
                     } else {
                         that.stateCategory[catId] = '';
                     }
