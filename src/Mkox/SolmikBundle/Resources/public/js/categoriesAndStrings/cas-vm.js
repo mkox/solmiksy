@@ -53,7 +53,10 @@ define(["jquery", "underscore", "solmiBasics"], function ($, _, sb) {
             var category2 = $.extend(true, {}, category);
             delete category2.$$hashKey;
             delete category2.id;
-
+            if(category2.public === false){
+                delete category2.public;
+            }
+            $log.debug('this.editCategory category2:', category2);
             $http.post('/solmik/category/edit?id=' + category.id, {"solmik_category": category2})
                     .then(function (data) {
                         $log.debug('this.editCategory success that.stringsInCategories 1: ', that.stringsInCategories);
@@ -225,6 +228,9 @@ define(["jquery", "underscore", "solmiBasics"], function ($, _, sb) {
         this.solmikCategory = $.extend(true, {}, solmikCategory);
         this.saveCategoryNew = function () {
             $log.debug('this.saveCategoryNew that.solmikCategory: ', that.solmikCategory);
+            if(that.solmikCategory.public === false){
+                delete that.solmikCategory.public;
+            }
             $http.post('/solmik/category/create', {"solmik_category": that.solmikCategory}).success(function (data) {
 
                 that.stringsInCategories.push(JSON.parse(data.category));

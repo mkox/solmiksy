@@ -35,7 +35,7 @@ class CategoryController extends Controller {
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createAccessDeniedException();
         }
-
+        
         $isAjax = $request->isXmlHttpRequest();
 
         // Create the form and inject the EntityManager
@@ -50,9 +50,7 @@ class CategoryController extends Controller {
 //            $form->setData($this->request->getPost());
 
         if ($form->isValid()) {
-//echo json_encode(array('form is valid'));
-////echo new Response(json_encode($request));
-////echo new Response(json_encode(array('name' => $request->request->get('name'))));
+//echo new Response(json_encode($this->getRequest()->request->all()));
 //exit;
             $this->em = $this->getDoctrine()->getManager();
             $this->em->persist($category);
