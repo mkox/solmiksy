@@ -1,6 +1,4 @@
-define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBasics"], function ($, _, ng, cas, sb) {
-//define(function(require) {
-//  var cas = require('cas/categoriesAndStrings');
+define(["cas/categoriesAndStrings", "solmiBasics"], function (cas, sb) {
     cas.directive('formNewString', function () {
 
         return {

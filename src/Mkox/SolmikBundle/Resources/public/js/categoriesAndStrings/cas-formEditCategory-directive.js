@@ -1,4 +1,4 @@
-define(["jquery", "underscore", "angular", "cas/categoriesAndStrings", "solmiBasics"], function ($, _, ng, cas, sb) {
+define(["cas/categoriesAndStrings", "solmiBasics"], function (cas, sb) {
     cas.directive('formEditCategory', function () {
 
         return {
