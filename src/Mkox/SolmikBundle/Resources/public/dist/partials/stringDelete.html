@@ -1,7 +1,7 @@
 <form class="delete-string remove-open-form">
     <div>Delete solmization string: 
-        <input type="hidden" name="id" value="{{string.id}}" />
-        <input type="submit" ng-click="deleteString($event, string.id)" name="del" value="Yes" />
-        <input type="submit" ng-click="deleteString($event, string.id)" name="del" value="No" />
+        <input type="hidden" name="id" value="{{vm.string.id}}" />
+        <input type="submit" ng-click="vm.deleteString($event, vm.string.id)" name="del" value="Yes" />
+        <input type="submit" ng-click="vm.deleteString($event, vm.string.id)" name="del" value="No" />
     </div>
 </form>

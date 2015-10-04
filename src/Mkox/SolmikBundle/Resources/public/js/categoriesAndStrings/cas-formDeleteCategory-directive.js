@@ -7,11 +7,11 @@ define(["cas/categoriesAndStrings", "solmiBasics"], function (cas, sb) {
                 category: '=',
                 vm: '='
             },
-            controller: function ($scope, $element, $attrs) {
+            controller: ['$scope', function ($scope) {
 //                console.log('cas-formDeleteCategory-directive [$scope, $element, $attrs]: ', [$scope, $element, $attrs]);
                 
                 $scope.vm.removeOpenForms($scope.category.id);
-            }
+            }]
 
         };
     });

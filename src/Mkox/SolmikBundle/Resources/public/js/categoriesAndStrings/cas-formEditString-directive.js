@@ -8,8 +8,8 @@ define(["jquery", "underscore", "cas/categoriesAndStrings", "solmiBasics"], func
                 solmistring: '=',
                 vm: '='
             },
-            controller: function ($scope, $element, $attrs) {
-                console.log('cas-formNewString-directive [$scope, $element, $attrs]: ', [$scope, $element, $attrs]);
+            controller: ['$scope', function ($scope) {
+//                console.log('cas-formNewString-directive [$scope, $element, $attrs]: ', [$scope, $element, $attrs]);
                 
                 $scope.vm.removeOpenForms($scope.category.id, $scope.solmistring.id);
                 $scope.vm.solmikCategory = $scope.category;
@@ -26,7 +26,7 @@ define(["jquery", "underscore", "cas/categoriesAndStrings", "solmiBasics"], func
                 }
                 $scope.vm.string.categories = categoriesForEditForm;
                 console.log('formEditString-D $scope.vm.string 2', $scope.vm.string);
-            }
+            }]
 
         };
     });

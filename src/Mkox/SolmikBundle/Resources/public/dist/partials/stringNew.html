@@ -1,35 +1,35 @@
-<form class="new-string remove-open-form" ng-submit="saveNewString($event, category)" name="solmik_solmistring" method="post" action="">
+<form class="new-string remove-open-form" ng-submit="vm.saveNewString($event, category)" name="solmik_solmistring" method="post" action="">
     <div id="solmik_solmistring">
         New String:
         <div>                
             <label for="solmik_solmistring_name" class="required">Name</label>
-            <input ng-model="string.name" type="text" id="solmik_solmistring_name" name="solmik_solmistring[name]" required="required" />
+            <input ng-model="vm.string.name" type="text" id="solmik_solmistring_name" name="solmik_solmistring[name]" required="required" />
         </div>
         <div>                
             <label for="solmik_solmistring_soundKey" class="required">Sound key</label>
             <select name="solmik_solmistring_for_list[soundKey]" id="solmik_solmistring_for_list_soundKey" class="sound-keys" 
-                    ng-model="string.soundKey" 
-                    ng-options="option.name for option in soundKeysArray track by option.name"
+                    ng-model="vm.string.soundKey" 
+                    ng-options="option.name for option in vm.soundKeysArray track by option.name"
                     >
             </select>
         </div>
         <div>                
             <label for="solmik_solmistring_baseScale" class="required">Base scale
             </label>
-            <input ng-model="string.baseScale" type="number" min="1" max="9" required
+            <input ng-model="vm.string.baseScale" type="number" min="1" max="9" required
                    id="solmik_solmistring_for_list_baseScale" name="solmik_solmistring_for_list[baseScale]" class="scales" value="4"
                    >
         </div>
         <div>                
             <label for="solmik_solmistring_string" class="required">String</label>
-            <input ng-model="string.string" type="text" id="solmik_solmistring_string" name="solmik_solmistring[string]" required="required" />
+            <input ng-model="vm.string.string" type="text" id="solmik_solmistring_string" name="solmik_solmistring[string]" required="required" />
         </div>
         <div>                
             <label for="solmik_solmistring_categories" class="required">Categories
             </label>
             <select id="solmik_solmistring_categories" name="solmik_solmistring[categories][]" required="required" multiple="multiple"
-                    ng-model="string.categories" 
-                    ng-options="option.name for option in stringsInCategories track by option.id"
+                    ng-model="vm.string.categories" 
+                    ng-options="option.name for option in vm.stringsInCategories track by option.id"
                     >
             </select>
         </div>

@@ -1,5 +1,5 @@
 ({
-    mainConfigFile : "js/config.js",
+    mainConfigFile : "js/solmi.js",
     appDir: "./",
     baseUrl: "js",
     removeCombined: true,

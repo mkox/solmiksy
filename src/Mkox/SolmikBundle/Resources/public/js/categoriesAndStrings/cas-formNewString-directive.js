@@ -7,8 +7,8 @@ define(["cas/categoriesAndStrings", "solmiBasics"], function (cas, sb) {
                 category: '=',
                 vm: '='
             },
-            controller: function ($scope, $element, $attrs) {
-                console.log('cas-formNewString-directive [$scope, $element, $attrs]: ', [$scope, $element, $attrs]);
+            controller: ['$scope', function ($scope) {
+//                console.log('cas-formNewString-directive [$scope, $element, $attrs]: ', [$scope, $element, $attrs]);
                 $scope.vm.removeOpenForms($scope.category.id);
                 $scope.vm.string = {};
                 var standardSoundKeyForNewString = JSON.parse('{"name": "C"}');
@@ -20,7 +20,7 @@ define(["cas/categoriesAndStrings", "solmiBasics"], function (cas, sb) {
                 $scope.vm.string.baseScale = 4;
                 $scope.vm.string.categories = categoriesForNewScope;
                 console.log('cas-formNewString-directive controller bottom');
-            }
+            }]
 
         };
     });
