@@ -50,7 +50,11 @@ With this you can create a user for the login area.
 
     php app/console assets:install --symlink
 
-This is necessary to use the content from src/Mkox/SolmikBundle/Resources
+This is necessary to use the content from src/Mkox/SolmikBundle/Resources.
+
+Then include applications with [bower](http://bower.io/):
+
+    bower update
 
 If you use it in production context, you should rename web/.htaccess_ORIGINAL to
 web/.htaccess.
