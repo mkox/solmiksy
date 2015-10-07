@@ -52,10 +52,10 @@ require.config({
 });
 
 require(["infrastructure"], function () {
-    require(['solmiBasics',
+    require([
         'solmiMain',
         "angular",
-        'cas/cas-controller'], function (sB, sM, ng) {
+        'cas/cas-controller'], function (sM, ng) {
 //        app.init();
         ng.element(document).ready(function () {
             ng.bootstrap(document, ['categoriesAndStrings']);
