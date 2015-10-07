@@ -123,5 +123,5 @@ js/solmi.js
 js/infrastructure.js
 ----------------
 js/libs/audiosynth/audiosynth.js
-js/libs/underscore/underscore-min-1.7.0.js
+/var/www/symfony/solmikSy/src/Mkox/SolmikBundle/bower_components/underscore/underscore-min.js
 js/infrastructure.js
