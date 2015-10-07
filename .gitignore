@@ -9,6 +9,5 @@
 /composer.phar
 /vendor/
 /web/bundles/
-/web/bower_components/
 
 /app/config/parameters.yml
