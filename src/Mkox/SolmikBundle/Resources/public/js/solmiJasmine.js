@@ -14,7 +14,8 @@ require.config({
         cas: 'categoriesAndStrings',
         jasmine: ['../../../bower_components/jasmine/lib/jasmine-core/jasmine'],
         'jasmine-html': ['../../../bower_components/jasmine/lib/jasmine-core/jasmine-html'],
-        'jasmine-boot': ['../../../bower_components/jasmine/lib/jasmine-core/boot']
+        'jasmine-boot': ['../../../bower_components/jasmine/lib/jasmine-core/boot'],
+        'angular-mocks': ['../../../bower_components/angular-mocks/angular-mocks']
     },
     shim: {
         audiosynth: {
@@ -53,6 +54,9 @@ require.config({
         },
         'jasmine-boot': {
             deps: ['jasmine', 'jasmine-html']
+        },
+        'angular-mocks': {
+            deps: ['angular']
         }
     }
 //    deps: ['solmi']
@@ -62,7 +66,8 @@ require.config({
 require(["jasmine-boot", "infrastructure"], function () {
     require([
 //        'solmiMain',
-        "angular",
+//        "angular",
+        'angular-mocks',
 //        'jasmine',
 //        'cas/cas-controller'], function (sM, ng) {
         'cas/cas-controller',
