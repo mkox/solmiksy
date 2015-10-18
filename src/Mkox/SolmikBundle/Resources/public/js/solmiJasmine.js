@@ -66,13 +66,14 @@ require.config({
 require(["jasmine-boot", "infrastructure"], function () {
     require([
 //        'solmiMain',
-//        "angular",
+        "angular",
         'angular-mocks',
 //        'jasmine',
 //        'cas/cas-controller'], function (sM, ng) {
         'cas/cas-controller',
         'tests' // maybe in an other require() call;
-    ], function (ng
+    ], function (
+            ng
 //    , jasmine
             ) {
 //console.log('jasmine in solmiJasmine.js: ', jasmine);
