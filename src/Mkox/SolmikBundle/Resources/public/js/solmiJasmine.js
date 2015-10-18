@@ -63,13 +63,17 @@ require(["jasmine-boot", "infrastructure"], function () {
     require([
 //        'solmiMain',
         "angular",
+//        'jasmine',
 //        'cas/cas-controller'], function (sM, ng) {
         'cas/cas-controller',
         'tests' // maybe in an other require() call;
-    ], function (ng) {
-
+    ], function (ng
+//    , jasmine
+            ) {
+//console.log('jasmine in solmiJasmine.js: ', jasmine);
         ng.element(document).ready(function () {
             ng.bootstrap(document, ['categoriesAndStrings']);
+            window.onload();
         });
     });
 });
