@@ -1,0 +1,18 @@
+{% extends 'MkoxSolmikBundle::layout.html.twig' %}
+{% set title = 'Solmik - Jasmine Spec Runner' %}
+{% block title %}{{ title }}{% endblock %}
+{% block stylesheets %}
+            <link href="{{ asset('bundles/bower_components/jasmine/images/jasmine_favicon.png') }}" rel="shortcut icon" type="image/png" />
+            <link href="{{ asset('bundles/bower_components/jasmine/lib/jasmine-core/jasmine.css') }}" rel="stylesheet" />
+        {% endblock %}
+{% block header %}
+    <h1>{{ title }}</h1>
+
+{% endblock %}
+{% block main %}
+
+
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset(bPath ~ 'js/libs/require/require-2.1.15.js') }}" type="text/javascript" data-main="{{ asset(bPath ~ 'js/solmiJasmine') }}"></script>
+{% endblock %}
