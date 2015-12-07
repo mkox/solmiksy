@@ -1,3 +1,8 @@
+//define(["jquery", "underscore", "solmiBasics", "angular", "uiRouter"], function ($, _, sb, angular) {
+////define(["require", "jquery", "underscore", "solmiBasics", "angular", "uiRouter"], function (require, $, _, sb, angular) {
+//define(["require", "jquery", "underscore", "solmiBasics", "angular", "uiRouter"], function ($, _, sb, angular, uiRouter, require) {
+//define(["require", "jquery", "underscore", "solmiBasics", "angular", "uiRouter", "cas/cas-formEditCategory-directive2c"], function (require, $, _, sb, angular) {
+//define(["jquery", "underscore", "solmiBasics", "angular", "uiRouter", "cas/cas-formEditCategory-directive2c"], function ($, _, sb, angular) {
 define(["jquery", "underscore", "solmiBasics", "angular", "uiRouter"], function ($, _, sb, angular) {
 
     var app = angular.module('categoriesAndStrings', ['ui.router'], ['$httpProvider', function ($httpProvider)
@@ -75,6 +80,7 @@ define(["jquery", "underscore", "solmiBasics", "angular", "uiRouter"], function 
 //                }
 //            });
         }]);
+//    app.directive('formEditCategory2c', require('cas/cas-formEditCategory-directive2c'));
 
     return app;
 

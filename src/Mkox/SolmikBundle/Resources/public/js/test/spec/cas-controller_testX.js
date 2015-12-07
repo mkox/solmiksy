@@ -1,6 +1,8 @@
-define(["angular", "cas/cas-controller"], function (angular) {
+define(["angular", "cas/cas-controller"], function (angular, cas) {
 //define(["angular", "jasmine"], function (angular, jasmine) {
 //console.log('jasmine in css-controller_test.js: ', jasmine);
+
+console.log('cas-controller_test.js cas', cas);
 
     describe("categoriesAndStringsVM", function () {
 

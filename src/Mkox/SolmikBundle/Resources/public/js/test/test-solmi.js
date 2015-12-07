@@ -17,6 +17,7 @@ var TEST_REGEXP = /(_spec|_test)\.js$/i;
 for (var file in window.__karma__.files) {
   if (TEST_REGEXP.test(file)) allTestFiles.push(file);
 }
+console.log('allTestFiles: ', allTestFiles);
 
 require.config({
 //    urlArgs: "cachebust=" + (new Date()).getTime(),
@@ -27,15 +28,21 @@ require.config({
         jquery: ['/base/bower_components/jquery/dist/jquery.min'],
         underscore: '/base/bower_components/underscore/underscore-min',
 //        angular: ['https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min', '../../../bower_components/angular/angular.min'],
-        angular: ['/base/bower_components/angular/angular.min'],
+//        angular: ['/base/bower_components/angular/angular.min'],
+        angular: ['/base/bower_components/angular/angular'],
         uiRouter: ['/base/bower_components/angular-ui-router/release/angular-ui-router.min'],
         audiosynth: '/base/mkoxsolmik/js/libs/audiosynth/audiosynth',
 //        tuner: 'models/tuner',
         cas: '/base/mkoxsolmik/js/categoriesAndStrings',
+//        cas: 'categoriesAndStrings',
+//        categoriesAndStrings: 'categoriesAndStrings/categoriesAndStrings',
         jasmine: ['/base/bower_components/jasmine/lib/jasmine-core/jasmine'],
         'jasmine-html': ['/base/bower_components/jasmine/lib/jasmine-core/jasmine-html'],
         'jasmine-boot': ['/base/bower_components/jasmine/lib/jasmine-core/boot'],
-        'angular-mocks': ['/base/bower_components/angular-mocks/angular-mocks']
+        'angular-mocks': ['/base/bower_components/angular-mocks/angular-mocks'],
+//        'partials': 'partials'
+        'partials': '/base/mkoxsolmik/partials'
+//        'mkoxsolmik': '/base/mkoxsolmik'
     },
     shim: {
         audiosynth: {
@@ -78,15 +85,34 @@ require.config({
         'angular-mocks': {
             deps: ['angular']
         }
+        ,
+        'partials/categoryDelete.html': {deps: ['angular']},
+        'partials/categoryEdit.html': {deps: ['angular']},
+        
+        'partials/categoryEdit2.html': {deps: ['angular']},
+//        'mkoxsolmik/partials/categoryEdit2.html': {deps: ['angular']},
+
+        'partials/categoryNew.html': {deps: ['angular']},
+        'partials/stringDelete.html': {deps: ['angular']},
+        'partials/stringEdit.html': {deps: ['angular']},
+        'partials/stringNew.html': {deps: ['angular']}
     },
 //    deps: ['solmi']
 
     // dynamically load all test files
     deps: allTestFiles,
+//    deps: ['angular'],
     // we have to kickoff jasmine, as it is asynchronous
     callback: window.__karma__.start
 
 });
+
+//require(allTestFiles, function () {
+//});
+
+//require(["angular"], function () {
+//    require(allTestFiles);
+//});
 
 //require(["jasmine-boot", "infrastructure"], function () {
 //    require([
